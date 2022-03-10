@@ -1,0 +1,19 @@
+{
+  "name": "com.talus.talusci",
+  "version": "1.0.0",
+  "displayName": "TalusCI",
+  "description": "Supplement for jenkins integration",
+  "unity": "2020.3",
+  "unityRelease": "9f1",
+  "keywords": [
+    "talusci",
+    "build",
+    "jenkins",
+    "automate"
+  ],
+  "author": {
+    "name": "Talus Studio",
+    "email": "emrekovanci@talusstudio.com",
+    "url": "https://www.talusstudio.com"
+  }
+}
