@@ -1,6 +1,6 @@
-# TalusKit Package
+# TalusCI Package
 
-- Utility tools from 3rd party scripts.
+- To work with Jenkins pipeline.
 
 # ❗ Requirements 
 - Unity 2020.3.9f1 
@@ -10,4 +10,4 @@
 - In Unity, 
   - Window->Package Manager->Add Package(Plus Icon)->Add Package From git URL
   - Paste following link to Input Field and press "Add"
-  - https://github.com/TalusStudio/TalusKit-Package.git
+  - https://github.com/TalusStudio/TalusCI-Package.git
