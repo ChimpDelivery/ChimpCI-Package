@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace TalusCI.Runtime.AppApi
+namespace TalusCI.Editor
 {
-    public class AppInfo
+    public class JenkinsAppInfo
     {
         public static readonly string AppFolder = System.IO.Directory.GetCurrentDirectory();
 

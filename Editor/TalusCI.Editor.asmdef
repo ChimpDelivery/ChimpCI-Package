@@ -2,7 +2,7 @@
     "name": "TalusCI.Editor",
     "rootNamespace": "",
     "references": [
-        "TalusCI"
+        "Unity.EditorCoroutines.Editor"
     ],
     "includePlatforms": [
         "Editor"
