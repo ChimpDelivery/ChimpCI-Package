@@ -51,7 +51,6 @@ namespace TalusCI.Editor
             Console.WriteLine("[TalusBuild] Assets Saved!");
 
             BuildPipeline.BuildPlayer(GetScenes(), _JenkinsAppInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
-            EditorApplication.Exit(0);
         }
 
         private static void GenerateExportOptions(AppModel appModel)
