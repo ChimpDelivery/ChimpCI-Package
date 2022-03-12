@@ -4,6 +4,7 @@
 
 # ❗ Requirements 
 - Unity 2020.3.9f1 
+- Unity Editor Coroutines Package
 
 # 💿 Installation
 - Clone repository and extract it.
