@@ -29,10 +29,18 @@ namespace TalusCI.Editor
             }
         }
 
-        private string GetProjectName()
+        public string GetProjectName()
         {
+            // jenkins ws => s-WorkSpace_ProjectName_master
             string[] s = Application.dataPath.Split('/');
-            return s[s.Length - 2];
+            string fullWorkspaceName = s[s.Length - 2];
+            return Between(fullWorkspaceName, '_');
+        }
+
+        private string Between(string str, char delimiter)
+        {
+            string[] nextStr = str.Split(delimiter);
+            return nextStr[1];
         }
     }
 }
