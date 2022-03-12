@@ -10,7 +10,7 @@ namespace TalusCI.Editor
     {
         public IEnumerator GetAppInfo(Action<AppModel> onFetchComplete)
         {
-            using (UnityWebRequest www = UnityWebRequest.Get($"localhost:8000/api/appstoreconnect/get-app-list/{GetProjectName()}"))
+            using (UnityWebRequest www = UnityWebRequest.Get($"http://de6c-46-196-76-251.ngrok.io/api/appstoreconnect/get-app-list/{GetProjectName()}"))
             {
                 yield return www.SendWebRequest();
 
@@ -21,6 +21,9 @@ namespace TalusCI.Editor
                 else
                 {
                     var appModel = JsonUtility.FromJson<AppModel>(www.downloadHandler.text);
+
+                    yield return null;
+                    
                     onFetchComplete(appModel);
                 }
             }

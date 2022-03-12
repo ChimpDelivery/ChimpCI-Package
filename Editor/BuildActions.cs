@@ -5,7 +5,6 @@ using System.Linq;
 using Unity.EditorCoroutines.Editor;
 
 using UnityEditor;
-using UnityEditor.Build.Reporting;
 
 namespace TalusCI.Editor
 {
@@ -41,16 +40,19 @@ namespace TalusCI.Editor
 
             // Populate app data with fetched model.
             if (PlayerSettings.SplashScreen.showUnityLogo) { PlayerSettings.SplashScreen.showUnityLogo = false; }
-            PlayerSettings.applicationIdentifier = app.app_bundle;
-            PlayerSettings.productName = app.app_name;
-
+            
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
+
+            PlayerSettings.applicationIdentifier = app.app_bundle;
+            PlayerSettings.productName = app.app_name;
             
             // Save settings.
             Console.WriteLine("[TalusBuild] Assets Saved!");
 
             BuildPipeline.BuildPlayer(GetScenes(), _JenkinsAppInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
+            
+            EditorApplication.Exit(0);
         }
 
         private static void GenerateExportOptions(AppModel appModel)
