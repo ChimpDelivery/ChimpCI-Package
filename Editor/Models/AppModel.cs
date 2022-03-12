@@ -1,4 +1,4 @@
-﻿namespace TalusCI.Editor
+﻿namespace TalusCI.Editor.Models
 {
     [System.Serializable]
     public class AppModel

@@ -12,7 +12,7 @@ namespace TalusCI.Editor.iOS
 {
     public class ExemptFromEncryption : IPostprocessBuildWithReport
     {
-        public int callbackOrder => 0;
+        public int callbackOrder => 1;
 
         public void OnPostprocessBuild(BuildReport report)
         {

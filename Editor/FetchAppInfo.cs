@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 
+using TalusCI.Editor.Models;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
