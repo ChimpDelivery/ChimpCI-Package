@@ -18,14 +18,14 @@ namespace TalusCI.Editor
         {
             EditorCoroutineUtility.StartCoroutineOwnerless(_FetchedAppInfo.GetAppInfo(app => {
                 EditorUserBuildSettings.development = true;
-                EditorApplication.Exit(CreateBuild(app).summary.result == BuildResult.Succeeded ? 0 : 1);
+                CreateBuild(app);
             }));
         }
 
         public static void IOSRelease()
         {
             EditorCoroutineUtility.StartCoroutineOwnerless(_FetchedAppInfo.GetAppInfo(app => {
-                EditorApplication.Exit(CreateBuild(app).summary.result == BuildResult.Succeeded ? 0 : 1);
+                CreateBuild(app);
             }));
         }
 
@@ -34,7 +34,7 @@ namespace TalusCI.Editor
             return (from t in EditorBuildSettings.scenes where t.enabled select t.path).ToArray();
         }
 
-        private static BuildReport CreateBuild(AppModel app)
+        private static void CreateBuild(AppModel app)
         {
             //
             GenerateExportOptions(app);
@@ -50,7 +50,8 @@ namespace TalusCI.Editor
             // Save settings.
             Console.WriteLine("[TalusBuild] Assets Saved!");
 
-            return BuildPipeline.BuildPlayer(GetScenes(), _JenkinsAppInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
+            BuildPipeline.BuildPlayer(GetScenes(), _JenkinsAppInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
+            EditorApplication.Exit(0);
         }
 
         private static void GenerateExportOptions(AppModel appModel)
