@@ -8,24 +8,24 @@ namespace TalusCI.Editor
 {
     public class FetchAppInfo
     {
+        private const string API_URL = "http://d2a8-46-196-76-251.ngrok.io/api/appstoreconnect/get-app-list";
+        
         public IEnumerator GetAppInfo(Action<AppModel> onFetchComplete)
         {
-            using (UnityWebRequest www = UnityWebRequest.Get($"http://de6c-46-196-76-251.ngrok.io/api/appstoreconnect/get-app-list/{GetProjectName()}"))
+            using UnityWebRequest www = UnityWebRequest.Get($"{API_URL}/{GetProjectName()}");
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
             {
-                yield return www.SendWebRequest();
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                var appModel = JsonUtility.FromJson<AppModel>(www.downloadHandler.text);
 
-                if (www.isNetworkError || www.isHttpError)
-                {
-                    Debug.LogError(www.error);
-                }
-                else
-                {
-                    var appModel = JsonUtility.FromJson<AppModel>(www.downloadHandler.text);
-
-                    yield return null;
+                yield return null;
                     
-                    onFetchComplete(appModel);
-                }
+                onFetchComplete(appModel);
             }
         }
 

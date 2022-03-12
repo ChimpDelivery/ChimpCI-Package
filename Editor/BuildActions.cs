@@ -10,8 +10,8 @@ namespace TalusCI.Editor
 {
     public class BuildActions
     {
-        private static FetchAppInfo _FetchedAppInfo = new FetchAppInfo();
-        private static JenkinsAppInfo _JenkinsAppInfo = new JenkinsAppInfo();
+        private static readonly FetchAppInfo _FetchedAppInfo = new FetchAppInfo();
+        private static readonly JenkinsAppInfo _JenkinsAppInfo = new JenkinsAppInfo();
 
         public static void IOSDevelopment()
         {
