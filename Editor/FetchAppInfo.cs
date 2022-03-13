@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 
 using TalusCI.Editor.Models;
 
@@ -16,8 +15,8 @@ namespace TalusCI.Editor
         public IEnumerator GetAppInfo(Action<AppModel> onFetchComplete)
         {
             using UnityWebRequest www = UnityWebRequest.Get($"{API_URL}/{GetProjectName()}");
-            Dictionary<string, string> commandLineArguments = CommandLineParser.GetCommandLineArguments();
-            www.SetRequestHeader("ApiKey", commandLineArguments["executeMethod"]);
+            string apiKey = CommandLineParser.GetArgument("-outputDir");
+            www.SetRequestHeader("ApiKey", apiKey);
             
             yield return www.SendWebRequest();
 
