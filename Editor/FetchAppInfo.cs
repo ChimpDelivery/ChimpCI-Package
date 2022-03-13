@@ -15,8 +15,8 @@ namespace TalusCI.Editor
         public IEnumerator GetAppInfo(Action<AppModel> onFetchComplete)
         {
             using UnityWebRequest www = UnityWebRequest.Get($"{API_URL}/{GetProjectName()}");
-            string apiKey = CommandLineParser.GetArgument("-executeMethod");
-            www.SetRequestHeader("ApiKey", apiKey);
+            string apiKey = CommandLineParser.GetArgument("-apiKey");
+            www.SetRequestHeader("api_key", apiKey);
             
             yield return www.SendWebRequest();
 
