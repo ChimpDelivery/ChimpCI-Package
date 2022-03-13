@@ -17,7 +17,7 @@ namespace TalusCI.Editor
         {
             using UnityWebRequest www = UnityWebRequest.Get($"{API_URL}/{GetProjectName()}");
             Dictionary<string, string> commandLineArguments = CommandLineParser.GetCommandLineArguments();
-            www.SetRequestHeader("ApiKey", commandLineArguments["ApiKey"]);
+            www.SetRequestHeader("ApiKey", commandLineArguments["executeMethod"]);
             
             yield return www.SendWebRequest();
 
