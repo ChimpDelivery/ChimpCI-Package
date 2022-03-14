@@ -10,7 +10,7 @@ namespace TalusCI.Editor
 {
     public class FetchAppInfo
     {
-        private const string API_URL = "http://9d94-46-196-76-251.ngrok.io/api/appstoreconnect/get-app-list";
+        private const string API_URL = "http://1708-46-196-76-251.ngrok.io/api/appstoreconnect/get-app-list";
         
         public IEnumerator GetAppInfo(Action<AppModel> onFetchComplete)
         {
