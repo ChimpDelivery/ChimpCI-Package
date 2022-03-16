@@ -34,7 +34,7 @@ namespace TalusCI.Editor
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
 
-            PlayerSettings.applicationIdentifier = app.app_bundle;
+            PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
             PlayerSettings.productName = app.app_name;
             
             BuildPipeline.BuildPlayer(GetScenes(), iOSAppBuildInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
