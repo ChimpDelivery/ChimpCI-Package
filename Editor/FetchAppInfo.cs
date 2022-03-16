@@ -15,9 +15,10 @@ namespace TalusCI.Editor
             string apiKey = CommandLineParser.GetArgument("-apiKey");
             string url = CommandLineParser.GetArgument("-apiUrl");
 
-            string apiUrl = $"{url}/api/appstoreconnect/get-app-list";
-
-            using UnityWebRequest www = UnityWebRequest.Get($"{apiUrl}/{GetProjectName()}");
+            string apiUrl = $"{url}/api/appstoreconnect/get-app-list/{GetProjectName()}";
+            Debug.Log("apiUrl: " + apiUrl);
+            
+            using UnityWebRequest www = UnityWebRequest.Get(apiUrl);
             www.SetRequestHeader("api_key", apiKey);
 
             yield return www.SendWebRequest();
@@ -31,7 +32,8 @@ namespace TalusCI.Editor
                 var appModel = JsonUtility.FromJson<AppModel>(www.downloadHandler.text);
 
                 yield return null;
-
+                
+                Debug.Log("App bundle: " + appModel.app_bundle);
                 onFetchComplete(appModel);
             }
         }
