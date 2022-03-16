@@ -25,17 +25,17 @@ namespace TalusCI.Editor
         
         private static void CreateBuild(AppModel app)
         {
-            // Populate app data with fetched model.
             if (PlayerSettings.SplashScreen.showUnityLogo) 
             {
                 PlayerSettings.SplashScreen.showUnityLogo = false;
             }
             
+            PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
+            PlayerSettings.productName = app.app_name;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
 
-            PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
-            PlayerSettings.productName = app.app_name;
+            AssetDatabase.SaveAssets();
             
             BuildPipeline.BuildPlayer(GetScenes(), iOSAppBuildInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
             EditorApplication.Exit(0);
