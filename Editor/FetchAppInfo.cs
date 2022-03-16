@@ -10,14 +10,16 @@ namespace TalusCI.Editor
 {
     public class FetchAppInfo
     {
-        private const string API_URL = "http://bf58-46-196-76-251.ngrok.io/api/appstoreconnect/get-app-list";
-        
         public IEnumerator GetAppInfo(Action<AppModel> onFetchComplete)
         {
-            using UnityWebRequest www = UnityWebRequest.Get($"{API_URL}/{GetProjectName()}");
             string apiKey = CommandLineParser.GetArgument("-apiKey");
+            string url = CommandLineParser.GetArgument("-apiUrl");
+
+            string apiUrl = $"{url}/api/appstoreconnect/get-app-list";
+
+            using UnityWebRequest www = UnityWebRequest.Get($"{apiUrl}/{GetProjectName()}");
             www.SetRequestHeader("api_key", apiKey);
-            
+
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
@@ -29,7 +31,7 @@ namespace TalusCI.Editor
                 var appModel = JsonUtility.FromJson<AppModel>(www.downloadHandler.text);
 
                 yield return null;
-                    
+
                 onFetchComplete(appModel);
             }
         }
