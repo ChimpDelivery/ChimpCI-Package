@@ -38,7 +38,7 @@ namespace TalusCI.Editor
             }
         }
 
-        public string GetProjectName()
+        private string GetProjectName()
         {
             // jenkins ws => s-WorkSpace_ProjectName_master
             string[] s = Application.dataPath.Split('/');
