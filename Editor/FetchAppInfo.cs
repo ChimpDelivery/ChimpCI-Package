@@ -19,7 +19,7 @@ namespace TalusCI.Editor
             Debug.Log("apiUrl: " + apiUrl);
             
             using UnityWebRequest www = UnityWebRequest.Get(apiUrl);
-            www.SetRequestHeader("api_key", apiKey);
+            www.SetRequestHeader("api-key", apiKey);
 
             yield return www.SendWebRequest();
 
