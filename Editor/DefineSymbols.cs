@@ -3,7 +3,7 @@ using System.Linq;
 
 using UnityEditor;
 
-namespace Editor
+namespace TalusCI.Editor
 {
     public static class DefineSymbols
     {
