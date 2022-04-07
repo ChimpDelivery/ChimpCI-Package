@@ -45,7 +45,10 @@ namespace TalusCI.Editor
             // facebook settings
             #if ENABLE_BACKEND
             FacebookSettings.SelectedAppIndex = 0;
-            FacebookSettings.AppIds = new List<string> { app.fb_id };
+            if (app.fb_id != null)
+            {
+                FacebookSettings.AppIds = new List<string> { app.fb_id };
+            }
             FacebookSettings.AppLabels = new List<string> { app.app_name };
             #endif
 
