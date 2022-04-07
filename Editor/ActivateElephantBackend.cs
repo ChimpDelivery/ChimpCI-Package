@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TalusCI.Editor
 {
-    public class ActivateElephantBackend : MonoBehaviour
+    public class ActivateElephantBackend : EditorWindow
     {
         private const string TALUS_BACKEND_KEYWORD = "ENABLE_BACKEND";
         private const string ELEPHANT_SCENE_PATH = "Assets/Scenes/Template_Persistent/elephant_scene.unity";
@@ -21,7 +21,7 @@ namespace TalusCI.Editor
                 Debug.Log(TALUS_BACKEND_KEYWORD + " define symbol removing...");
             }
 
-            // remove elephant scene if exists
+            // todo: remove elephant scene if exists
             var editorBuildSettingsScenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);
             editorBuildSettingsScenes.RemoveAt(0);
             EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
@@ -38,6 +38,7 @@ namespace TalusCI.Editor
                 Debug.Log(TALUS_BACKEND_KEYWORD + " define symbol adding...");
             }
 
+            // todo: check elephant_scene already exists
             // add elephant scene to the active scenes.
             var editorBuildSettingsScenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);
             var elephantScene = new EditorBuildSettingsScene(ELEPHANT_SCENE_PATH, true);
