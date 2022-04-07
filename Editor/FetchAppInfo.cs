@@ -17,7 +17,7 @@ namespace TalusCI.Editor
 
             string apiUrl = $"{url}/api/appstoreconnect/get-app-list/{GetProjectName()}";
             Debug.Log("apiUrl: " + apiUrl);
-            
+
             using UnityWebRequest www = UnityWebRequest.Get(apiUrl);
             www.SetRequestHeader("api-key", apiKey);
 
@@ -32,7 +32,7 @@ namespace TalusCI.Editor
                 var appModel = JsonUtility.FromJson<AppModel>(www.downloadHandler.text);
 
                 yield return null;
-                
+
                 Debug.Log("App bundle: " + appModel.app_bundle);
                 onFetchComplete(appModel);
             }

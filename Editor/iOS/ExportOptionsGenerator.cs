@@ -17,10 +17,10 @@ namespace TalusCI.Editor.iOS
             {
                 return;
             }
-            
+
             Generate();
         }
-        
+
         private void Generate()
         {
             var fileContents = new List<string>
@@ -32,7 +32,7 @@ namespace TalusCI.Editor.iOS
                 "    <key>compileBitcode</key>",
                 "    <false/>",
                 "    <key>provisioningProfiles</key>",
-                "    <dict>", 
+                "    <dict>",
                $"        <key>{PlayerSettings.applicationIdentifier}</key>",
                $"        <string>{iOSAppBuildInfo.ProvisioningProfileName}</string>",
                 "    </dict>",
