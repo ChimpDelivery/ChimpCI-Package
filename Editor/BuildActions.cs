@@ -1,10 +1,15 @@
 using System.Linq;
 
 using UnityEditor;
-
 using Unity.EditorCoroutines.Editor;
 
 using TalusCI.Editor.Models;
+
+#if ENABLE_BACKEND
+using System.Collections.Generic;
+using UnityEngine;
+using Facebook.Unity.Settings;
+#endif
 
 namespace TalusCI.Editor
 {
@@ -25,15 +30,29 @@ namespace TalusCI.Editor
 
         private static void CreateBuild(AppModel app)
         {
+            // splash screen
             if (PlayerSettings.SplashScreen.showUnityLogo)
             {
                 PlayerSettings.SplashScreen.showUnityLogo = false;
             }
 
+            // app name & bundle id
             PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
             PlayerSettings.productName = app.app_name;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
+
+            // facebook settings
+            #if ENABLE_BACKEND
+            FacebookSettings.SelectedAppIndex = 0;
+            FacebookSettings.AppIds = new List<string> { app.fb_id };
+            FacebookSettings.AppLabels = new List<string> { app.app_name };
+            #endif
+
+            // elephant settings
+            // #if ENABLE_BACKEND
+            // ElephantSettings elephantSettings = Resources.Load<ElephantSettings>("ElephantSettings");
+            // #endif
 
             AssetDatabase.SaveAssets();
 
