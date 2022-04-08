@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace TalusCI.Editor.iOS
 {
+    /// <summary>
+    /// Actually there is no need to this class, there is a step on Jenkins Build that sets the version of the app.
+    /// Maybe convenient for manuel building?
+    /// </summary>
     public class IncrementBuildNumber : IPreprocessBuildWithReport
     {
         public int callbackOrder => 0;

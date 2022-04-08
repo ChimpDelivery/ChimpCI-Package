@@ -8,10 +8,10 @@ namespace TalusCI.Editor
 
         // iOS bundle identifier.
         public static readonly string Identifier = PlayerSettings.applicationIdentifier;
-        
+
         // iOS build path.
         public static readonly string IOSFolder = $"{AppFolder}/Builds/iOS/";
-        
+
         // ExportOptions.plist path, required by jenkins for app-provisioning.
         public static readonly string ExportOptionsPath = $"{AppFolder}/Certificates/exportOptions.plist";
 
