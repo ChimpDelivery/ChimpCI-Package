@@ -1,7 +1,8 @@
 # TalusCI Package
 
 - To work with Jenkins pipeline.
-
+- Don't forget to update ```TALUS_BACKEND_KEYWORD``` and ```ELEPHANT_SCENE_PATH``` in ```ActivateElephantBackend.cs``` when necessary.
+        
 # ❗ Requirements 
 - Unity 2020.3.9f1 
 - Unity Editor Coroutines Package
