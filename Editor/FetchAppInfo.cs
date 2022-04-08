@@ -14,9 +14,10 @@ namespace TalusCI.Editor
         {
             string apiKey = CommandLineParser.GetArgument("-apiKey");
             string url = CommandLineParser.GetArgument("-apiUrl");
+            string appId = CommandLineParser.GetArgument("-appId");
 
-            string apiUrl = $"{url}/api/appstoreconnect/get-app-list/{GetProjectName()}";
-            Debug.Log("apiUrl: " + apiUrl);
+            string apiUrl = $"{url}/api/appstoreconnect/get-app-list/{appId}";
+            Debug.Log("[Unity-CI-Package] apiUrl: " + apiUrl);
 
             using UnityWebRequest www = UnityWebRequest.Get(apiUrl);
             www.SetRequestHeader("api-key", apiKey);
@@ -33,23 +34,9 @@ namespace TalusCI.Editor
 
                 yield return null;
 
-                Debug.Log("App bundle: " + appModel.app_bundle);
+                Debug.Log("[Unity-CI-Package] App bundle: " + appModel.app_bundle);
                 onFetchComplete(appModel);
             }
-        }
-
-        private string GetProjectName()
-        {
-            // jenkins ws => s-WorkSpace_ProjectName_master
-            string[] s = Application.dataPath.Split('/');
-            string fullWorkspaceName = s[s.Length - 2];
-            return Between(fullWorkspaceName, '_');
-        }
-
-        private string Between(string str, char delimiter)
-        {
-            string[] nextStr = str.Split(delimiter);
-            return nextStr[1];
         }
     }
 }
