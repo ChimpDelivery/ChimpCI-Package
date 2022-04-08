@@ -21,9 +21,9 @@ namespace TalusCI.Editor
                 Debug.Log(TALUS_BACKEND_KEYWORD + " define symbol removing...");
             }
 
-            // todo: remove elephant scene if exists
+            //
             var editorBuildSettingsScenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);
-            editorBuildSettingsScenes.RemoveAt(0);
+            editorBuildSettingsScenes.Remove(editorBuildSettingsScenes.Find(val => val.path.Contains("elephant")));
             EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
 
             Debug.Log("elephant_scene removed from build settings...");
@@ -38,14 +38,16 @@ namespace TalusCI.Editor
                 Debug.Log(TALUS_BACKEND_KEYWORD + " define symbol adding...");
             }
 
-            // todo: check elephant_scene already exists
-            // add elephant scene to the active scenes.
+            //
             var editorBuildSettingsScenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);
-            var elephantScene = new EditorBuildSettingsScene(ELEPHANT_SCENE_PATH, true);
-            editorBuildSettingsScenes.Insert(0, elephantScene);
-            EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
+            if (editorBuildSettingsScenes.Count > 0 && !editorBuildSettingsScenes[0].path.Contains("elephant"))
+            {
+                var elephantScene = new EditorBuildSettingsScene(ELEPHANT_SCENE_PATH, true);
+                editorBuildSettingsScenes.Insert(0, elephantScene);
+                EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
 
-            Debug.Log("elephant_scene added to build settings...");
+                Debug.Log("elephant_scene added to build settings...");
+            }
         }
 #endif
     }
