@@ -1,4 +1,5 @@
 ﻿// Reference: http://www.kittehface.com/2021/09/fixing-invalid-frameworks-folder-in-ios.html
+#if UNITY_IOS
 
 using System.IO;
 using UnityEngine;
@@ -6,12 +7,10 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 
-#if UNITY_IOS || UNITY_TVOS
 // Create specific aliases for iOS.Xcode imports.
 // Unity Editor on macOS can report a conflict with other plugins
 using PlistDocument = UnityEditor.iOS.Xcode.PlistDocument;
 using PlistElementDict = UnityEditor.iOS.Xcode.PlistElementDict;
-#endif
 
 namespace TalusCI.Editor.iOS
 {
@@ -133,3 +132,5 @@ namespace TalusCI.Editor.iOS
         }
     }
 }
+
+#endif
