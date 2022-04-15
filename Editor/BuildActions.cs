@@ -3,11 +3,11 @@ using System.Linq;
 using UnityEditor;
 using Unity.EditorCoroutines.Editor;
 
-using TalusCI.Editor.Models;
+using TalusBackendData.Editor;
+using TalusBackendData.Editor.Models;
 
 #if ENABLE_BACKEND
 using System.Collections.Generic;
-using UnityEngine;
 using Facebook.Unity.Settings;
 #endif
 
@@ -15,17 +15,30 @@ namespace TalusCI.Editor
 {
     public static class BuildActions
     {
-        private static readonly FetchAppInfo _FetchedAppInfo = new FetchAppInfo();
-
         public static void IOSDevelopment()
         {
             EditorUserBuildSettings.development = true;
-            EditorCoroutineUtility.StartCoroutineOwnerless(_FetchedAppInfo.GetAppInfo(CreateBuild));
+            EditorCoroutineUtility.StartCoroutineOwnerless(
+                new FetchAppInfo(
+                    CommandLineParser.GetArgument("-apiKey"),
+                    CommandLineParser.GetArgument("-apiUrl"),
+                    CommandLineParser.GetArgument("-appId")
+                ).GetAppInfo(CreateBuild));
         }
 
         public static void IOSRelease()
         {
-            EditorCoroutineUtility.StartCoroutineOwnerless(_FetchedAppInfo.GetAppInfo(CreateBuild));
+            EditorCoroutineUtility.StartCoroutineOwnerless(
+                new FetchAppInfo(
+                    CommandLineParser.GetArgument("-apiKey"),
+                    CommandLineParser.GetArgument("-apiUrl"),
+                    CommandLineParser.GetArgument("-appId")
+                ).GetAppInfo(CreateBuild));
+        }
+
+        private static void CreateBuild()
+        {
+
         }
 
         private static void CreateBuild(AppModel app)
@@ -43,14 +56,14 @@ namespace TalusCI.Editor
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
 
             // facebook settings
-            #if ENABLE_BACKEND
-            FacebookSettings.SelectedAppIndex = 0;
-            if (app.fb_id != null)
-            {
-                FacebookSettings.AppIds = new List<string> { app.fb_id };
-            }
-            FacebookSettings.AppLabels = new List<string> { app.app_name };
-            #endif
+            //#if ENABLE_BACKEND
+            //FacebookSettings.SelectedAppIndex = 0;
+            //if (app.fb_id != null)
+            //{
+            //    FacebookSettings.AppIds = new List<string> { app.fb_id };
+            //}
+            //FacebookSettings.AppLabels = new List<string> { app.app_name };
+            //#endif
 
             // elephant settings
             // #if ENABLE_BACKEND
