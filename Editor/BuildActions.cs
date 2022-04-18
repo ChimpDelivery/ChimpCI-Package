@@ -5,11 +5,6 @@ using UnityEditor;
 using TalusBackendData;
 using TalusBackendData.Models;
 
-#if ENABLE_BACKEND
-using System.Collections.Generic;
-using Facebook.Unity.Settings;
-#endif
-
 namespace TalusCI.Editor
 {
     public static class BuildActions
@@ -49,20 +44,21 @@ namespace TalusCI.Editor
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
 
-            // facebook settings
+            /*// facebook settings
             //#if ENABLE_BACKEND
-            //FacebookSettings.SelectedAppIndex = 0;
-            //if (app.fb_id != null)
-            //{
-            //    FacebookSettings.AppIds = new List<string> { app.fb_id };
-            //}
-            //FacebookSettings.AppLabels = new List<string> { app.app_name };
+            FacebookSettings.SelectedAppIndex = 0;
+            if (app.fb_id != null)
+            {
+                FacebookSettings.AppIds = new List<string> { app.fb_id };
+            }
+            FacebookSettings.AppLabels = new List<string> { app.app_name };
             //#endif
 
             // elephant settings
             // #if ENABLE_BACKEND
-            // ElephantSettings elephantSettings = Resources.Load<ElephantSettings>("ElephantSettings");
+            ElephantSettings elephantSettings = Resources.Load<ElephantSettings>("ElephantSettings");
             // #endif
+            */
 
             AssetDatabase.SaveAssets();
 
