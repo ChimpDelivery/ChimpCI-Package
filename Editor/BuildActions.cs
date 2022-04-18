@@ -2,8 +2,8 @@ using System.Linq;
 
 using UnityEditor;
 
-using TalusBackendData;
-using TalusBackendData.Models;
+using TalusBackendData.Editor;
+using TalusBackendData.Editor.Models;
 
 namespace TalusCI.Editor
 {
@@ -43,22 +43,6 @@ namespace TalusCI.Editor
             PlayerSettings.productName = app.app_name;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
-
-            /*// facebook settings
-            //#if ENABLE_BACKEND
-            FacebookSettings.SelectedAppIndex = 0;
-            if (app.fb_id != null)
-            {
-                FacebookSettings.AppIds = new List<string> { app.fb_id };
-            }
-            FacebookSettings.AppLabels = new List<string> { app.app_name };
-            //#endif
-
-            // elephant settings
-            // #if ENABLE_BACKEND
-            ElephantSettings elephantSettings = Resources.Load<ElephantSettings>("ElephantSettings");
-            // #endif
-            */
 
             AssetDatabase.SaveAssets();
 
