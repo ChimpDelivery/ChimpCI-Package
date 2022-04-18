@@ -1,12 +1,4 @@
-using System;
 using System.Collections.Generic;
-
-using Facebook.Unity.Settings;
-
-using TalusBackendData.Editor;
-using TalusBackendData.Editor.Models;
-
-using Unity.EditorCoroutines.Editor;
 
 using UnityEditor;
 
@@ -56,23 +48,6 @@ namespace TalusCI.Editor
 
                 Debug.Log("elephant_scene added to build settings...");
             }
-
-            //
-            EditorCoroutineUtility.StartCoroutineOwnerless(FetchAppInfo.GetAppInfo(UpdateKeys));
-        }
-
-        private static void UpdateKeys(AppModel app)
-        {
-            // update facebook settings
-            FacebookSettings.SelectedAppIndex = 0;
-            if (app.fb_id != null)
-            {
-                FacebookSettings.AppIds = new List<string> { app.fb_id };
-            }
-            FacebookSettings.AppLabels = new List<string> { app.app_name };
-
-            // update elephant settings
-            // ElephantSettings elephantSettings = Resources.Load<ElephantSettings>("ElephantSettings");
         }
 #endif
     }

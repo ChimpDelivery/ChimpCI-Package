@@ -1,10 +1,9 @@
 using System.Linq;
 
 using UnityEditor;
-using Unity.EditorCoroutines.Editor;
 
-using TalusBackendData.Editor;
-using TalusBackendData.Editor.Models;
+using TalusBackendData;
+using TalusBackendData.Models;
 
 #if ENABLE_BACKEND
 using System.Collections.Generic;
@@ -17,28 +16,23 @@ namespace TalusCI.Editor
     {
         public static void IOSDevelopment()
         {
-            EditorUserBuildSettings.development = true;
-            EditorCoroutineUtility.StartCoroutineOwnerless(
-                new FetchAppInfo(
-                    CommandLineParser.GetArgument("-apiKey"),
-                    CommandLineParser.GetArgument("-apiUrl"),
-                    CommandLineParser.GetArgument("-appId")
-                ).GetAppInfo(CreateBuild));
+            PrepareIOSBuild(true);
         }
 
         public static void IOSRelease()
         {
-            EditorCoroutineUtility.StartCoroutineOwnerless(
-                new FetchAppInfo(
-                    CommandLineParser.GetArgument("-apiKey"),
-                    CommandLineParser.GetArgument("-apiUrl"),
-                    CommandLineParser.GetArgument("-appId")
-                ).GetAppInfo(CreateBuild));
+            PrepareIOSBuild(false);
         }
 
-        private static void CreateBuild()
+        private static void PrepareIOSBuild(bool isDevelopment)
         {
+            EditorUserBuildSettings.development = isDevelopment;
 
+            new FetchAppInfo(
+                CommandLineParser.GetArgument("-apiUrl"),
+                CommandLineParser.GetArgument("-apiKey"),
+                CommandLineParser.GetArgument("-appId")
+            ).GetInfo(CreateBuild);
         }
 
         private static void CreateBuild(AppModel app)
