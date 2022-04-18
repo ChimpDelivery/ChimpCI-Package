@@ -1,31 +1,33 @@
 using System.Linq;
 
 using UnityEditor;
-using Unity.EditorCoroutines.Editor;
 
-using TalusCI.Editor.Models;
-
-#if ENABLE_BACKEND
-using System.Collections.Generic;
-using UnityEngine;
-using Facebook.Unity.Settings;
-#endif
+using TalusBackendData.Editor;
+using TalusBackendData.Editor.Models;
 
 namespace TalusCI.Editor
 {
     public static class BuildActions
     {
-        private static readonly FetchAppInfo _FetchedAppInfo = new FetchAppInfo();
-
         public static void IOSDevelopment()
         {
-            EditorUserBuildSettings.development = true;
-            EditorCoroutineUtility.StartCoroutineOwnerless(_FetchedAppInfo.GetAppInfo(CreateBuild));
+            PrepareIOSBuild(true);
         }
 
         public static void IOSRelease()
         {
-            EditorCoroutineUtility.StartCoroutineOwnerless(_FetchedAppInfo.GetAppInfo(CreateBuild));
+            PrepareIOSBuild(false);
+        }
+
+        private static void PrepareIOSBuild(bool isDevelopment)
+        {
+            EditorUserBuildSettings.development = isDevelopment;
+
+            new FetchAppInfo(
+                CommandLineParser.GetArgument("-apiUrl"),
+                CommandLineParser.GetArgument("-apiKey"),
+                CommandLineParser.GetArgument("-appId")
+            ).GetInfo(CreateBuild);
         }
 
         private static void CreateBuild(AppModel app)
@@ -41,21 +43,6 @@ namespace TalusCI.Editor
             PlayerSettings.productName = app.app_name;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
-
-            // facebook settings
-            #if ENABLE_BACKEND
-            FacebookSettings.SelectedAppIndex = 0;
-            if (app.fb_id != null)
-            {
-                FacebookSettings.AppIds = new List<string> { app.fb_id };
-            }
-            FacebookSettings.AppLabels = new List<string> { app.app_name };
-            #endif
-
-            // elephant settings
-            // #if ENABLE_BACKEND
-            // ElephantSettings elephantSettings = Resources.Load<ElephantSettings>("ElephantSettings");
-            // #endif
 
             AssetDatabase.SaveAssets();
 
