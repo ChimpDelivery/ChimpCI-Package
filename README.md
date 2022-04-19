@@ -2,8 +2,7 @@
 
 - To work with Jenkins pipeline.
         
-# ❗ Requirements 
-- Unity 2020.3.9f1 
+# ❗ Dependencies
 - TalusBackendData Package (https://github.com/TalusStudio/TalusBackendData-Package)
 
 # 💿 Installation
