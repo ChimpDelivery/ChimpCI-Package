@@ -4,7 +4,7 @@
         
 # ❗ Requirements 
 - Unity 2020.3.9f1 
-- TalusBackendData Package
+- TalusBackendData Package (https://github.com/TalusStudio/TalusBackendData-Package)
 
 # 💿 Installation
 - Clone repository and extract it.
