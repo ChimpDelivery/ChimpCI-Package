@@ -1,27 +1,23 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 
 using UnityEditor;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
+using UnityEditor.Callbacks;
 
 namespace TalusCI.Editor.iOS
 {
-    public class ExportOptionsGenerator : IPostprocessBuildWithReport
+    public class ExportOptionsGenerator : UnityEditor.Editor
     {
-        public int callbackOrder => 2;
-
-        public void OnPostprocessBuild(BuildReport report)
+        [PostProcessBuild(9999)]
+        public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
         {
-            if (report.summary.platform != BuildTarget.iOS)
-            {
-                return;
-            }
+            if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
             Generate();
         }
 
-        private void Generate()
+        private static void Generate()
         {
             var fileContents = new List<string>
             {
@@ -53,7 +49,7 @@ namespace TalusCI.Editor.iOS
             };
 
             Console.WriteLine("[TalusBuild] exportOptions.plist created at " + iOSAppBuildInfo.ExportOptionsPath);
-            System.IO.File.WriteAllLines(iOSAppBuildInfo.ExportOptionsPath, fileContents.ToArray());
+            File.WriteAllLines(iOSAppBuildInfo.ExportOptionsPath, fileContents.ToArray());
         }
     }
 }
