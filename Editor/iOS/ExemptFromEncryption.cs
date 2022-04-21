@@ -1,28 +1,22 @@
+#if UNITY_IOS
 using System.IO;
 
 using UnityEditor;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
+using UnityEditor.Callbacks;
 
-#if UNITY_IOS
 using UnityEditor.iOS.Xcode;
-#endif
 
 namespace TalusCI.Editor.iOS
 {
-    public class ExemptFromEncryption : IPostprocessBuildWithReport
+    public class ExemptFromEncryption : UnityEditor.Editor
     {
-        public int callbackOrder => 1;
+        [PostProcessBuild(9999)]
+        public static void OnPostProcessBuild(BuildTarget buildTarget, string path)
 
-        public void OnPostprocessBuild(BuildReport report)
         {
-            if (report.summary.platform != BuildTarget.iOS)
-            {
-                return;
-            }
+            if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) return;
 
-#if UNITY_IOS
-            string plistPath = report.summary.outputPath + "/Info.plist";
+            string plistPath = path + "/Info.plist";
 
             var plist = new PlistDocument();
             plist.ReadFromString(File.ReadAllText(plistPath));
@@ -31,7 +25,7 @@ namespace TalusCI.Editor.iOS
             rootDict.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 
             File.WriteAllText(plistPath, plist.WriteToString());
-#endif
         }
     }
 }
+#endif
