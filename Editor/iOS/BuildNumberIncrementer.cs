@@ -1,8 +1,7 @@
-using UnityEditor;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
+using System;
 
-using UnityEngine;
+using UnityEditor;
+using UnityEditor.Callbacks;
 
 namespace TalusCI.Editor.iOS
 {
@@ -10,27 +9,23 @@ namespace TalusCI.Editor.iOS
     /// Actually there is no need to this class, there is a step on Jenkins Build that sets the version of the app.
     /// Maybe convenient for manuel building?
     /// </summary>
-    public class IncrementBuildNumber : IPreprocessBuildWithReport
+    public class IncrementBuildNumber : UnityEditor.Editor
     {
-        public int callbackOrder => 0;
-
-        public void OnPreprocessBuild(BuildReport report)
+        [PostProcessBuild]
+        public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
         {
-            if (report.summary.platform != BuildTarget.iOS)
-            {
-                return;
-            }
+            if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
             if (int.TryParse(PlayerSettings.iOS.buildNumber, out int currentBuildNumber))
             {
                 string nextBuildNumber = (currentBuildNumber + 1).ToString();
                 PlayerSettings.iOS.buildNumber = nextBuildNumber;
 
-                Debug.Log("Setting new iOS build number to " + nextBuildNumber);
+                Console.WriteLine("Setting new iOS build number to " + nextBuildNumber);
             }
             else
             {
-                Debug.LogError("Failed to parse build number " + PlayerSettings.iOS.buildNumber + " as int.");
+                Console.WriteLine("Failed to parse build number " + PlayerSettings.iOS.buildNumber + " as int.");
             }
         }
     }
