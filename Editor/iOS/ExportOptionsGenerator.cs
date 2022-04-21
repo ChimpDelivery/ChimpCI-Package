@@ -9,7 +9,7 @@ namespace TalusCI.Editor.iOS
 {
     public class ExportOptionsGenerator : UnityEditor.Editor
     {
-        [PostProcessBuild(9999)]
+        [PostProcessBuild]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
         {
             if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
