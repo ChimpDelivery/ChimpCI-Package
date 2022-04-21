@@ -10,7 +10,7 @@ namespace TalusCI.Editor.iOS
 {
     public class ExemptFromEncryption : UnityEditor.Editor
     {
-        [PostProcessBuild(9999)]
+        [PostProcessBuild(9998)]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string path)
 
         {
