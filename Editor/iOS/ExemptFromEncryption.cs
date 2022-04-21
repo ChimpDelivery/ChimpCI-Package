@@ -1,4 +1,5 @@
 #if UNITY_IOS
+using System;
 using System.IO;
 
 using UnityEditor;
@@ -10,6 +11,8 @@ namespace TalusCI.Editor.iOS
 {
     public class ExemptFromEncryption : UnityEditor.Editor
     {
+        private readonly static string EncryptionKey = "ITSAppUsesNonExemptEncryption";
+
         [PostProcessBuild(9999)]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
         {
@@ -18,10 +21,17 @@ namespace TalusCI.Editor.iOS
             string plistPath = pathToBuild + "/Info.plist";
 
             var plist = new PlistDocument();
-            plist.ReadFromString(File.ReadAllText(plistPath));
+            plist.ReadFromFile(plistPath);
 
-            PlistElementDict rootDict = plist.root;
-            rootDict.SetString("ITSAppUsesNonExemptEncryption", "false");
+            PlistElementDict root = plist.root;
+            if (root.values.ContainsKey(EncryptionKey))
+            {
+                root.SetString(EncryptionKey, "false");
+            }
+            else
+            {
+                Console.WriteLine($"[TalusBuild] key: {EncryptionKey} not found in {plistPath}");
+            }
 
             File.WriteAllText(plistPath, plist.WriteToString());
         }
