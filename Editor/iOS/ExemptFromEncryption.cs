@@ -19,7 +19,7 @@ namespace TalusCI.Editor.iOS
         {
             if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
-            string plistPath = pathToBuild + "/Info.plist";
+            string plistPath = pathToBuild + "Info.plist";
 
             var plist = new PlistDocument();
             plist.ReadFromFile(plistPath);
