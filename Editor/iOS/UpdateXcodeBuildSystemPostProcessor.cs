@@ -1,6 +1,4 @@
 ﻿// Reference: http://www.kittehface.com/2021/09/fixing-invalid-frameworks-folder-in-ios.html
-#if UNITY_IOS
-
 using System.IO;
 using UnityEngine;
 using UnityEditor;
@@ -132,5 +130,3 @@ namespace TalusCI.Editor.iOS
         }
     }
 }
-
-#endif

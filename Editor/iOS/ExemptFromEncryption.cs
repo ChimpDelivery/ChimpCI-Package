@@ -4,9 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 
-#if UNITY_IOS
 using UnityEditor.iOS.Xcode;
-#endif
 
 namespace TalusCI.Editor.iOS
 {
@@ -20,7 +18,6 @@ namespace TalusCI.Editor.iOS
         {
             if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
-#if UNITY_IOS
             string plistPath = Path.Combine(pathToBuild, "Info.plist");
             Console.WriteLine("[TalusBuild] Info.plist path: " + plistPath);
 
@@ -31,7 +28,6 @@ namespace TalusCI.Editor.iOS
             root.SetString(EncryptionKey, EncryptionValue);
 
             File.WriteAllText(plistPath, plist.WriteToString());
-#endif
         }
     }
 }
