@@ -19,22 +19,14 @@ namespace TalusCI.Editor.iOS
         {
             if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
-            string plistPath = pathToBuild + "Info.plist";
+            string plistPath = Path.Combine(pathToBuild, "Info.plist");
+            Console.WriteLine($"[TalusBuild] Info.plist path: '{plistPath}'");
 
             var plist = new PlistDocument();
             plist.ReadFromFile(plistPath);
 
             PlistElementDict root = plist.root;
-            if (root.values.ContainsKey(EncryptionKey))
-            {
-                root.SetString(EncryptionKey, EncryptionValue);
-
-                Console.WriteLine($"[TalusBuild] setting {EncryptionKey} in {plistPath} => NEW VALUE: {EncryptionValue}");
-            }
-            else
-            {
-                Console.WriteLine($"[TalusBuild] key: {EncryptionKey} can not found in {plistPath}!");
-            }
+            root.SetString(EncryptionKey, EncryptionValue);
 
             File.WriteAllText(plistPath, plist.WriteToString());
         }
