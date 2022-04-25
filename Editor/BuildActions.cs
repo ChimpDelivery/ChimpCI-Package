@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 using UnityEditor;
@@ -45,6 +46,8 @@ namespace TalusCI.Editor
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
 
             AssetDatabase.SaveAssets();
+
+            Console.WriteLine("[Unity-CI-Package] Define Symbols: " + PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS));
 
             BuildPipeline.BuildPlayer(GetScenes(), iOSAppBuildInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
             EditorApplication.Exit(0);
