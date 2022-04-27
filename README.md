@@ -3,7 +3,7 @@
 - To work with Jenkins pipeline.
         
 # ❗ Dependencies
-- TalusBackendData Package (https://github.com/TalusStudio/TalusBackendData-Package)
+- [TalusBackendData Package](https://github.com/TalusStudio/TalusBackendData-Package)
 
 # 💿 Installation
 - Clone repository and extract it.
