@@ -21,11 +21,14 @@ namespace TalusCI.Editor.iOS
                 string nextBuildNumber = (currentBuildNumber + 1).ToString();
                 PlayerSettings.iOS.buildNumber = nextBuildNumber;
 
-                Console.WriteLine("Setting new iOS build number to " + nextBuildNumber);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                Console.WriteLine("[Unity-CI-Package] Setting new iOS build number to " + nextBuildNumber);
             }
             else
             {
-                Console.WriteLine("Failed to parse build number " + PlayerSettings.iOS.buildNumber + " as int.");
+                Console.WriteLine("[Unity-CI-Package] Failed to parse build number " + PlayerSettings.iOS.buildNumber + " as int.");
             }
         }
     }

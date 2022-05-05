@@ -48,7 +48,7 @@ namespace TalusCI.Editor.iOS
                 "</plist>"
             };
 
-            Console.WriteLine("[TalusBuild] exportOptions.plist created at " + iOSAppBuildInfo.ExportOptionsPath);
+            Console.WriteLine("[Unity-CI-Package] exportOptions.plist created at " + iOSAppBuildInfo.ExportOptionsPath);
             File.WriteAllLines(iOSAppBuildInfo.ExportOptionsPath, fileContents.ToArray());
         }
     }
