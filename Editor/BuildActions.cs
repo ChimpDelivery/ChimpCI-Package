@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 
 using UnityEditor;
+using UnityEngine;
 
 using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;
@@ -10,11 +11,13 @@ namespace TalusCI.Editor
 {
     public static class BuildActions
     {
+        [MenuItem("TalusKit/Manuel Build/iOS Development", priority = 11000)]
         public static void IOSDevelopment()
         {
             PrepareIOSBuild(true);
         }
 
+        [MenuItem("TalusKit/Manuel Build/iOS Release", priority = 11001)]
         public static void IOSRelease()
         {
             PrepareIOSBuild(false);
@@ -24,30 +27,54 @@ namespace TalusCI.Editor
         {
             EditorUserBuildSettings.development = isDevelopment;
 
-            new FetchAppInfo(
-                CommandLineParser.GetArgument("-apiUrl"),
-                CommandLineParser.GetArgument("-apiKey"),
-                CommandLineParser.GetArgument("-appId")
-            ).GetInfo(CreateBuild);
+            if (!Application.isBatchMode && EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
+            {
+                Debug.LogError("Build Target must be iOS!");
+                return;
+            }
+
+            bool isBatchMode = Application.isBatchMode;
+
+            string apiUrl = (isBatchMode)
+                ? CommandLineParser.GetArgument("-apiUrl")
+                : EditorPrefs.GetString(BackendDefinitions.BackendApiUrlPref);
+
+            string apiToken = (isBatchMode)
+                ? CommandLineParser.GetArgument("-apiKey")
+                : EditorPrefs.GetString(BackendDefinitions.BackendApiTokenPref);
+
+            string appId = (isBatchMode)
+                ? CommandLineParser.GetArgument("-appId")
+                : EditorPrefs.GetString(BackendDefinitions.BackendAppIdPref);
+
+            new FetchAppInfo(apiUrl, apiToken, appId).GetInfo(CreateBuild);
         }
 
         private static void CreateBuild(AppModel app)
         {
-            // splash screen
-            PlayerSettings.SplashScreen.showUnityLogo = false;
+            Debug.Log("[Unity-CI-Package] Define Symbols: " + PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS));
 
-            // app name & bundle id
+            UpdateProductSettings(app);
+
+            BuildPipeline.BuildPlayer(GetScenes(), iOSAppBuildInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
+
+            Debug.Log($"[Unity-CI-Package] Build succceed! Path: {iOSAppBuildInfo.IOSFolder}");
+
+            if (Application.isBatchMode)
+            {
+                EditorApplication.Exit(0);
+            }
+        }
+
+        private static void UpdateProductSettings(AppModel app)
+        {
+            PlayerSettings.SplashScreen.showUnityLogo = false;
             PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
             PlayerSettings.productName = app.app_name;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-
-            Console.WriteLine("[Unity-CI-Package] Define Symbols: " + PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS));
-
-            BuildPipeline.BuildPlayer(GetScenes(), iOSAppBuildInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
-            EditorApplication.Exit(0);
         }
 
         private static string[] GetScenes()

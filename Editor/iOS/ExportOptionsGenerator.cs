@@ -12,7 +12,7 @@ namespace TalusCI.Editor.iOS
         [PostProcessBuild]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
         {
-            if (buildTarget != BuildTarget.iOS) { return; }
+            if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
             Generate();
         }
