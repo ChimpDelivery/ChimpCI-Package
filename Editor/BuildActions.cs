@@ -34,18 +34,15 @@ namespace TalusCI.Editor
         private static void CreateBuild(AppModel app)
         {
             // splash screen
-            if (PlayerSettings.SplashScreen.showUnityLogo)
-            {
-                PlayerSettings.SplashScreen.showUnityLogo = false;
-            }
+            PlayerSettings.SplashScreen.showUnityLogo = false;
 
             // app name & bundle id
             PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
             PlayerSettings.productName = app.app_name;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
-            EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
 
             AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
 
             Console.WriteLine("[Unity-CI-Package] Define Symbols: " + PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS));
 
