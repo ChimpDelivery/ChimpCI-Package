@@ -1,9 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 
 using UnityEditor;
 using UnityEditor.Callbacks;
+
+using Debug = UnityEngine.Debug;
 
 namespace TalusCI.Editor.iOS
 {
@@ -48,8 +49,9 @@ namespace TalusCI.Editor.iOS
                 "</plist>"
             };
 
-            Console.WriteLine("[Unity-CI-Package] exportOptions.plist created at " + iOSAppBuildInfo.ExportOptionsPath);
-            File.WriteAllLines(iOSAppBuildInfo.ExportOptionsPath, fileContents.ToArray());
+            string exportOptionsPath = Path.Combine(iOSAppBuildInfo.ExportOptionsPath, "exportOptions.plist");
+            Debug.Log("[Unity-CI-Package] exportOptions.plist created at " + exportOptionsPath);
+            File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
         }
     }
 }

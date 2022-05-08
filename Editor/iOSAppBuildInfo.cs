@@ -13,7 +13,7 @@ namespace TalusCI.Editor
         public static readonly string IOSFolder = $"{AppFolder}/Builds/iOS/";
 
         // ExportOptions.plist path, required by jenkins for app-provisioning.
-        public static readonly string ExportOptionsPath = $"{AppFolder}/Certificates/exportOptions.plist";
+        public static readonly string ExportOptionsPath = $"{AppFolder}/Builds/";
 
         // Provisioning profile.
         public static readonly string ProvisioningProfileName = "EmreMac-Profile";
