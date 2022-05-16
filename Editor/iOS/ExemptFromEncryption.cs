@@ -1,17 +1,16 @@
-using System;
 using System.IO;
 
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
-
 using UnityEditor.iOS.Xcode;
 
 namespace TalusCI.Editor.iOS
 {
-    public class ExemptFromEncryption : UnityEditor.Editor
+    internal class ExemptFromEncryption
     {
-        private readonly static string EncryptionKey = "ITSAppUsesNonExemptEncryption";
-        private readonly static string EncryptionValue = "false";
+        private readonly static string _EncryptionKey = "ITSAppUsesNonExemptEncryption";
+        private readonly static string _EncryptionValue = "false";
 
         [PostProcessBuild]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
@@ -19,13 +18,13 @@ namespace TalusCI.Editor.iOS
             if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
             string plistPath = Path.Combine(pathToBuild, "Info.plist");
-            Console.WriteLine("[Unity-CI-Package] Info.plist path: " + plistPath);
+            Debug.Log("[Unity-CI-Package] Info.plist path: " + plistPath);
 
             var plist = new PlistDocument();
             plist.ReadFromFile(plistPath);
 
             PlistElementDict root = plist.root;
-            root.SetString(EncryptionKey, EncryptionValue);
+            root.SetString(_EncryptionKey, _EncryptionValue);
 
             File.WriteAllText(plistPath, plist.WriteToString());
         }

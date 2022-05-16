@@ -8,7 +8,7 @@ using Debug = UnityEngine.Debug;
 
 namespace TalusCI.Editor.iOS
 {
-    public class ExportOptionsGenerator : UnityEditor.Editor
+    internal class ExportOptionsGenerator
     {
         [PostProcessBuild]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)

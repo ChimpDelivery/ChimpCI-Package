@@ -1,22 +1,20 @@
-﻿// Reference: http://www.kittehface.com/2021/09/fixing-invalid-frameworks-folder-in-ios.html
-using System.IO;
+﻿using System.IO;
+
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 
-// Create specific aliases for iOS.Xcode imports.
-// Unity Editor on macOS can report a conflict with other plugins
 using PlistDocument = UnityEditor.iOS.Xcode.PlistDocument;
-using PlistElementDict = UnityEditor.iOS.Xcode.PlistElementDict;
 
 namespace TalusCI.Editor.iOS
 {
-    public class UpdateXcodeBuildSystemPostProcessor : UnityEditor.Editor
+    // http://www.kittehface.com/2021/09/fixing-invalid-frameworks-folder-in-ios.html
+    // https://forum.unity.com/threads/2019-3-validation-on-upload-to-store-gives-unityframework-framework-contains-disallowed-file.751112/#post-6959378
+    internal class UpdateXcodeBuildSystemPostProcessor
     {
         [PostProcessBuild(9999)]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string path)
-
         {
             if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) return;
 
@@ -24,10 +22,6 @@ namespace TalusCI.Editor.iOS
             UpdateXcodeBuildSystem(path);
         }
 
-        /// <summary>
-        /// https://forum.unity.com/threads/2019-3-validation-on-upload-to-store-gives-unityframework-framework-contains-disallowed-file.751112/#post-6959378
-        /// </summary>
-        /// <param name="path"></param>
         private static void ModifyFrameworks(string path)
         {
             Debug.LogFormat("[UpdateXcodeBuildSystemPostProcessor.ModifyFrameworks] Path: {0}", path);
@@ -56,7 +50,6 @@ namespace TalusCI.Editor.iOS
                 "Unity-iPhone.xcodeproj/project.xcworkspace/xcshareddata/" +
                 "WorkspaceSettings.xcsettings");
 
-
             if (File.Exists(workspaceSettingsPath))
             {
                 // Read the plist document, and find the root element
@@ -70,7 +63,6 @@ namespace TalusCI.Editor.iOS
                 // Remove the BuildSystemType entry because it specifies the
                 // legacy Xcode build system, which is deprecated
                 if (root.values.ContainsKey("BuildSystemType"))
-
                 {
                     root.values.Remove("BuildSystemType");
 
@@ -120,8 +112,7 @@ namespace TalusCI.Editor.iOS
 
             // Modify the Swift version in the UnityFramework target to a
             // compatible string
-            pbxProject.SetBuildProperty(unityFrameworkTargetGuid,
-                "SWIFT_VERSION", swiftVersion);
+            pbxProject.SetBuildProperty(unityFrameworkTargetGuid, "SWIFT_VERSION", swiftVersion);
 
             // Write out the Xcode project
             pbxProject.WriteToFile(pbxProjectPath);
