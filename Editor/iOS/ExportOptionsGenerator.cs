@@ -49,9 +49,9 @@ namespace TalusCI.Editor.iOS
                 "</plist>"
             };
 
-            if (!AssetDatabase.IsValidFolder(iOSAppBuildInfo.ExportOptionsPath))
+            if (!Directory.Exists(iOSAppBuildInfo.ExportOptionsPath))
             {
-                AssetDatabase.CreateFolder(iOSAppBuildInfo.AppFolder, "Builds");
+                Directory.CreateDirectory(iOSAppBuildInfo.ExportOptionsPath);
             }
 
             string exportOptionsPath = Path.Combine(iOSAppBuildInfo.ExportOptionsPath, "exportOptions.plist");
