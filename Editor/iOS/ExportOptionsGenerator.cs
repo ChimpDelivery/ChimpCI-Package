@@ -49,9 +49,15 @@ namespace TalusCI.Editor.iOS
                 "</plist>"
             };
 
+            if (!AssetDatabase.IsValidFolder(iOSAppBuildInfo.ExportOptionsPath))
+            {
+                AssetDatabase.CreateFolder(iOSAppBuildInfo.AppFolder, "Builds");
+            }
+
             string exportOptionsPath = Path.Combine(iOSAppBuildInfo.ExportOptionsPath, "exportOptions.plist");
-            Debug.Log("[Unity-CI-Package] exportOptions.plist created at " + exportOptionsPath);
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
+
+            Debug.Log("[Unity-CI-Package] exportOptions.plist created at " + exportOptionsPath);
         }
     }
 }
