@@ -46,7 +46,7 @@ namespace TalusCI.Editor
                 ? CommandLineParser.GetArgument("-appId")
                 : EditorPrefs.GetString(BackendDefinitions.BackendAppIdPref);
 
-            new FetchAppInfo(apiUrl, apiToken, appId).GetInfo(CreateBuild);
+            new BackendApi(apiUrl, apiToken).GetAppInfo(appId, CreateBuild);
         }
 
         private static void CreateBuild(AppModel app)
