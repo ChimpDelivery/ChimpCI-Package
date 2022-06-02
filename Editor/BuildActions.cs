@@ -48,7 +48,7 @@ namespace TalusCI.Editor
 
             // create build when backend data fetched
             BackendApi api = new BackendApi(apiUrl, apiToken);
-            api.GetAppInfo(appId, app => CreateBuild(app));
+            api.GetAppInfo(appId, CreateBuild);
         }
 
         private static void CreateBuild(AppModel app)
