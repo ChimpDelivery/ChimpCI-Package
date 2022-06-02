@@ -28,7 +28,7 @@ namespace TalusCI.Editor
 
             if (!Application.isBatchMode && EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
             {
-                Debug.LogError("Build Target must be iOS!");
+                Debug.LogError("[TalusCI-Package] Build Target must be iOS!");
                 return;
             }
 
@@ -53,13 +53,13 @@ namespace TalusCI.Editor
 
         private static void CreateBuild(AppModel app)
         {
-            Debug.Log("[Unity-CI-Package] Define Symbols: " + PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS));
+            Debug.Log("[TalusCI-Package] Define Symbols: " + PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS));
 
             UpdateProductSettings(app);
 
             BuildPipeline.BuildPlayer(GetScenes(), iOSAppBuildInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
 
-            Debug.Log($"[Unity-CI-Package] Build succceed! Path: {iOSAppBuildInfo.IOSFolder}");
+            Debug.Log($"[TalusCI-Package] Build succceed! Path: {iOSAppBuildInfo.IOSFolder}");
 
             if (Application.isBatchMode)
             {
