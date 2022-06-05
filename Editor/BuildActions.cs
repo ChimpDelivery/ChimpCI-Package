@@ -24,15 +24,13 @@ namespace TalusCI.Editor
 
         private static void PrepareIOSBuild(bool isDevelopment)
         {
-            EditorUserBuildSettings.development = isDevelopment;
+            bool isBatchMode = Application.isBatchMode;
 
-            if (!Application.isBatchMode && EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
+            if (!isBatchMode && EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
             {
                 Debug.LogError("[TalusCI-Package] Build Target must be iOS!");
                 return;
             }
-
-            bool isBatchMode = Application.isBatchMode;
 
             string apiUrl = (isBatchMode)
                 ? CommandLineParser.GetArgument("-apiUrl")
@@ -45,6 +43,9 @@ namespace TalusCI.Editor
             string appId = (isBatchMode)
                 ? CommandLineParser.GetArgument("-appId")
                 : EditorPrefs.GetString(BackendDefinitions.BackendAppIdPref);
+
+            //
+            EditorUserBuildSettings.development = isDevelopment;
 
             // create build when backend data fetched
             BackendApi api = new BackendApi(apiUrl, apiToken);
