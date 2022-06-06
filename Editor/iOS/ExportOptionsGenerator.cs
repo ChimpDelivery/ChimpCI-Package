@@ -31,33 +31,33 @@ namespace TalusCI.Editor.iOS
                 "    <key>provisioningProfiles</key>",
                 "    <dict>",
                $"        <key>{PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.iOS)}</key>",
-               $"        <string>{iOSAppBuildInfo.ProvisioningProfileName}</string>",
+               $"        <string>{CIDefinitions.ProvisioningProfileName}</string>",
                 "    </dict>",
                 "    <key>method</key>",
                 "    <string>app-store</string>",
                 "    <key>signingCertificate</key>",
-               $"    <string>{iOSAppBuildInfo.SigningCertificateName}</string>",
+               $"    <string>{CIDefinitions.SigningCertificateName}</string>",
                 "    <key>signingStyle</key>",
                 "    <string>manual</string>",
                 "    <key>stripSwiftSymbols</key>",
                 "    <true/>",
                 "    <key>teamID</key>",
-               $"    <string>{iOSAppBuildInfo.TeamID}</string>",
+               $"    <string>{CIDefinitions.TeamID}</string>",
                 "    <key>uploadSymbols</key>",
                 "    <false/>",
                 "</dict>",
                 "</plist>"
             };
 
-            if (!Directory.Exists(iOSAppBuildInfo.ExportOptionsPath))
+            if (!Directory.Exists(CIDefinitions.ExportOptionsPath))
             {
-                Directory.CreateDirectory(iOSAppBuildInfo.ExportOptionsPath);
+                Directory.CreateDirectory(CIDefinitions.ExportOptionsPath);
             }
 
-            string exportOptionsPath = Path.Combine(iOSAppBuildInfo.ExportOptionsPath, "exportOptions.plist");
+            string exportOptionsPath = Path.Combine(CIDefinitions.ExportOptionsPath, "exportOptions.plist");
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
 
-            Debug.Log("[Unity-CI-Package] exportOptions.plist created at " + exportOptionsPath);
+            Debug.Log($"[Unity-CI-Package] exportOptions.plist created at {exportOptionsPath}");
         }
     }
 }
