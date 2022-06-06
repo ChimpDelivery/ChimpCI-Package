@@ -30,7 +30,7 @@ namespace TalusCI.Editor.iOS
                 "    <false/>",
                 "    <key>provisioningProfiles</key>",
                 "    <dict>",
-               $"        <key>{PlayerSettings.applicationIdentifier}</key>",
+               $"        <key>{PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.iOS)}</key>",
                $"        <string>{iOSAppBuildInfo.ProvisioningProfileName}</string>",
                 "    </dict>",
                 "    <key>method</key>",

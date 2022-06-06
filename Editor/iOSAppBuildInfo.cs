@@ -1,13 +1,8 @@
-﻿using UnityEditor;
-
-namespace TalusCI.Editor
+﻿namespace TalusCI.Editor
 {
     public static class iOSAppBuildInfo
     {
         public static readonly string AppFolder = System.IO.Directory.GetCurrentDirectory();
-
-        // iOS bundle identifier.
-        public static readonly string Identifier = PlayerSettings.applicationIdentifier;
 
         // iOS build path.
         public static readonly string IOSFolder = $"{AppFolder}/Builds/iOS/";
