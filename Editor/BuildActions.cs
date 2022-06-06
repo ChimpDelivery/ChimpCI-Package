@@ -1,6 +1,7 @@
 using System.Linq;
 
 using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 using TalusBackendData.Editor;
@@ -24,6 +25,8 @@ namespace TalusCI.Editor
 
         private static void PrepareIOSBuild(bool isDevelopment)
         {
+            EditorUserBuildSettings.development = isDevelopment;
+
             bool isBatchMode = Application.isBatchMode;
 
             if (!isBatchMode && EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
@@ -44,9 +47,6 @@ namespace TalusCI.Editor
                 ? CommandLineParser.GetArgument("-appId")
                 : EditorPrefs.GetString(BackendDefinitions.BackendAppIdPref);
 
-            //
-            EditorUserBuildSettings.development = isDevelopment;
-
             // create build when backend data fetched
             BackendApi api = new BackendApi(apiUrl, apiToken);
             api.GetAppInfo(appId, CreateBuild);
@@ -54,13 +54,19 @@ namespace TalusCI.Editor
 
         private static void CreateBuild(AppModel app)
         {
-            Debug.Log("[TalusCI-Package] Define Symbols: " + PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS));
+            Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS)}");
 
             UpdateProductSettings(app);
 
-            BuildPipeline.BuildPlayer(GetScenes(), iOSAppBuildInfo.IOSFolder, BuildTarget.iOS, BuildOptions.CompressWithLz4HC);
+            BuildReport report = BuildPipeline.BuildPlayer(
+                GetActiveScenes(),
+                iOSAppBuildInfo.IOSFolder,
+                BuildTarget.iOS,
+                BuildOptions.CompressWithLz4HC
+            );
 
-            Debug.Log($"[TalusCI-Package] Build succceed! Path: {iOSAppBuildInfo.IOSFolder}");
+            Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
+            Debug.Log($"[TalusCI-Package] Build path: {report.summary.outputPath}");
 
             if (Application.isBatchMode)
             {
@@ -79,7 +85,7 @@ namespace TalusCI.Editor
             AssetDatabase.Refresh();
         }
 
-        private static string[] GetScenes()
+        private static string[] GetActiveScenes()
         {
             return (from t in EditorBuildSettings.scenes where t.enabled select t.path).ToArray();
         }
