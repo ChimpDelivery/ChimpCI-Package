@@ -9,6 +9,8 @@ namespace TalusCI.Editor
 {
     internal class CISettingsProvider : SettingsProvider
     {
+        private bool _UnlockPanel = true;
+
         private SerializedObject _SerializedObject;
 
         public CISettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
@@ -41,6 +43,7 @@ namespace TalusCI.Editor
                 );
                 GUI.backgroundColor = defaultColor;
 
+                GUI.enabled = !_UnlockPanel;
                 {
                     EditorGUI.BeginChangeCheck();
 
@@ -56,6 +59,15 @@ namespace TalusCI.Editor
                     }
 
                     GUILayout.FlexibleSpace();
+
+                    GUI.enabled = true;
+                    GUI.backgroundColor = Color.yellow;
+
+                    string lockButtonName = (_UnlockPanel) ? "Unlock Settings" : "Lock Settings";
+                    if (GUILayout.Button(lockButtonName, GUILayout.MinHeight(50)))
+                    {
+                        _UnlockPanel = !_UnlockPanel;
+                    }
 
                     GUI.backgroundColor = Color.green;
                     if (GUILayout.Button("Reset to defaults", GUILayout.MinHeight(50)))
