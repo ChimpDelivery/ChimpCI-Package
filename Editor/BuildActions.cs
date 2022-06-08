@@ -5,9 +5,10 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
+using TalusCI.Editor.Utility;
+
 using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;
-using TalusCI.Editor.Utility;
 
 namespace TalusCI.Editor
 {
@@ -37,21 +38,24 @@ namespace TalusCI.Editor
                 return;
             }
 
-            if (!isBatchMode)
-            {
-                CreateBuild();
-                return;
-            }
+            string apiUrl = (isBatchMode)
+                ? CommandLineParser.GetArgument("-apiUrl")
+                : BackendSettingsHolder.instance.ApiUrl;
+
+            string apiToken = (isBatchMode)
+                ? CommandLineParser.GetArgument("-apiKey")
+                : BackendSettingsHolder.instance.ApiToken;
+
+            string appId = (isBatchMode)
+                ? CommandLineParser.GetArgument("-appId")
+                : BackendSettingsHolder.instance.AppId;
 
             // create build when backend data fetched
-            BackendApi api = new BackendApi(
-                CommandLineParser.GetArgument("-apiUrl"),
-                CommandLineParser.GetArgument("-apiKey")
-            );
-            api.GetAppInfo(CommandLineParser.GetArgument("-appId"), CreateBuild);
+            BackendApi api = new BackendApi(apiUrl, apiToken);
+            api.GetAppInfo(appId, CreateBuild);
         }
 
-        private static void CreateBuild(AppModel app = null)
+        private static void CreateBuild(AppModel app)
         {
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS)}");
 
@@ -75,7 +79,7 @@ namespace TalusCI.Editor
             }
         }
 
-        private static void UpdateProductSettings(AppModel app = null)
+        private static void UpdateProductSettings(AppModel app)
         {
             PlayerSettings.SplashScreen.showUnityLogo = false;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
