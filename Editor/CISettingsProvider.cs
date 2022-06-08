@@ -43,9 +43,10 @@ namespace TalusCI.Editor
                 );
                 GUI.backgroundColor = defaultColor;
 
+                EditorGUI.BeginChangeCheck();
+
                 GUI.enabled = !_UnlockPanel;
                 {
-                    EditorGUI.BeginChangeCheck();
 
                     SerializedProperty serializedProperty = _SerializedObject.GetIterator();
                     while (serializedProperty.NextVisible(true))
