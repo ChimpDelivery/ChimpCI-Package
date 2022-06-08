@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace TalusCI.Editor
 {
-    public class CISettingsProvider : SettingsProvider
+    internal class CISettingsProvider : SettingsProvider
     {
         private SerializedObject _SerializedObject;
 
