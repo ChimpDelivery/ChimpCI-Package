@@ -7,6 +7,7 @@ using UnityEngine;
 
 using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;
+using TalusCI.Editor.Utility;
 
 namespace TalusCI.Editor
 {

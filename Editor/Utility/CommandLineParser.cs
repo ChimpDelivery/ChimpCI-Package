@@ -1,4 +1,4 @@
-﻿namespace TalusCI.Editor
+﻿namespace TalusCI.Editor.Utility
 {
     public static class CommandLineParser
     {
