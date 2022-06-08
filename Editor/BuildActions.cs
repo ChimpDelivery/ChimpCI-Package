@@ -31,28 +31,25 @@ namespace TalusCI.Editor
 
             if (!isBatchMode && EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
             {
-                Debug.LogError("[TalusCI-Package] Build Target must be iOS!");
+                Debug.LogError("[TalusCI-Package] Build Target must be iOS! Switch platform to iOS (File/Build Settings)");
                 return;
             }
 
-            string apiUrl = (isBatchMode)
-                ? CommandLineParser.GetArgument("-apiUrl")
-                : BackendSettingsHolder.instance.ApiUrl;
-
-            string apiToken = (isBatchMode)
-                ? CommandLineParser.GetArgument("-apiKey")
-                : BackendSettingsHolder.instance.ApiToken;
-
-            string appId = (isBatchMode)
-                ? CommandLineParser.GetArgument("-appId")
-                : BackendSettingsHolder.instance.AppId;
+            if (!isBatchMode)
+            {
+                CreateBuild();
+                return;
+            }
 
             // create build when backend data fetched
-            BackendApi api = new BackendApi(apiUrl, apiToken);
-            api.GetAppInfo(appId, CreateBuild);
+            BackendApi api = new BackendApi(
+                CommandLineParser.GetArgument("-apiUrl"),
+                CommandLineParser.GetArgument("-apiKey")
+            );
+            api.GetAppInfo(CommandLineParser.GetArgument("-appId"), CreateBuild);
         }
 
-        private static void CreateBuild(AppModel app)
+        private static void CreateBuild(AppModel app = null)
         {
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS)}");
 
@@ -70,16 +67,24 @@ namespace TalusCI.Editor
 
             if (Application.isBatchMode)
             {
-                EditorApplication.Exit(0);
+                EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
             }
         }
 
-        private static void UpdateProductSettings(AppModel app)
+        private static void UpdateProductSettings(AppModel app = null)
         {
             PlayerSettings.SplashScreen.showUnityLogo = false;
-            PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
-            PlayerSettings.productName = app.app_name;
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
+
+            if (app != null)
+            {
+                PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
+                PlayerSettings.productName = app.app_name;
+            }
+            else
+            {
+                Debug.LogError($"[TalusCI-Package] AppModel data is null! Product Settings couldn't updated...");
+            }
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
