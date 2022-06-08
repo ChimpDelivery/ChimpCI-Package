@@ -20,6 +20,8 @@ namespace TalusCI.Editor.iOS
 
         private static void Generate()
         {
+            var settingsHolder = CISettingsHolder.instance;
+
             var fileContents = new List<string>
             {
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
@@ -31,30 +33,30 @@ namespace TalusCI.Editor.iOS
                 "    <key>provisioningProfiles</key>",
                 "    <dict>",
                $"        <key>{PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.iOS)}</key>",
-               $"        <string>{CIDefinitions.ProvisioningProfileName}</string>",
+               $"        <string>{settingsHolder.ProvisioningProfileName}</string>",
                 "    </dict>",
                 "    <key>method</key>",
                 "    <string>app-store</string>",
                 "    <key>signingCertificate</key>",
-               $"    <string>{CIDefinitions.SigningCertificateName}</string>",
+               $"    <string>{settingsHolder.SigningCertificateName}</string>",
                 "    <key>signingStyle</key>",
                 "    <string>manual</string>",
                 "    <key>stripSwiftSymbols</key>",
                 "    <true/>",
                 "    <key>teamID</key>",
-               $"    <string>{CIDefinitions.TeamID}</string>",
+               $"    <string>{settingsHolder.TeamID}</string>",
                 "    <key>uploadSymbols</key>",
                 "    <false/>",
                 "</dict>",
                 "</plist>"
             };
 
-            if (!Directory.Exists(CIDefinitions.ExportOptionsPath))
+            if (!Directory.Exists(settingsHolder.ExportOptionsPath))
             {
-                Directory.CreateDirectory(CIDefinitions.ExportOptionsPath);
+                Directory.CreateDirectory(settingsHolder.ExportOptionsPath);
             }
 
-            string exportOptionsPath = Path.Combine(CIDefinitions.ExportOptionsPath, "exportOptions.plist");
+            string exportOptionsPath = Path.Combine(settingsHolder.ExportOptionsPath, "exportOptions.plist");
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
 
             Debug.Log($"[Unity-CI-Package] exportOptions.plist created at {exportOptionsPath}");

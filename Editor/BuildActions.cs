@@ -57,7 +57,7 @@ namespace TalusCI.Editor
 
             BuildReport report = BuildPipeline.BuildPlayer(
                 GetActiveScenes(),
-                CIDefinitions.BuildFolder,
+                CISettingsHolder.instance.BuildFolder,
                 BuildTarget.iOS,
                 BuildOptions.CompressWithLz4HC
             );
