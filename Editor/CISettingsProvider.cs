@@ -35,7 +35,7 @@ namespace TalusCI.Editor
                 EditorGUILayout.HelpBox(
                     string.Join(
                         "\n\n",
-                        "Talus Prototype - CI Layout (Do not leave any input fields blank!)",
+                        $"{CISettingsHolder.ProviderPath} (Do not leave any input fields blank!)",
                         "To automate App Signing and Distribution on App Store Connect."
                     ),
                     MessageType.Info,
