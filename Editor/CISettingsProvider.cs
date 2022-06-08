@@ -34,7 +34,7 @@ namespace TalusCI.Editor
                     string.Join(
                         "\n\n",
                         "Talus Prototype - CI Layout",
-                        "To work with CI/CD automation."),
+                        "To automate App Signing and Distribution on App Store Connect."),
                     MessageType.Info,
                     true
                 );
@@ -52,6 +52,14 @@ namespace TalusCI.Editor
 
                         EditorGUILayout.LabelField($"{serializedProperty.displayName}:");
                         serializedProperty.stringValue = EditorGUILayout.TextField(serializedProperty.stringValue);
+                    }
+
+                    GUILayout.FlexibleSpace();
+
+                    GUI.backgroundColor = Color.green;
+                    if (GUILayout.Button("Reset to defaults", GUILayout.MinHeight(50)))
+                    {
+
                     }
 
                     if (EditorGUI.EndChangeCheck())
