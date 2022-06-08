@@ -37,15 +37,15 @@ namespace TalusCI.Editor
 
             string apiUrl = (isBatchMode)
                 ? CommandLineParser.GetArgument("-apiUrl")
-                : EditorPrefs.GetString(BackendDefinitions.BackendApiUrlPref);
+                : BackendSettingsHolder.instance.ApiUrl;
 
             string apiToken = (isBatchMode)
                 ? CommandLineParser.GetArgument("-apiKey")
-                : EditorPrefs.GetString(BackendDefinitions.BackendApiTokenPref);
+                : BackendSettingsHolder.instance.ApiToken;
 
             string appId = (isBatchMode)
                 ? CommandLineParser.GetArgument("-appId")
-                : EditorPrefs.GetString(BackendDefinitions.BackendAppIdPref);
+                : BackendSettingsHolder.instance.AppId;
 
             // create build when backend data fetched
             BackendApi api = new BackendApi(apiUrl, apiToken);
