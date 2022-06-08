@@ -25,7 +25,7 @@ namespace TalusCI.Editor
 
         // iOS build path.
         [SerializeField]
-        private string _BuildFolder = $"{ProjectFolder}/Builds/iOS/";
+        private string _BuildFolder = $"/Builds/iOS/";
         public string BuildFolder
         {
             get { return _BuildFolder; }
@@ -38,7 +38,7 @@ namespace TalusCI.Editor
 
         // ExportOptions.plist path, required by XCode for app-provisioning.
         [SerializeField]
-        private string _ExportOptionsPath = $"{ProjectFolder}/Builds/";
+        private string _ExportOptionsPath = $"/Builds/";
         public string ExportOptionsPath
         {
             get { return _ExportOptionsPath; }

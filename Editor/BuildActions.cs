@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 
 using UnityEditor;
@@ -55,15 +56,17 @@ namespace TalusCI.Editor
 
             UpdateProductSettings(app);
 
+            string buildPath = Path.Combine(CISettingsHolder.ProjectFolder, CISettingsHolder.instance.BuildFolder);
+            Debug.Log($"[TalusCI-Package] Build path: {buildPath}");
             BuildReport report = BuildPipeline.BuildPlayer(
                 GetActiveScenes(),
-                CISettingsHolder.instance.BuildFolder,
+                buildPath,
                 BuildTarget.iOS,
                 BuildOptions.CompressWithLz4HC
             );
 
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
-            Debug.Log($"[TalusCI-Package] Build path: {report.summary.outputPath}");
+            Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
 
             if (Application.isBatchMode)
             {

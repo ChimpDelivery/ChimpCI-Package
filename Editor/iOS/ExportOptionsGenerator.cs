@@ -51,15 +51,18 @@ namespace TalusCI.Editor.iOS
                 "</plist>"
             };
 
-            if (!Directory.Exists(settingsHolder.ExportOptionsPath))
+            var exportOptionsRootPath = Path.Combine(CISettingsHolder.ProjectFolder, settingsHolder.ExportOptionsPath);
+            Debug.Log($"[TalusCI-Package] Export Options Root Path: {exportOptionsRootPath}");
+
+            if (!Directory.Exists(exportOptionsRootPath))
             {
-                Directory.CreateDirectory(settingsHolder.ExportOptionsPath);
+                Directory.CreateDirectory(exportOptionsRootPath);
             }
 
-            string exportOptionsPath = Path.Combine(settingsHolder.ExportOptionsPath, "exportOptions.plist");
+            string exportOptionsPath = Path.Combine(exportOptionsRootPath, "exportOptions.plist");
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
 
-            Debug.Log($"[Unity-CI-Package] exportOptions.plist created at {exportOptionsPath}");
+            Debug.Log($"[Unity-CI-Package] exportOptions.plist created at {exportOptionsRootPath}");
         }
     }
 }
