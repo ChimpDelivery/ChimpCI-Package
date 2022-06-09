@@ -13,6 +13,12 @@ namespace TalusCI.Editor
     {
         private SerializedObject _SerializedObject;
 
+        [SettingsProvider]
+        public static SettingsProvider CreateCISettingsProvider()
+        {
+            return new CISettingsProvider(CISettingsHolder.ProviderPath, SettingsScope.Project);
+        }
+
         public CISettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
             : base(path, scopes, keywords)
         { }
@@ -79,16 +85,6 @@ namespace TalusCI.Editor
                 }
             }
             EditorGUILayout.EndVertical();
-        }
-
-        [SettingsProvider]
-        public static SettingsProvider CreateCISettingsProvider()
-        {
-            return new CISettingsProvider(
-                CISettingsHolder.ProviderPath,
-                SettingsScope.Project
-            );
-
         }
     }
 }
