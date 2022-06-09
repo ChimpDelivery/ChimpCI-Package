@@ -5,12 +5,12 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using TalusBackendData.Editor.Interfaces;
+
 namespace TalusCI.Editor
 {
-    internal class CISettingsProvider : SettingsProvider
+    internal class CISettingsProvider : BaseSettingsProvider<CISettingsProvider>
     {
-        private bool _UnlockPanel = true;
-
         private SerializedObject _SerializedObject;
 
         public CISettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
@@ -19,6 +19,8 @@ namespace TalusCI.Editor
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
         {
+            base.OnActivate(searchContext, rootElement);
+
             CISettingsHolder.instance.SaveSettings();
 
             _SerializedObject = new SerializedObject(CISettingsHolder.instance);
@@ -46,9 +48,8 @@ namespace TalusCI.Editor
                 GUILayout.Space(8);
                 EditorGUI.BeginChangeCheck();
 
-                GUI.enabled = !_UnlockPanel;
+                GUI.enabled = !UnlockPanel;
                 {
-
                     SerializedProperty serializedProperty = _SerializedObject.GetIterator();
                     while (serializedProperty.NextVisible(true))
                     {
@@ -60,35 +61,25 @@ namespace TalusCI.Editor
                         );
                     }
 
-                    GUILayout.FlexibleSpace();
-
-                    GUI.enabled = true;
-                    GUI.backgroundColor = Color.yellow;
-
-                    string lockButtonName = (_UnlockPanel) ? "Unlock Settings" : "Lock Settings";
-                    if (GUILayout.Button(lockButtonName, GUILayout.MinHeight(50)))
-                    {
-                        _UnlockPanel = !_UnlockPanel;
-                    }
-
-                    GUI.enabled = !_UnlockPanel;
+                    GUI.enabled = !UnlockPanel;
                     GUI.backgroundColor = Color.green;
                     if (GUILayout.Button("Reset to defaults", GUILayout.MinHeight(50)))
                     {
 
                     }
+                }
 
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        _SerializedObject.ApplyModifiedProperties();
-                        CISettingsHolder.instance.SaveSettings();
-                    }
+                // unlock button
+                base.OnGUI(searchContext);
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    _SerializedObject.ApplyModifiedProperties();
+                    CISettingsHolder.instance.SaveSettings();
                 }
             }
             EditorGUILayout.EndVertical();
         }
-
-        public static GUIContent GetLabel(string name) => EditorGUIUtility.TrTextContent(name);
 
         [SettingsProvider]
         public static SettingsProvider CreateCISettingsProvider()
