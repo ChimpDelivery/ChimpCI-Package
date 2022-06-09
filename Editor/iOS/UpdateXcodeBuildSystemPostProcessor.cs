@@ -9,8 +9,10 @@ using PlistDocument = UnityEditor.iOS.Xcode.PlistDocument;
 
 namespace TalusCI.Editor.iOS
 {
-    // http://www.kittehface.com/2021/09/fixing-invalid-frameworks-folder-in-ios.html
-    // https://forum.unity.com/threads/2019-3-validation-on-upload-to-store-gives-unityframework-framework-contains-disallowed-file.751112/#post-6959378
+    /// <summary>
+    ///     http://www.kittehface.com/2021/09/fixing-invalid-frameworks-folder-in-ios.html
+    ///     https://forum.unity.com/threads/2019-3-validation-on-upload-to-store-gives-unityframework-framework-contains-disallowed-file.751112/#post-6959378
+    /// </summary>
     internal class UpdateXcodeBuildSystemPostProcessor
     {
         [PostProcessBuild(9999)]

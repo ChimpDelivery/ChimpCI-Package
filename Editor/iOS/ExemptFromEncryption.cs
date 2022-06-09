@@ -9,8 +9,8 @@ namespace TalusCI.Editor.iOS
 {
     internal class ExemptFromEncryption
     {
-        private readonly static string _EncryptionKey = "ITSAppUsesNonExemptEncryption";
-        private readonly static string _EncryptionValue = "false";
+        private const string _EncryptionKey = "ITSAppUsesNonExemptEncryption";
+        private const string _EncryptionValue = "false";
 
         [PostProcessBuild]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
