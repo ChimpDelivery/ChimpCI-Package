@@ -63,8 +63,9 @@ namespace TalusCI.Editor
 
             string buildPath = Path.Combine(CISettingsHolder.ProjectFolder, CISettingsHolder.instance.BuildFolder);
             Debug.Log($"[TalusCI-Package] Build path: {buildPath}");
+
             BuildReport report = BuildPipeline.BuildPlayer(
-                GetActiveScenes(),
+                GetScenes(),
                 buildPath,
                 BuildTarget.iOS,
                 BuildOptions.CompressWithLz4HC
@@ -73,10 +74,13 @@ namespace TalusCI.Editor
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
 
-            if (Application.isBatchMode)
+            // batch mode clean-up
+            if (!Application.isBatchMode)
             {
-                EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
+                return;
             }
+
+            EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
         }
 
         private static void UpdateProductSettings(AppModel app)
@@ -98,9 +102,6 @@ namespace TalusCI.Editor
             AssetDatabase.Refresh();
         }
 
-        private static string[] GetActiveScenes()
-        {
-            return (from t in EditorBuildSettings.scenes where t.enabled select t.path).ToArray();
-        }
+        private static string[] GetScenes() => (from t in EditorBuildSettings.scenes select t.path).ToArray();
     }
 }
