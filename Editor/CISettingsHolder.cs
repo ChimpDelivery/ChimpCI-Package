@@ -18,17 +18,14 @@ namespace TalusCI.Editor
 
         // Unity3D project absolute path.
         private static readonly string _ProjectFolder = System.IO.Directory.GetCurrentDirectory();
-        public static string ProjectFolder
-        {
-            get { return _ProjectFolder; }
-        }
+        public static string ProjectFolder => _ProjectFolder;
 
-        // iOS build path.
+        // iOS default build path, sync this path with Jenkinsfile
         [SerializeField]
         private string _BuildFolder = $"/Builds/iOS/";
         public string BuildFolder
         {
-            get { return _BuildFolder; }
+            get => _BuildFolder;
             set
             {
                 _BuildFolder = value;
@@ -36,12 +33,12 @@ namespace TalusCI.Editor
             }
         }
 
-        // ExportOptions.plist path, required by XCode for app-provisioning.
+        // {ExportOptions.plist} path, required by XCode for app-provisioning
         [SerializeField]
         private string _ExportOptionsPath = $"/Builds/";
         public string ExportOptionsPath
         {
-            get { return _ExportOptionsPath; }
+            get => _ExportOptionsPath;
             set
             {
                 _ExportOptionsPath = value;
@@ -49,12 +46,12 @@ namespace TalusCI.Editor
             }
         }
 
-        // AppStoreConnect - Provisioning Profile.
+        // {App Store Connect} - Provisioning Profile
         [SerializeField]
         private string _ProvisioningProfileName = "EmreMac-Profile";
         public string ProvisioningProfileName
         {
-            get { return _ProvisioningProfileName; }
+            get => _ProvisioningProfileName;
             set
             {
                 _ProvisioningProfileName = value;
@@ -62,12 +59,12 @@ namespace TalusCI.Editor
             }
         }
 
-        // AppStoreConnect - Signing Certificate.
+        // {App Store Connect} - Signing Certificate
         [SerializeField]
         private string _SigningCertificateName = "iPhone Distribution";
         public string SigningCertificateName
         {
-            get { return _SigningCertificateName; }
+            get => _SigningCertificateName;
             set
             {
                 _SigningCertificateName = value;
@@ -75,12 +72,12 @@ namespace TalusCI.Editor
             }
         }
 
-        // AppStoreConnect - Team ID.
+        // {App Store Connect} - Team ID
         [SerializeField]
         private string _TeamID = "R6857T9FN6";
         public string TeamID
         {
-            get { return _TeamID; }
+            get => _TeamID;
             set
             {
                 _TeamID = value;
@@ -88,9 +85,6 @@ namespace TalusCI.Editor
             }
         }
 
-        public void SaveSettings()
-        {
-            Save(true);
-        }
+        public void SaveSettings() => Save(true);
     }
 }
