@@ -14,13 +14,13 @@ namespace TalusCI.Editor
 {
     public static class BuildActions
     {
-        [MenuItem("TalusKit/Manuel Build/iOS Development", priority = 11000)]
+        [MenuItem("TalusBackend/Manuel Build/iOS Development", priority = 11000)]
         public static void IOSDevelopment()
         {
             PrepareIOSBuild(true);
         }
 
-        [MenuItem("TalusKit/Manuel Build/iOS Release", priority = 11001)]
+        [MenuItem("TalusBackend/Manuel Build/iOS Release", priority = 11001)]
         public static void IOSRelease()
         {
             PrepareIOSBuild(false);
