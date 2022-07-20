@@ -4,19 +4,19 @@ namespace TalusCI.Editor
 {
     public static class BuildActions
     {
-        [MenuItem("TalusBackend/Manuel Build/iOS Development", priority = 11000)]
+        [MenuItem("TalusBackend/Manuel Build/iOS/Development", priority = 11000)]
         public static void IOSDevelopment()
         {
             BuildCreator buildInfo = new BuildCreator
             {
-                IsDebugBuild = true,
+                IsDevBuild = true,
                 TargetPlatform = BuildTarget.iOS,
                 TargetGroup = BuildTargetGroup.iOS
             };
             buildInfo.PrepareBuild();
         }
 
-        [MenuItem("TalusBackend/Manuel Build/iOS Release", priority = 11001)]
+        [MenuItem("TalusBackend/Manuel Build/iOS/Release", priority = 11001)]
         public static void IOSRelease()
         {
             BuildCreator buildInfo = new BuildCreator
@@ -27,9 +27,11 @@ namespace TalusCI.Editor
             buildInfo.PrepareBuild();
         }
 
-        [MenuItem("TalusBackend/Manuel Build/Android Development", priority = 11002)]
+        [MenuItem("TalusBackend/Manuel Build/Android/Development", priority = 11002)]
         public static void AndroidDevelopment()
         {
+            EditorUserBuildSettings.buildAppBundle = true;
+
             BuildCreator buildInfo = new BuildCreator
             {
                 TargetPlatform = BuildTarget.Android,
@@ -38,12 +40,14 @@ namespace TalusCI.Editor
             buildInfo.PrepareBuild();
         }
 
-        [MenuItem("TalusBackend/Manuel Build/Android Release", priority = 11002)]
+        [MenuItem("TalusBackend/Manuel Build/Android/Release", priority = 11002)]
         public static void AndroidRelease()
         {
+            EditorUserBuildSettings.buildAppBundle = true;
+
             BuildCreator buildInfo = new BuildCreator
             {
-                IsDebugBuild = false,
+                IsDevBuild = false,
                 TargetPlatform = BuildTarget.Android,
                 TargetGroup = BuildTargetGroup.Android
             };

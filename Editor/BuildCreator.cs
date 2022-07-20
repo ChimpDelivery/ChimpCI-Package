@@ -17,7 +17,7 @@ namespace TalusCI.Editor
     {
         public string[] Scenes => (from t in EditorBuildSettings.scenes select t.path).ToArray();
 
-        public bool IsDebugBuild;
+        public bool IsDevBuild;
 
         public BuildTarget TargetPlatform;
         public BuildTargetGroup TargetGroup;
@@ -25,7 +25,7 @@ namespace TalusCI.Editor
 
         public void PrepareBuild()
         {
-            EditorUserBuildSettings.development = IsDebugBuild;
+            EditorUserBuildSettings.development = IsDevBuild;
 
             bool isBatchMode = Application.isBatchMode;
 
@@ -53,16 +53,31 @@ namespace TalusCI.Editor
             api.GetAppInfo(appId, CreateBuild);
         }
 
+        private string GetBuildPath()
+        {
+            // ios expects folder
+            // android expect file
+
+            switch (TargetPlatform)
+            {
+                case BuildTarget.iOS:
+                    return Path.Combine(CISettingsHolder.ProjectFolder, CISettingsHolder.instance.BuildFolder);
+                case BuildTarget.Android:
+                    return Path.Combine(CISettingsHolder.ProjectFolder, Path.GetFileName(CISettingsHolder.instance.BuildFolder));
+            }
+
+            return CISettingsHolder.ProjectFolder + "/Builds";
+        }
+
         private void CreateBuild(AppModel app)
         {
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
 
             UpdateProductSettings(app);
 
-            string buildPath = Path.Combine(CISettingsHolder.ProjectFolder, CISettingsHolder.instance.BuildFolder);
-            Debug.Log($"[TalusCI-Package] Build path: {buildPath}");
+            Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
 
-            BuildReport report = BuildPipeline.BuildPlayer(Scenes, buildPath, TargetPlatform, Options);
+            BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
 
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
