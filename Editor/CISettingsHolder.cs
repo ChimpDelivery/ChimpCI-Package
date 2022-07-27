@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TalusCI.Editor
 {
     /// <summary>
-    ///     CISettingsHolder provides information about iOS building.
+    ///     CISettingsHolder provides information about mobile building.
     /// </summary>
     [FilePath("ProjectSettings/TalusCI.asset", FilePathAttribute.Location.ProjectFolder)]
     public class CISettingsHolder : ScriptableSingleton<CISettingsHolder>
@@ -13,7 +13,7 @@ namespace TalusCI.Editor
         public string Path => GetFilePath();
 
         // Unity3D - CI Layout Panel Path
-        private const string _ProviderPath = "Talus Studio/XCode Layout";
+        private const string _ProviderPath = "Talus Studio/Platform Layout";
         public static string ProviderPath => _ProviderPath;
 
         // Unity3D project absolute path.
