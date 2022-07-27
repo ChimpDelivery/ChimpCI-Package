@@ -1,3 +1,6 @@
+using UnityEngine;
+
+using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build;
@@ -9,8 +12,9 @@ public class AssetCooker : IPreprocessBuildWithReport
 
     public void OnPreprocessBuild(BuildReport report)
     {
-        AddressableAssetSettings.CleanPlayerContent(AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilder);
+        Debug.Log($"[TalusCI-Package] Addressables content is cooking...");
 
+        AddressableAssetSettings.CleanPlayerContent(AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilder);
         AddressableAssetSettings.BuildPlayerContent();
     }
 }
