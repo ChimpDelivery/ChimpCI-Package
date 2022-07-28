@@ -114,7 +114,10 @@ namespace TalusCI.Editor
             return TargetPlatform switch
             {
                 BuildTarget.iOS => Path.Combine(iOSSettingsHolder.ProjectFolder, iOSSettingsHolder.instance.BuildFolder),
-                BuildTarget.Android => Path.Combine(Path.Combine(AndroidSettingsHolder.ProjectFolder, AndroidSettingsHolder.instance.BuildFolder), Path.GetFileName(AndroidSettingsHolder.instance.BuildFileName)),
+                BuildTarget.Android => Path.Combine(
+                    Path.Combine(AndroidSettingsHolder.ProjectFolder, AndroidSettingsHolder.instance.BuildFolder),
+                    Path.GetFileName(AndroidSettingsHolder.instance.BuildFileName)
+                ),
                 _ => "/Builds",
             };
         }
