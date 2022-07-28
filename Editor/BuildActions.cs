@@ -7,7 +7,7 @@ namespace TalusCI.Editor
         [MenuItem("TalusBackend/Manuel Build/iOS/Development", priority = 11000)]
         public static void IOSDevelopment()
         {
-            BuildCreator buildInfo = new BuildCreator
+            BuildCreator buildInfo = new()
             {
                 IsDevBuild = true,
                 TargetPlatform = BuildTarget.iOS,
@@ -19,7 +19,7 @@ namespace TalusCI.Editor
         [MenuItem("TalusBackend/Manuel Build/iOS/Release", priority = 11001)]
         public static void IOSRelease()
         {
-            BuildCreator buildInfo = new BuildCreator
+            BuildCreator buildInfo = new()
             {
                 TargetPlatform = BuildTarget.iOS,
                 TargetGroup = BuildTargetGroup.iOS
@@ -32,7 +32,7 @@ namespace TalusCI.Editor
         {
             EditorUserBuildSettings.buildAppBundle = true;
 
-            BuildCreator buildInfo = new BuildCreator
+            BuildCreator buildInfo = new()
             {
                 TargetPlatform = BuildTarget.Android,
                 TargetGroup = BuildTargetGroup.Android
@@ -45,7 +45,7 @@ namespace TalusCI.Editor
         {
             EditorUserBuildSettings.buildAppBundle = true;
 
-            BuildCreator buildInfo = new BuildCreator
+            BuildCreator buildInfo = new()
             {
                 IsDevBuild = false,
                 TargetPlatform = BuildTarget.Android,

@@ -62,7 +62,7 @@ namespace TalusCI.Editor.iOS
             string exportOptionsPath = Path.Combine(exportOptionsRootPath, "exportOptions.plist");
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
 
-            Debug.Log($"[Unity-CI-Package] exportOptions.plist created at {exportOptionsRootPath}");
+            Debug.Log($"[TalusCI-Package] exportOptions.plist created at {exportOptionsRootPath}");
         }
     }
 }

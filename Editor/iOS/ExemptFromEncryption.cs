@@ -18,7 +18,7 @@ namespace TalusCI.Editor.iOS
             if (buildTarget != BuildTarget.iOS && buildTarget != BuildTarget.tvOS) { return; }
 
             string plistPath = Path.Combine(pathToBuild, "Info.plist");
-            Debug.Log($"[Unity-CI-Package] Info.plist path: {plistPath}");
+            Debug.Log($"[TalusCI-Package] Info.plist path: {plistPath}");
 
             var plist = new PlistDocument();
             plist.ReadFromFile(plistPath);
