@@ -65,6 +65,48 @@ namespace TalusCI.Editor
             api.GetAppInfo(appId, CreateBuild);
         }
 
+        private void CreateBuild(AppModel app)
+        {
+            BuildAddressables();
+
+            Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
+            Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
+            Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
+
+            UpdateProductSettings(app);
+
+            BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
+            Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
+            Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
+
+            // batch mode clean-up
+            if (!Application.isBatchMode)
+            {
+                return;
+            }
+
+            EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
+        }
+
+        private void UpdateProductSettings(AppModel app)
+        {
+            PlayerSettings.SplashScreen.showUnityLogo = false;
+            PlayerSettings.SetScriptingBackend(TargetGroup, ScriptingImplementation.IL2CPP);
+
+            if (app != null)
+            {
+                PlayerSettings.SetApplicationIdentifier(TargetGroup, app.app_bundle);
+                PlayerSettings.productName = app.app_name;
+            }
+            else
+            {
+                Debug.LogError($"[TalusCI-Package] AppModel data is null! Product Settings couldn't updated...");
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
         // ios expects folder
         // android expect file
         private string GetBuildPath()
@@ -77,6 +119,7 @@ namespace TalusCI.Editor
             };
         }
 
+#region ADDRESSABLES_CONTENT_BUILD
         private void GetSettingsObject(string settingsAsset)
         {
             _settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(settingsAsset) as AddressableAssetSettings;
@@ -145,47 +188,7 @@ namespace TalusCI.Editor
 
             return BuildAddressableContent();
         }
+#endregion
 
-        private void CreateBuild(AppModel app)
-        {
-            BuildAddressables();
-
-            Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
-            Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
-            Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
-
-            UpdateProductSettings(app);
-
-            BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
-            Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
-            Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
-
-            // batch mode clean-up
-            if (!Application.isBatchMode)
-            {
-                return;
-            }
-
-            EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
-        }
-
-        private void UpdateProductSettings(AppModel app)
-        {
-            PlayerSettings.SplashScreen.showUnityLogo = false;
-            PlayerSettings.SetScriptingBackend(TargetGroup, ScriptingImplementation.IL2CPP);
-
-            if (app != null)
-            {
-                PlayerSettings.SetApplicationIdentifier(TargetGroup, app.app_bundle);
-                PlayerSettings.productName = app.app_name;
-            }
-            else
-            {
-                Debug.LogError($"[TalusCI-Package] AppModel data is null! Product Settings couldn't updated...");
-            }
-
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
     }
 }
