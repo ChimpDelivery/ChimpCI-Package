@@ -36,7 +36,7 @@ namespace TalusCI.Editor
 
         // Android default build path, sync this path with Jenkinsfile
         [SerializeField]
-        private string _BuildFileName = $"Output";
+        private string _BuildFileName = $"Build";
         public string BuildFileName
         {
             get => _BuildFileName;
