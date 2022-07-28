@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 
@@ -29,7 +28,15 @@ namespace TalusCI.Editor
         public bool IsDevBuild;
         public BuildTarget TargetPlatform;
         public BuildTargetGroup TargetGroup;
-        public BuildOptions Options = BuildOptions.CompressWithLz4HC;
+        public BuildOptions Options;
+
+        public BuildCreator(bool isDevBuild, BuildTarget targetPlatform, BuildTargetGroup targetGroup, BuildOptions options = BuildOptions.CompressWithLz4HC)
+        {
+            IsDevBuild = isDevBuild;
+            TargetPlatform = targetPlatform;
+            TargetGroup = targetGroup;
+            Options = options;
+        }
 
         public void PrepareBuild()
         {
@@ -44,16 +51,13 @@ namespace TalusCI.Editor
                 return;
             }
 
-            string apiUrl = (isBatchMode)
-                ? CommandLineParser.GetArgument("-apiUrl")
+            string apiUrl = (isBatchMode) ? CommandLineParser.GetArgument("-apiUrl")
                 : BackendSettingsHolder.instance.ApiUrl;
 
-            string apiToken = (isBatchMode)
-                ? CommandLineParser.GetArgument("-apiKey")
+            string apiToken = (isBatchMode) ? CommandLineParser.GetArgument("-apiKey")
                 : BackendSettingsHolder.instance.ApiToken;
 
-            string appId = (isBatchMode)
-                ? CommandLineParser.GetArgument("-appId")
+            string appId = (isBatchMode) ? CommandLineParser.GetArgument("-appId")
                 : BackendSettingsHolder.instance.AppId;
 
             // create build when backend data fetched
@@ -75,9 +79,6 @@ namespace TalusCI.Editor
 
         private void GetSettingsObject(string settingsAsset)
         {
-            // This step is optional, you can also use the default settings:
-            //settings = AddressableAssetSettingsDefaultObject.Settings;
-
             _settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(settingsAsset) as AddressableAssetSettings;
 
             if (_settings == null)
@@ -89,15 +90,14 @@ namespace TalusCI.Editor
         private void SetProfile(string profile)
         {
             string profileId = _settings.profileSettings.GetProfileId(profile);
-            if (String.IsNullOrEmpty(profileId))
+            if (string.IsNullOrEmpty(profileId))
             {
-                Debug.LogWarning($"[TalusCI-Package] Couldn't find a profile named, {profile}, using current profile instead.");
+                Debug.LogError($"[TalusCI-Package] Couldn't find a profile named, {profile}, using current profile instead.");
+                return;
             }
-            else
-            {
-                _settings.activeProfileId = profileId;
-                Debug.Log($"[TalusCI-Package] Active profile id: {profileId}");
-            }
+
+            _settings.activeProfileId = profileId;
+            Debug.Log($"[TalusCI-Package] Active profile id: {profileId}");
         }
 
         private void SetBuilder(IDataBuilder builder)
@@ -108,13 +108,13 @@ namespace TalusCI.Editor
             {
                 Debug.Log($"[TalusCI-Package] Addressables builder index: {index}");
                 _settings.ActivePlayerDataBuilderIndex = index;
+
+                return;
             }
-            else
-            {
-                Debug.LogWarning($"[TalusCI-Package] {builder} must be added to the " +
-                    $"DataBuilders list before it can be made " +
-                    $"active. Using last run builder instead.");
-            }
+
+            Debug.LogError($"[TalusCI-Package] {builder} must be added to the " +
+                $"DataBuilders list before it can be made " +
+                $"active. Using last run builder instead.");
         }
 
         private bool BuildAddressableContent()
@@ -126,6 +126,7 @@ namespace TalusCI.Editor
             {
                 Debug.LogError($"[TalusCI-Package] Addressables build error encountered: {result.Error}");
             }
+
             return success;
         }
 
@@ -147,13 +148,9 @@ namespace TalusCI.Editor
 
         private void CreateBuild(AppModel app)
         {
-            bool contentBuildSucceeded = BuildAddressables();
-            if (!contentBuildSucceeded)
-            {
-                return;
-            }
+            BuildAddressables();
 
-            Debug.Log("[TalusCI-Package] Addressable content builded succesfully!");
+            Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
             Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
 
