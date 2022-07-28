@@ -75,6 +75,12 @@ namespace TalusCI.Editor
 
             UpdateProductSettings(app);
 
+            if (TargetPlatform == BuildTarget.Android)
+            {
+                PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
+                PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
+            }
+
             BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
