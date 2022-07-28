@@ -1,24 +1,32 @@
+using System;
 using System.IO;
 using System.Linq;
 
 using UnityEngine;
-
 using UnityEditor;
 using UnityEditor.Build.Reporting;
+using UnityEditor.AddressableAssets.Build;
+using UnityEditor.AddressableAssets.Settings;
 
 using TalusBackendData.Editor.Models;
 using TalusBackendData.Editor;
-
 using TalusCI.Editor.Utility;
 
 namespace TalusCI.Editor
 {
     public class BuildCreator
     {
+        // addressables
+        public static string BuildScript = "Assets/AddressableAssetsData/DataBuilders/BuildScriptPackedMode.asset";
+        public static string SettingsAsset = "Assets/AddressableAssetsData/AddressableAssetSettings.asset";
+        public static string ProfileName = "Default";
+        private static AddressableAssetSettings _settings;
+
+        // included scenes
         public string[] Scenes => (from t in EditorBuildSettings.scenes select t.path).ToArray();
 
+        // build properties
         public bool IsDevBuild;
-
         public BuildTarget TargetPlatform;
         public BuildTargetGroup TargetGroup;
         public BuildOptions Options = BuildOptions.CompressWithLz4HC;
@@ -49,36 +57,109 @@ namespace TalusCI.Editor
                 : BackendSettingsHolder.instance.AppId;
 
             // create build when backend data fetched
-            BackendApi api = new BackendApi(apiUrl, apiToken);
+            BackendApi api = new(apiUrl, apiToken);
             api.GetAppInfo(appId, CreateBuild);
         }
 
+        // ios expects folder
+        // android expect file
         private string GetBuildPath()
         {
-            // ios expects folder
-            // android expect file
-
-            switch (TargetPlatform)
+            return TargetPlatform switch
             {
-                case BuildTarget.iOS:
-                    return Path.Combine(CISettingsHolder.ProjectFolder, CISettingsHolder.instance.BuildFolder);
-                case BuildTarget.Android:
-                    return Path.Combine(CISettingsHolder.ProjectFolder, Path.GetFileName(CISettingsHolder.instance.BuildFolder));
+                BuildTarget.iOS => Path.Combine(CISettingsHolder.ProjectFolder, CISettingsHolder.instance.BuildFolder),
+                BuildTarget.Android => Path.Combine(CISettingsHolder.ProjectFolder, Path.GetFileName(CISettingsHolder.instance.BuildFolder)),
+                _ => CISettingsHolder.ProjectFolder + "/Builds",
+            };
+        }
+
+        private void GetSettingsObject(string settingsAsset)
+        {
+            // This step is optional, you can also use the default settings:
+            //settings = AddressableAssetSettingsDefaultObject.Settings;
+
+            _settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(settingsAsset) as AddressableAssetSettings;
+
+            if (_settings == null)
+            {
+                Debug.LogError($"[TalusCI-Package] {settingsAsset} couldn't be found or isn't a settings object.");
+            }
+        }
+
+        private void SetProfile(string profile)
+        {
+            string profileId = _settings.profileSettings.GetProfileId(profile);
+            if (String.IsNullOrEmpty(profileId))
+            {
+                Debug.LogWarning($"[TalusCI-Package] Couldn't find a profile named, {profile}, using current profile instead.");
+            }
+            else
+            {
+                _settings.activeProfileId = profileId;
+                Debug.Log($"[TalusCI-Package] Active profile id: {profileId}");
+            }
+        }
+
+        private void SetBuilder(IDataBuilder builder)
+        {
+            int index = _settings.DataBuilders.IndexOf((ScriptableObject) builder);
+
+            if (index > 0)
+            {
+                Debug.Log($"[TalusCI-Package] Addressables builder index: {index}");
+                _settings.ActivePlayerDataBuilderIndex = index;
+            }
+            else
+            {
+                Debug.LogWarning($"[TalusCI-Package] {builder} must be added to the " +
+                    $"DataBuilders list before it can be made " +
+                    $"active. Using last run builder instead.");
+            }
+        }
+
+        private bool BuildAddressableContent()
+        {
+            AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
+            bool success = string.IsNullOrEmpty(result.Error);
+
+            if (!success)
+            {
+                Debug.LogError($"[TalusCI-Package] Addressables build error encountered: {result.Error}");
+            }
+            return success;
+        }
+
+        public bool BuildAddressables()
+        {
+            GetSettingsObject(SettingsAsset);
+            SetProfile(ProfileName);
+
+            if (AssetDatabase.LoadAssetAtPath<ScriptableObject>(BuildScript) is not IDataBuilder builderScript)
+            {
+                Debug.LogError($"[TalusCI-Package] {BuildScript} couldn't be found or isn't a build script.");
+                return false;
             }
 
-            return CISettingsHolder.ProjectFolder + "/Builds";
+            SetBuilder(builderScript);
+
+            return BuildAddressableContent();
         }
 
         private void CreateBuild(AppModel app)
         {
+            bool contentBuildSucceeded = BuildAddressables();
+            if (!contentBuildSucceeded)
+            {
+                return;
+            }
+
+            Debug.Log("[TalusCI-Package] Addressable content builded succesfully!");
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
+            Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
 
             UpdateProductSettings(app);
 
-            Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
-
             BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
-
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
 

@@ -2,7 +2,8 @@
     "name": "TalusCI.Editor",
     "rootNamespace": "",
     "references": [
-        "TalusBackendData.Editor"
+        "TalusBackendData.Editor",
+        "Unity.Addressables.Editor"
     ],
     "includePlatforms": [
         "Editor"
