@@ -1,4 +1,7 @@
 using UnityEditor;
+using UnityEngine;
+
+using TalusCI.Editor.Utility;
 
 namespace TalusCI.Editor
 {
@@ -34,6 +37,15 @@ namespace TalusCI.Editor
 
             BuildCreator buildInfo = new(false, BuildTarget.Android, BuildTargetGroup.Android);
             buildInfo.PrepareBuild();
+        }
+
+        public static void SetBuildVersion()
+        {
+            string bundleVersion = CommandLineParser.GetArgument("-bundleVersion");
+            PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
+            PlayerSettings.iOS.buildNumber = bundleVersion;
+
+            Debug.Log("[TalusCI-Package] Mobile bundle versions initialized.");
         }
     }
 }
