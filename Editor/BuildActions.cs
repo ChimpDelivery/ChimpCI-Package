@@ -2,7 +2,6 @@ using UnityEditor;
 using UnityEngine;
 
 using TalusCI.Editor.Utility;
-using UnityEditor.Build.Reporting;
 
 namespace TalusCI.Editor
 {
