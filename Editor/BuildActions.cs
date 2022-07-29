@@ -42,10 +42,12 @@ namespace TalusCI.Editor
         // using by Jenkins
         public static void SetBuildVersion()
         {
-            string applicationVersion = CommandLineParser.GetArgument("-buildVersion");
+            string appVersion = CommandLineParser.GetArgument("-buildVersion");
             string bundleVersion = CommandLineParser.GetArgument("-bundleVersion");
 
-            PlayerSettings.bundleVersion = applicationVersion;
+            Debug.Log($"[TalusCI-Package] App Version: {appVersion}, Bundle Version: {bundleVersion}");
+
+            PlayerSettings.bundleVersion = appVersion;
             PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
             PlayerSettings.iOS.buildNumber = bundleVersion;
 
