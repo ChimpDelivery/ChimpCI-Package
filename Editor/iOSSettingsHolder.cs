@@ -22,7 +22,7 @@ namespace TalusCI.Editor
 
         // iOS default build path, sync this path with Jenkinsfile
         [SerializeField]
-        private string _BuildFolder = $"/Builds/iOS/";
+        private string _BuildFolder = "Builds/iOS/";
         public string BuildFolder
         {
             get => _BuildFolder;
@@ -35,7 +35,7 @@ namespace TalusCI.Editor
 
         // {ExportOptions.plist} path, required by XCode for app-provisioning
         [SerializeField]
-        private string _ExportOptionsPath = $"/Builds/";
+        private string _ExportOptionsPath = "Builds/";
         public string ExportOptionsPath
         {
             get => _ExportOptionsPath;

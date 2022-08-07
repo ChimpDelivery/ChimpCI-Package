@@ -23,7 +23,7 @@ namespace TalusCI.Editor
 
         // Android default build path, sync this path with Jenkinsfile
         [SerializeField]
-        private string _BuildFolder = $"/Builds/Android/";
+        private string _BuildFolder = "Builds/Android/";
         public string BuildFolder
         {
             get => _BuildFolder;
@@ -36,7 +36,7 @@ namespace TalusCI.Editor
 
         // Android default build path, sync this path with Jenkinsfile
         [SerializeField]
-        private string _BuildFileName = $"Build.aab";
+        private string _BuildFileName = "Build.aab";
         public string BuildFileName
         {
             get => _BuildFileName;
