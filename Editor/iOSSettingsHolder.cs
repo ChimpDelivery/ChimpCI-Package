@@ -13,7 +13,7 @@ namespace TalusCI.Editor
         public string Path => GetFilePath();
 
         // Unity3D - CI Layout Panel Path
-        private const string _ProviderPath = "Talus Studio/iOS Layout";
+        private const string _ProviderPath = "Talus Studio/2. iOS Layout";
         public static string ProviderPath => _ProviderPath;
 
         // Unity3D project absolute path.

@@ -14,7 +14,7 @@ namespace TalusCI.Editor
         public string Path => GetFilePath();
 
         // Unity3D - CI Layout Panel Path
-        private const string _ProviderPath = "Talus Studio/Android Layout";
+        private const string _ProviderPath = "Talus Studio/3. Android Layout";
         public static string ProviderPath => _ProviderPath;
 
         // Unity3D project absolute path.
