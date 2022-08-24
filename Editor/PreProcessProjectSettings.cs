@@ -28,6 +28,8 @@ namespace TalusCI.Editor
 
         private void UpdateProductSettings(AppModel app)
         {
+            Debug.Log($"[TalusCI-Package] update product settings.");
+
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
 
