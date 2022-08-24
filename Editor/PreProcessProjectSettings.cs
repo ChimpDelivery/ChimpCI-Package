@@ -20,6 +20,8 @@ namespace TalusCI.Editor
 
         public void OnPreprocessBuild(BuildReport report)
         {
+            Debug.Log($"[TalusCI-Package] for target {report.summary.platform} at path {report.summary.outputPath}");
+
             BackendApi api = new(_ApiUrl, _ApiToken);
             api.GetAppInfo(_AppId, UpdateProductSettings);
         }
