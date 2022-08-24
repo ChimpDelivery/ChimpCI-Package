@@ -1,8 +1,6 @@
 using UnityEngine;
 
 using UnityEditor;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
 
 using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;
@@ -10,20 +8,21 @@ using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor
 {
-    public class PreProcessProjectSettings : IPreprocessBuildWithReport
+    public class PreProcessProjectSettings
     {
         private string _ApiUrl => (Application.isBatchMode) ? CommandLineParser.GetArgument("-apiUrl") : BackendSettingsHolder.instance.ApiUrl;
         private string _ApiToken = (Application.isBatchMode) ? CommandLineParser.GetArgument("-apiKey") : BackendSettingsHolder.instance.ApiToken;
         private string _AppId = (Application.isBatchMode) ? CommandLineParser.GetArgument("-appId") : BackendSettingsHolder.instance.AppId;
 
-        public int callbackOrder => 0;
-
-        public void OnPreprocessBuild(BuildReport report)
+        public void Run(System.Action onComplete = null)
         {
-            Debug.Log($"[TalusCI-Package] for target {report.summary.platform} at path {report.summary.outputPath}");
+            Debug.Log($"[TalusCI-Package] PreProcessProjectSettings::Run()");
 
             BackendApi api = new(_ApiUrl, _ApiToken);
-            api.GetAppInfo(_AppId, UpdateProductSettings);
+            api.GetAppInfo(_AppId, (app) => {
+                UpdateProductSettings(app);
+                onComplete?.Invoke();
+            });
         }
 
         private void UpdateProductSettings(AppModel app)
