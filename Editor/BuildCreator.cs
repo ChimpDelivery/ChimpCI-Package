@@ -47,7 +47,8 @@ namespace TalusCI.Editor
                 return;
             }
 
-            CreateBuild();
+            var preset = new PreProcessProjectSettings();
+            preset.Run(() => CreateBuild());
         }
 
         private void CreateBuild()
