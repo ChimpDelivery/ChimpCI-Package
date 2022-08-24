@@ -7,8 +7,6 @@ using UnityEditor.Build.Reporting;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 
-using TalusBackendData.Editor;
-using TalusBackendData.Editor.Models;
 using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor
@@ -42,79 +40,38 @@ namespace TalusCI.Editor
         {
             EditorUserBuildSettings.development = IsDevBuild;
 
-            bool isBatchMode = Application.isBatchMode;
-
-            if (!isBatchMode && !(EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS ||
+            if (!Application.isBatchMode && !(EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS ||
                 EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android))
             {
                 Debug.LogError("[TalusCI-Package] Build Target must be iOS/Android! Switch platform (File/Build Settings)");
                 return;
             }
 
-            string apiUrl = (isBatchMode) ? CommandLineParser.GetArgument("-apiUrl")
-                : BackendSettingsHolder.instance.ApiUrl;
-
-            string apiToken = (isBatchMode) ? CommandLineParser.GetArgument("-apiKey")
-                : BackendSettingsHolder.instance.ApiToken;
-
-            string appId = (isBatchMode) ? CommandLineParser.GetArgument("-appId")
-                : BackendSettingsHolder.instance.AppId;
-
-            // create build when backend data fetched
-            BackendApi api = new(apiUrl, apiToken);
-            api.GetAppInfo(appId, CreateBuild);
+            CreateBuild();
         }
 
-        private void CreateBuild(AppModel app)
+        private void CreateBuild()
         {
             BuildAddressables();
 
             Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
-            Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
-            Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
+            Debug.Log($"[TalusCI-Package] Define Symbols: { PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup) }");
+            Debug.Log($"[TalusCI-Package] Build path: { GetBuildPath() }");
 
-            UpdateProductSettings(app);
-
-            if (TargetPlatform == BuildTarget.Android)
-            {
-                PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
-                PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
-            }
+            UpdateKeyPass();
 
             BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
 
             // batch mode clean-up
-            if (!Application.isBatchMode)
+            if (Application.isBatchMode)
             {
-                return;
+                EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
             }
-
-            EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
         }
 
-        private void UpdateProductSettings(AppModel app)
-        {
-            PlayerSettings.SplashScreen.showUnityLogo = false;
-            PlayerSettings.SetScriptingBackend(TargetGroup, ScriptingImplementation.IL2CPP);
-
-            if (app != null)
-            {
-                PlayerSettings.SetApplicationIdentifier(TargetGroup, app.app_bundle);
-                PlayerSettings.productName = app.app_name;
-            }
-            else
-            {
-                Debug.LogError($"[TalusCI-Package] AppModel data is null! Product Settings couldn't updated...");
-            }
-
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
-
-        // ios expects folder
-        // android expect file
+        // ios expects folder, android expect file
         private string GetBuildPath()
         {
             return TargetPlatform switch
@@ -126,6 +83,15 @@ namespace TalusCI.Editor
                 ),
                 _ => "/Builds",
             };
+        }
+
+        private void UpdateKeyPass()
+        {
+            if (TargetPlatform == BuildTarget.Android)
+            {
+                PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
+                PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
+            }
         }
 
 #region ADDRESSABLES_CONTENT_BUILD
