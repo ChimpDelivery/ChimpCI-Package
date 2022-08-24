@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-using TalusCI.Editor.Utility;
+using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor
 {
@@ -51,9 +51,12 @@ namespace TalusCI.Editor
             PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
             PlayerSettings.iOS.buildNumber = bundleVersion;
 
-            EditorApplication.Exit(0);
-
             Debug.Log("[TalusCI-Package] Version settings initialized.");
+
+            if (Application.isBatchMode)
+            {
+                EditorApplication.Exit(0);
+            }
         }
     }
 }
