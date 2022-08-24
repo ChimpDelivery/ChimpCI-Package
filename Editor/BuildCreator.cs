@@ -7,6 +7,7 @@ using UnityEditor.Build.Reporting;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 
+using TalusBackendData.Editor.Models;
 using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor
@@ -34,6 +35,8 @@ namespace TalusCI.Editor
             TargetPlatform = targetPlatform;
             TargetGroup = targetGroup;
             Options = options;
+
+            PreProcessProjectSettings.OnComplete += CreateBuild;
         }
 
         public void PrepareBuild()
@@ -47,17 +50,16 @@ namespace TalusCI.Editor
                 return;
             }
 
-            var preset = new PreProcessProjectSettings();
-            preset.Run(() => CreateBuild());
+            PreProcessProjectSettings.Sync();
         }
 
-        private void CreateBuild()
+        private void CreateBuild(AppModel model)
         {
             BuildAddressables();
 
             Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
-            Debug.Log($"[TalusCI-Package] Define Symbols: { PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup) }");
-            Debug.Log($"[TalusCI-Package] Build path: { GetBuildPath() }");
+            Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
+            Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
 
             UpdateKeyPass();
 

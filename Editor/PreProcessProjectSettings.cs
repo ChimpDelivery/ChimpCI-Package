@@ -10,24 +10,34 @@ namespace TalusCI.Editor
 {
     public class PreProcessProjectSettings
     {
+        public static System.Action<AppModel> OnComplete = delegate { };
+
         private string _ApiUrl => (Application.isBatchMode) ? CommandLineParser.GetArgument("-apiUrl") : BackendSettingsHolder.instance.ApiUrl;
         private string _ApiToken = (Application.isBatchMode) ? CommandLineParser.GetArgument("-apiKey") : BackendSettingsHolder.instance.ApiToken;
         private string _AppId = (Application.isBatchMode) ? CommandLineParser.GetArgument("-appId") : BackendSettingsHolder.instance.AppId;
 
-        public void Run(System.Action onComplete = null)
+        [MenuItem("TalusBackend/Sync Project Settings", priority = 12000)]
+        public static void Sync()
+        {
+            new PreProcessProjectSettings().SyncSettings();
+        }
+
+        private void SyncSettings()
         {
             Debug.Log($"[TalusCI-Package] PreProcessProjectSettings::Run()");
 
             BackendApi api = new(_ApiUrl, _ApiToken);
-            api.GetAppInfo(_AppId, (app) => {
+            api.GetAppInfo(_AppId, (app) =>
+            {
                 UpdateProductSettings(app);
-                onComplete?.Invoke();
+
+                OnComplete(app);
             });
         }
 
         private void UpdateProductSettings(AppModel app)
         {
-            Debug.Log($"[TalusCI-Package] update product settings.");
+            Debug.Log($"[TalusCI-Package] update product settings...");
 
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
