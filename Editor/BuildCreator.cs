@@ -7,9 +7,9 @@ using UnityEditor.Build.Reporting;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 
-using TalusBackendData.Editor.Models;
 using TalusBackendData.Editor;
-using TalusCI.Editor.Utility;
+using TalusBackendData.Editor.Models;
+using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor
 {
