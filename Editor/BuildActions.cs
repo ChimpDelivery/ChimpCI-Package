@@ -44,7 +44,6 @@ namespace TalusCI.Editor
         {
             string appVersion = CommandLineParser.GetArgument("-buildVersion");
             string bundleVersion = CommandLineParser.GetArgument("-bundleVersion");
-
             Debug.Log($"[TalusCI-Package] App Version: {appVersion}, Bundle Version: {bundleVersion}");
 
             PlayerSettings.bundleVersion = appVersion;
