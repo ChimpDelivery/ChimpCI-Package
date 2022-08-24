@@ -51,9 +51,12 @@ namespace TalusCI.Editor
             PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
             PlayerSettings.iOS.buildNumber = bundleVersion;
 
-            EditorApplication.Exit(0);
-
             Debug.Log("[TalusCI-Package] Version settings initialized.");
+
+            if (Application.isBatchMode)
+            {
+                EditorApplication.Exit(0);
+            }
         }
     }
 }
