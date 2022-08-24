@@ -10,7 +10,7 @@ namespace TalusCI.Editor
 {
     public class PreProcessProjectSettings
     {
-        public static System.Action<AppModel> OnComplete = delegate { };
+        public static System.Action<AppModel> OnSyncComplete = delegate { };
 
         private string _ApiUrl => (Application.isBatchMode) ? CommandLineParser.GetArgument("-apiUrl") : BackendSettingsHolder.instance.ApiUrl;
         private string _ApiToken = (Application.isBatchMode) ? CommandLineParser.GetArgument("-apiKey") : BackendSettingsHolder.instance.ApiToken;
@@ -24,14 +24,14 @@ namespace TalusCI.Editor
 
         private void SyncSettings()
         {
-            Debug.Log($"[TalusCI-Package] PreProcessProjectSettings::Run()");
+            Debug.Log($"[TalusCI-Package] PreProcessProjectSettings::Sync()");
 
             BackendApi api = new(_ApiUrl, _ApiToken);
             api.GetAppInfo(_AppId, (app) =>
             {
                 UpdateProductSettings(app);
 
-                OnComplete(app);
+                OnSyncComplete(app);
             });
         }
 

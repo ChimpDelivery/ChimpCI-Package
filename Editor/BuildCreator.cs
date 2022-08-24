@@ -36,7 +36,7 @@ namespace TalusCI.Editor
             TargetGroup = targetGroup;
             Options = options;
 
-            PreProcessProjectSettings.OnComplete += CreateBuild;
+            PreProcessProjectSettings.OnSyncComplete += CreateBuild;
         }
 
         public void PrepareBuild()
@@ -55,11 +55,13 @@ namespace TalusCI.Editor
 
         private void CreateBuild(AppModel model)
         {
-            BuildAddressables();
-
-            Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
             Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
+
+            if (BuildAddressables())
+            {
+                Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
+            }
 
             UpdateKeyPass();
 
