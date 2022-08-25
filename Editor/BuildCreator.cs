@@ -4,9 +4,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
+
+#if ENABLE_ADDRESSABLES
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
+#endif
 
+using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;
 using TalusBackendData.Editor.Utility;
 
@@ -14,12 +18,6 @@ namespace TalusCI.Editor
 {
     public class BuildCreator
     {
-        // addressables
-        public static string BuildScript = "Assets/AddressableAssetsData/DataBuilders/BuildScriptPackedMode.asset";
-        public static string SettingsAsset = "Assets/AddressableAssetsData/AddressableAssetSettings.asset";
-        public static string ProfileName = "Default";
-        private static AddressableAssetSettings _settings;
-
         // included scenes
         public string[] Scenes => (from t in EditorBuildSettings.scenes select t.path).ToArray();
 
@@ -35,6 +33,12 @@ namespace TalusCI.Editor
             TargetPlatform = targetPlatform;
             TargetGroup = targetGroup;
             Options = options;
+
+            if (TargetPlatform == BuildTarget.Android)
+            {
+                PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
+                PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
+            }
 
             PreProcessProjectSettings.OnSyncComplete += CreateBuild;
         }
@@ -58,12 +62,12 @@ namespace TalusCI.Editor
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
             Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
 
+#if ENABLE_ADDRESSABLES
             if (BuildAddressables())
             {
                 Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
             }
-
-            UpdateKeyPass();
+#endif
 
             BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
@@ -90,16 +94,25 @@ namespace TalusCI.Editor
             };
         }
 
-        private void UpdateKeyPass()
+#if ENABLE_ADDRESSABLES
+        private static AddressableAssetSettings _settings;
+
+        public bool BuildAddressables()
         {
-            if (TargetPlatform == BuildTarget.Android)
+            GetSettingsObject(AddressableSettingsHolder.instance.SettingsAsset);
+            SetProfile(AddressableSettingsHolder.instance.ProfileName);
+
+            if (AssetDatabase.LoadAssetAtPath<ScriptableObject>(AddressableSettingsHolder.instance.BuildScript) is not IDataBuilder builderScript)
             {
-                PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
-                PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
+                Debug.LogError($"[TalusCI-Package] {AddressableSettingsHolder.instance.BuildScript} couldn't be found or isn't a build script.");
+                return false;
             }
+
+            SetBuilder(builderScript);
+
+            return BuildAddressableContent();
         }
 
-#region ADDRESSABLES_CONTENT_BUILD
         private void GetSettingsObject(string settingsAsset)
         {
             _settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(settingsAsset) as AddressableAssetSettings;
@@ -109,7 +122,6 @@ namespace TalusCI.Editor
                 Debug.LogError($"[TalusCI-Package] {settingsAsset} couldn't be found or isn't a settings object.");
             }
         }
-
         private void SetProfile(string profile)
         {
             string profileId = _settings.profileSettings.GetProfileId(profile);
@@ -122,7 +134,6 @@ namespace TalusCI.Editor
             _settings.activeProfileId = profileId;
             Debug.Log($"[TalusCI-Package] Active profile id: {profileId}");
         }
-
         private void SetBuilder(IDataBuilder builder)
         {
             int index = _settings.DataBuilders.IndexOf((ScriptableObject) builder);
@@ -139,7 +150,6 @@ namespace TalusCI.Editor
                 $"DataBuilders list before it can be made " +
                 $"active. Using last run builder instead.");
         }
-
         private bool BuildAddressableContent()
         {
             AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
@@ -152,23 +162,7 @@ namespace TalusCI.Editor
 
             return success;
         }
-
-        public bool BuildAddressables()
-        {
-            GetSettingsObject(SettingsAsset);
-            SetProfile(ProfileName);
-
-            if (AssetDatabase.LoadAssetAtPath<ScriptableObject>(BuildScript) is not IDataBuilder builderScript)
-            {
-                Debug.LogError($"[TalusCI-Package] {BuildScript} couldn't be found or isn't a build script.");
-                return false;
-            }
-
-            SetBuilder(builderScript);
-
-            return BuildAddressableContent();
-        }
-#endregion
+#endif
 
     }
 }
