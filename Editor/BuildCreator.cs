@@ -7,6 +7,7 @@ using UnityEditor.Build.Reporting;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 
+using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;
 using TalusBackendData.Editor.Utility;
 
