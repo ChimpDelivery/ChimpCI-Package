@@ -4,8 +4,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
+
+#if ENABLE_ADDRESSABLES
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
+#endif
 
 using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;

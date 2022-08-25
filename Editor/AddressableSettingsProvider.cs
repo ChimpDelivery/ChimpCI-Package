@@ -7,6 +7,7 @@ using TalusBackendData.Editor.Interfaces;
 
 namespace TalusCI.Editor
 {
+#if ENABLE_ADDRESSABLES
     internal class AddressableSettingsProvider : BaseSettingsProvider<AddressableSettingsProvider>
     {
         public override string Title => $"{AddressableSettingsHolder.ProviderPath} (Do not leave any input fields blank!)";
@@ -47,4 +48,5 @@ namespace TalusCI.Editor
             }
         }
     }
+#endif
 }
