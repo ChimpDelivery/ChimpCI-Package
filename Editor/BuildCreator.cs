@@ -67,6 +67,13 @@ namespace TalusCI.Editor
             {
                 Debug.Log($"[TalusCI-Package] Addressable content built succesfully!");
             }
+            else
+            {
+                if (Application.isBatchMode)
+                {
+                    EditorApplication.Exit(-1);
+                }
+            }
 #endif
 
             BuildReport report = BuildPipeline.BuildPlayer(Scenes, GetBuildPath(), TargetPlatform, Options);
