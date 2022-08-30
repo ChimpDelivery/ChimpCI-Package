@@ -19,7 +19,7 @@ namespace TalusCI.Editor
     public class BuildCreator
     {
         // included scenes
-        public string[] Scenes => (from t in EditorBuildSettings.scenes select t.path).ToArray();
+        public string[] Scenes => (from scene in EditorBuildSettings.scenes where scene.enabled select scene.path).ToArray();
 
         // build properties
         public bool IsDevBuild;
