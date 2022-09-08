@@ -62,6 +62,8 @@ namespace TalusCI.Editor
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
             Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
 
+            EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform);
+
 #if ENABLE_ADDRESSABLES
             if (BuildAddressables())
             {
