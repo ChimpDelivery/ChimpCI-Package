@@ -62,7 +62,10 @@ namespace TalusCI.Editor
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
             Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
 
-            EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform);
+            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform))
+            {
+                ExitOnBatchMode(BuildResult.Failed);
+            }
 
 #if ENABLE_ADDRESSABLES
             if (BuildAddressables())
@@ -71,10 +74,7 @@ namespace TalusCI.Editor
             }
             else
             {
-                if (Application.isBatchMode)
-                {
-                    EditorApplication.Exit(-1);
-                }
+                ExitOnBatchMode(BuildResult.Failed);
             }
 #endif
 
@@ -82,11 +82,7 @@ namespace TalusCI.Editor
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
 
-            // batch mode clean-up
-            if (Application.isBatchMode)
-            {
-                EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
-            }
+            ExitOnBatchMode(report.summary.result);
         }
 
         // ios expects folder, android expect file
@@ -101,6 +97,14 @@ namespace TalusCI.Editor
                 ),
                 _ => "/Builds",
             };
+        }
+
+        public void ExitOnBatchMode(BuildResult result)
+        {
+            if (Application.isBatchMode)
+            {
+                EditorApplication.Exit(result == BuildResult.Succeeded ? 0 : -1);
+            }
         }
 
 #if ENABLE_ADDRESSABLES
