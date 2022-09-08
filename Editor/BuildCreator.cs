@@ -14,6 +14,8 @@ using TalusBackendData.Editor;
 using TalusBackendData.Editor.Models;
 using TalusBackendData.Editor.Utility;
 
+using TalusCI.Editor.Utility;
+
 namespace TalusCI.Editor
 {
     public class BuildCreator
@@ -50,7 +52,7 @@ namespace TalusCI.Editor
             Debug.Log($"[TalusCI-Package] Switching to Group: {TargetGroup} / Platform: {TargetPlatform}");
             if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform))
             {
-                ExitOnBatchMode(BuildResult.Failed);
+                BatchModeUtility.Exit(BuildResult.Failed);
             }
 
             PreProcessProjectSettings.Sync();
@@ -68,7 +70,7 @@ namespace TalusCI.Editor
             }
             else
             {
-                ExitOnBatchMode(BuildResult.Failed);
+                BatchModeUtility.Exit(BuildResult.Failed);
             }
 #endif
 
@@ -76,7 +78,7 @@ namespace TalusCI.Editor
             Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
 
-            ExitOnBatchMode(report.summary.result);
+            BatchModeUtility.Exit(report.summary.result);
         }
 
         // ios expects folder, android expect file
@@ -91,14 +93,6 @@ namespace TalusCI.Editor
                 ),
                 _ => "/Builds",
             };
-        }
-
-        public void ExitOnBatchMode(BuildResult result)
-        {
-            if (Application.isBatchMode)
-            {
-                EditorApplication.Exit(result == BuildResult.Succeeded ? 0 : -1);
-            }
         }
 
 #if ENABLE_ADDRESSABLES
@@ -129,6 +123,7 @@ namespace TalusCI.Editor
                 Debug.LogError($"[TalusCI-Package] {settingsAsset} couldn't be found or isn't a settings object.");
             }
         }
+
         private void SetProfile(string profile)
         {
             string profileId = _settings.profileSettings.GetProfileId(profile);
@@ -141,6 +136,7 @@ namespace TalusCI.Editor
             _settings.activeProfileId = profileId;
             Debug.Log($"[TalusCI-Package] Active profile id: {profileId}");
         }
+
         private void SetBuilder(IDataBuilder builder)
         {
             int index = _settings.DataBuilders.IndexOf((ScriptableObject) builder);
@@ -157,6 +153,7 @@ namespace TalusCI.Editor
                 $"DataBuilders list before it can be made " +
                 $"active. Using last run builder instead.");
         }
+
         private bool BuildAddressableContent()
         {
             AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
