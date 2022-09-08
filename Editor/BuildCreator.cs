@@ -47,11 +47,10 @@ namespace TalusCI.Editor
         {
             EditorUserBuildSettings.development = IsDevBuild;
 
-            if (!Application.isBatchMode && !(EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS ||
-                EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android))
+            Debug.Log($"[TalusCI-Package] Switching to Group: {TargetGroup} / Platform: {TargetPlatform}");
+            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform))
             {
-                Debug.LogError("[TalusCI-Package] Build Target must be iOS/Android! Switch platform (File/Build Settings)");
-                return;
+                ExitOnBatchMode(BuildResult.Failed);
             }
 
             PreProcessProjectSettings.Sync();
@@ -61,11 +60,6 @@ namespace TalusCI.Editor
         {
             Debug.Log($"[TalusCI-Package] Define Symbols: {PlayerSettings.GetScriptingDefineSymbolsForGroup(TargetGroup)}");
             Debug.Log($"[TalusCI-Package] Build path: {GetBuildPath()}");
-
-            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform))
-            {
-                ExitOnBatchMode(BuildResult.Failed);
-            }
 
 #if ENABLE_ADDRESSABLES
             if (BuildAddressables())
