@@ -3,6 +3,8 @@ using UnityEngine;
 
 using TalusBackendData.Editor.Utility;
 
+using TalusCI.Editor.Utility;
+
 namespace TalusCI.Editor
 {
     public static class BuildActions
@@ -52,10 +54,7 @@ namespace TalusCI.Editor
 
             Debug.Log("[TalusCI-Package] Version settings initialized.");
 
-            if (Application.isBatchMode)
-            {
-                EditorApplication.Exit(0);
-            }
+            BatchModeUtility.Exit(UnityEditor.Build.Reporting.BuildResult.Succeeded);
         }
     }
 }
