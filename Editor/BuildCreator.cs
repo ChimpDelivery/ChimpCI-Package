@@ -29,7 +29,10 @@ namespace TalusCI.Editor
         public BuildTargetGroup TargetGroup;
         public BuildOptions Options;
 
-        public BuildCreator(bool isDevBuild, BuildTarget targetPlatform, BuildTargetGroup targetGroup, BuildOptions options = BuildOptions.CompressWithLz4HC)
+        public BuildCreator(bool isDevBuild,
+            BuildTarget targetPlatform,
+            BuildTargetGroup targetGroup,
+            BuildOptions options = BuildOptions.CompressWithLz4HC)
         {
             IsDevBuild = isDevBuild;
             TargetPlatform = targetPlatform;
