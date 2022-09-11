@@ -43,9 +43,11 @@ namespace TalusCI.Editor
             }
 
             PreProcessProjectSettings.OnSyncComplete += CreateBuild;
+
+            PrepareBuild();
         }
 
-        public void PrepareBuild()
+        private void PrepareBuild()
         {
             EditorUserBuildSettings.development = IsDevBuild;
 
