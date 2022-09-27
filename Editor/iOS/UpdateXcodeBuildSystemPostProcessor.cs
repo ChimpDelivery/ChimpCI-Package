@@ -37,9 +37,11 @@ namespace TalusCI.Editor.iOS
             foreach (var targetGuid in new[] { mainTargetGuid, project.GetUnityFrameworkTargetGuid() })
             {
                 project.SetBuildProperty(targetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
+                project.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");
             }
 
             project.SetBuildProperty(mainTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
+            project.SetBuildProperty(mainTargetGuid, "ENABLE_BITCODE", "NO");
 
             project.WriteToFile(projPath);
         }
