@@ -39,7 +39,7 @@ namespace TalusCI.Editor
             TargetGroup = targetGroup;
             Options = options;
 
-            if (TargetPlatform == BuildTarget.Android)
+            if (TargetPlatform == BuildTarget.Android && Application.isBatchMode)
             {
                 PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
                 PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
