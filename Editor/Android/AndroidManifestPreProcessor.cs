@@ -1,3 +1,5 @@
+using System.IO;
+
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
@@ -7,16 +9,23 @@ namespace TalusCI.Android
 {
     public class AndroidManifestPreProcessor : IPreprocessBuildWithReport
     {
+        public const string ManifestFilePath = "Assets/Plugins/Android/AndroidManifest.xml";
+
         public int callbackOrder => 1;
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            Debug.Log($"[TalusCI-Package] AndroidManifest Pre Processing...");
+            bool isManifestExist = File.Exists(ManifestFilePath);
 
-            AndroidManifest androidManifest = new AndroidManifest("Assets/Plugins/Android/AndroidManifest.xml");
+            Debug.Log($"[TalusCI-Package] AndroidManifest file exists: {isManifestExist}");
 
-            androidManifest.SetApplicationAttribute("debuggable", UnityEditor.EditorUserBuildSettings.development ? "true" : "false");
-            androidManifest.Save();
+            if (isManifestExist)
+            {
+                AndroidManifest androidManifest = new AndroidManifest(ManifestFilePath);
+
+                androidManifest.SetApplicationAttribute("debuggable", UnityEditor.EditorUserBuildSettings.development ? "true" : "false");
+                androidManifest.Save();
+            }
         }
     }
 }
