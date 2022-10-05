@@ -31,13 +31,12 @@ namespace TalusCI.Editor
 
         public BuildCreator(bool isDevBuild,
             BuildTarget targetPlatform,
-            BuildTargetGroup targetGroup,
-            BuildOptions options = BuildOptions.CompressWithLz4HC)
+            BuildTargetGroup targetGroup)
         {
             IsDevBuild = isDevBuild;
             TargetPlatform = targetPlatform;
             TargetGroup = targetGroup;
-            Options = options;
+            Options = (IsDevBuild) ? BuildOptions.CompressWithLz4 : BuildOptions.CompressWithLz4HC;
 
             if (TargetPlatform == BuildTarget.Android && Application.isBatchMode)
             {
