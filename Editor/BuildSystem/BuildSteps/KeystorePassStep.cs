@@ -2,10 +2,9 @@ using UnityEditor;
 
 using UnityEngine;
 
-using TalusCI.Editor.BuildSystem;
 using TalusBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.Android
+namespace TalusCI.Editor.BuildSystem
 {
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Key Store Pass Step")]
     public class KeystorePassStep : BuildStep
