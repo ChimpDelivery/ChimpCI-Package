@@ -11,7 +11,7 @@ namespace TalusCI.Editor.BuildSystem
     {
         public override void Execute()
         {
-            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android || !Application.isBatchMode) return;
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android || !Application.isBatchMode) { return; }
 
             PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
             PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
