@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c41e5818ce9c7b4418bcb281b17a5dbd, type: 3}
-  m_Name: BuildGenerator_Android_Addressables_Release
+  m_Name: BuildGenerator_Android_Addressables_Dev_AAB
   m_EditorClassIdentifier: 
   Steps:
   - {fileID: 11400000, guid: 8fda21041c59e8a44bc21cc211dc764f, type: 2}
   - {fileID: 11400000, guid: 46164cd79bdf3a74388e7e3ee797cb36, type: 2}
+  - {fileID: 11400000, guid: 07095f25c7630c74e88ba3afc987fb4a, type: 2}
   - {fileID: 11400000, guid: e338962557dc29f4f8c94da301ce54b4, type: 2}
-  - {fileID: 11400000, guid: e49e3f07f1a35524884a2fa958a3b7a5, type: 2}
+  - {fileID: 11400000, guid: 196c2165a742932429104876672df4f9, type: 2}

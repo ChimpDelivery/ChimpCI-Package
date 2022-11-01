@@ -7,7 +7,7 @@ using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor.Android
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Key Store Pass Step")]
     public class KeystorePassStep : BuildStep
     {
         public override void Execute()
