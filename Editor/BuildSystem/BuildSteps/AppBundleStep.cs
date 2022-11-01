@@ -2,9 +2,7 @@
 
 using UnityEngine;
 
-using TalusCI.Editor.BuildSystem;
-
-namespace TalusCI.Editor.Android
+namespace TalusCI.Editor.BuildSystem
 {
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/App Bundle Step")]
     public class AppBundleStep : BuildStep
