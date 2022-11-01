@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c41e5818ce9c7b4418bcb281b17a5dbd, type: 3}
-  m_Name: BuildGenerator_iOS
+  m_Name: BuildGenerator_Android_Dev
   m_EditorClassIdentifier: 
-  Config:
-    IsDevBuild: 0
-    Options: 524288
   Steps:
-  - {fileID: 11400000, guid: 90086facca43ebf44ad47bb02c71e7a8, type: 2}
-  - {fileID: 11400000, guid: efc2c0e603aee6646a1863f75b730aae, type: 2}
+  - {fileID: 11400000, guid: 8fda21041c59e8a44bc21cc211dc764f, type: 2}
+  - {fileID: 11400000, guid: 46164cd79bdf3a74388e7e3ee797cb36, type: 2}
+  - {fileID: 11400000, guid: 6265290e6822051499ad81f880bdca07, type: 2}
