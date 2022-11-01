@@ -10,14 +10,25 @@ namespace TalusCI.Editor.Addressables
     {
         private static AddressableAssetSettings _settings;
 
+        private string _BuildScript;
+        private string _SettingsAsset;
+        private string _ProfileName;
+        
+        public AddressablesContentBuilder(string buildScript, string settingsAsset, string profileName)
+        {
+            _BuildScript = buildScript;
+            _SettingsAsset = settingsAsset;
+            _ProfileName = profileName;
+        }
+        
         public bool BuildAddressables()
         {
-            GetSettingsObject(AddressableSettingsHolder.instance.SettingsAsset);
-            SetProfile(AddressableSettingsHolder.instance.ProfileName);
+            GetSettingsObject(_SettingsAsset);
+            SetProfile(_ProfileName);
 
-            if (AssetDatabase.LoadAssetAtPath<ScriptableObject>(AddressableSettingsHolder.instance.BuildScript) is not IDataBuilder builderScript)
+            if (AssetDatabase.LoadAssetAtPath<ScriptableObject>(_BuildScript) is not IDataBuilder builderScript)
             {
-                Debug.LogError($"[TalusCI-Package] {AddressableSettingsHolder.instance.BuildScript} couldn't be found or isn't a build script.");
+                Debug.LogError($"[TalusCI-Package] {_BuildScript} couldn't be found or isn't a build script.");
                 return false;
             }
 

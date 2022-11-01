@@ -3,13 +3,23 @@ using UnityEngine;
 
 using TalusBackendData.Editor.Utility;
 
-using TalusCI.Editor.Utility;
-
 namespace TalusCI.Editor
 {
+    /// <summary>
+    ///     Using by Jenkins
+    /// </summary>
     public static class BuildActions
     {
-        // using by Jenkins
+        public static void IOSRelease()
+        {
+            
+        }
+
+        public static void AndroidRelease()
+        {
+            
+        }
+        
         public static void SetBuildVersion()
         {
             string appVersion = CommandLineParser.GetArgument("-buildVersion");
@@ -22,7 +32,7 @@ namespace TalusCI.Editor
 
             Debug.Log("[TalusCI-Package] Version settings initialized.");
 
-            BatchModeUtility.Exit(UnityEditor.Build.Reporting.BuildResult.Succeeded);
+            EditorApplication.Exit(0);
         }
     }
 }
