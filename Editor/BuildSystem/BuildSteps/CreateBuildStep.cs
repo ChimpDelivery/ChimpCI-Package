@@ -23,7 +23,7 @@ namespace TalusCI.Editor.BuildSystem
             Debug.Log("[TalusCI-Package] Define Symbols");
             Debug.Log(PlayerSettings.GetScriptingDefineSymbolsForGroup(SwitchStep.TargetGroup));
             
-            string buildPath = System.IO.Directory.GetCurrentDirectory() + BuildConfigs.BuildPath;
+            string buildPath = System.IO.Directory.GetCurrentDirectory() + "/" + BuildConfigs.BuildPath;
             Debug.Log($"[TalusCI-Package] Build path: {buildPath}");
 
             BuildReport report = BuildPipeline.BuildPlayer(_Scenes, buildPath, SwitchStep.TargetPlatform, BuildConfigs.Options);
