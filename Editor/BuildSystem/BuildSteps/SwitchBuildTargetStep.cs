@@ -14,7 +14,7 @@ namespace TalusCI.Editor.BuildSystem
         {
             Debug.Log($"[TalusCI-Package] Switching to Group: {TargetGroup} / Platform: {TargetPlatform}");
 
-            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform))
+            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform) && Application.isBatchMode)
             {
                 EditorApplication.Exit(-1);
             }
