@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace TalusCI.Editor
+namespace TalusCI
 {
     /// <summary>
     ///     iOSSettingsHolder provides information about iOS building & signing.
@@ -19,19 +19,6 @@ namespace TalusCI.Editor
         // Unity3D project absolute path.
         private static readonly string _ProjectFolder = System.IO.Directory.GetCurrentDirectory();
         public static string ProjectFolder => _ProjectFolder;
-
-        // iOS default build path, sync this path with Jenkinsfile
-        [SerializeField]
-        private string _BuildFolder = "Builds/iOS/";
-        public string BuildFolder
-        {
-            get => _BuildFolder;
-            set
-            {
-                _BuildFolder = value;
-                SaveSettings();
-            }
-        }
 
         // {ExportOptions.plist} path, required by XCode for app-provisioning
         [SerializeField]

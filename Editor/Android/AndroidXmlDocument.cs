@@ -1,7 +1,7 @@
 using System.Text;
 using System.Xml;
 
-namespace TalusCI.Android
+namespace TalusCI.Editor.Android
 {
     // Reference Used : https://github.com/Over17/UnityAndroidManifestCallback
     internal class AndroidXmlDocument : XmlDocument

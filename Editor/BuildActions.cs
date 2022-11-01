@@ -12,13 +12,13 @@ namespace TalusCI.Editor
         [MenuItem("TalusBackend/Manuel Build/iOS/Development", priority = 11000)]
         public static void IOSDevelopment()
         {
-            new BuildCreator(true, BuildTarget.iOS, BuildTargetGroup.iOS);
+            // new BuildCreator(true, BuildTarget.iOS, BuildTargetGroup.iOS);
         }
 
         [MenuItem("TalusBackend/Manuel Build/iOS/Release", priority = 11001)]
         public static void IOSRelease()
         {
-            new BuildCreator(false, BuildTarget.iOS, BuildTargetGroup.iOS);
+            // new BuildCreator(false, BuildTarget.iOS, BuildTargetGroup.iOS);
         }
 
         [MenuItem("TalusBackend/Manuel Build/Android/Development", priority = 11002)]
@@ -26,7 +26,7 @@ namespace TalusCI.Editor
         {
             EditorUserBuildSettings.buildAppBundle = true;
 
-            new BuildCreator(true, BuildTarget.Android, BuildTargetGroup.Android);
+            // new BuildCreator(true, BuildTarget.Android, BuildTargetGroup.Android);
         }
 
         [MenuItem("TalusBackend/Manuel Build/Android/Release", priority = 11002)]
@@ -34,7 +34,7 @@ namespace TalusCI.Editor
         {
             EditorUserBuildSettings.buildAppBundle = true;
 
-            new BuildCreator(false, BuildTarget.Android, BuildTargetGroup.Android);
+            // new BuildCreator(false, BuildTarget.Android, BuildTargetGroup.Android);
         }
 
         // using by Jenkins

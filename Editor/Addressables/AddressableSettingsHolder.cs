@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace TalusCI.Editor
+namespace TalusCI.Editor.Addressables
 {
     /// <summary>
     ///     AddressablesSettingsHolder provides information about integration with Adressables Package.

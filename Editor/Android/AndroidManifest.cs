@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace TalusCI.Android
+namespace TalusCI.Editor.Android
 {
     internal class AndroidManifest : AndroidXmlDocument
     {
