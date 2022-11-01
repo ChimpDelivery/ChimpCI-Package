@@ -13,7 +13,15 @@ namespace TalusCI.Editor
     public static class BuildActions
     {
         private const string PackagePath = "Packages/com.talus.talusci/Editor/BuildSystem/BuildGenerators";
+        
+#if TALUS_ADDRESSABLES
+        private const string AddressablePackagePath = "Packages/com.talus.talusci/Editor/Addressables/BuildSystem/BuildGenerators";
 
+        private const string iOSReleaseAddressableConfigs = "BuildGenerator_iOS_Addressables_Release.asset";
+        private const string AndroidReleaseAABAddressableConfigs = "BuildGenerator_Android_Addressables_Release_AAB.asset";
+        private const string AndroidReleaseAPKAddressableConfigs = "BuildGenerator_Android_Addressables_Release_APK.asset";
+#endif
+        
         private const string iOSReleaseConfigs = "BuildGenerator_iOS_Release.asset";
         private const string AndroidReleaseAABConfigs = "BuildGenerator_Android_Release_AAB.asset";
         private const string AndroidReleaseAPKConfigs = "BuildGenerator_Android_Release_APK.asset";
@@ -22,6 +30,9 @@ namespace TalusCI.Editor
         public static void IOSRelease()
         {
             string configPath = $"{PackagePath}/{iOSReleaseConfigs}";
+            #if TALUS_ADDRESSABLES
+                configPath = $"{AddressablePackagePath}/{iOSReleaseAddressableConfigs}";
+            #endif
             LoadAndRun(configPath);
         }
 
@@ -29,6 +40,9 @@ namespace TalusCI.Editor
         public static void AndroidRelease()
         {
             string configPath = $"{PackagePath}/{AndroidReleaseAABConfigs}";
+            #if TALUS_ADDRESSABLES
+                configPath = $"{AddressablePackagePath}/{AndroidReleaseAABAddressableConfigs}";
+            #endif
             LoadAndRun(configPath);
         }
 
@@ -36,6 +50,9 @@ namespace TalusCI.Editor
         public static void AndroidReleaseAPK()
         {
             string configPath = $"{PackagePath}/{AndroidReleaseAPKConfigs}";
+            #if TALUS_ADDRESSABLES
+                configPath = $"{AddressablePackagePath}/{AndroidReleaseAPKAddressableConfigs}";
+            #endif
             LoadAndRun(configPath);
         }
 
