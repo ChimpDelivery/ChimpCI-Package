@@ -1,9 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-using TalusCI.Editor.BuildSystem;
-
-namespace TalusCI.Editor
+namespace TalusCI.Editor.BuildSystem
 {
     [CustomEditor(typeof(BuildGenerator))]
     public class BuildGeneratorEditor : UnityEditor.Editor
