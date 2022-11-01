@@ -1,3 +1,5 @@
+using TalusBackendData.Editor;
+
 using UnityEditor;
 using UnityEngine;
 
@@ -56,19 +58,24 @@ namespace TalusCI.Editor
             LoadAndRun(configPath);
         }
 
+        // sync project keys and set build version
         public static void SetBuildVersion()
         {
-            string appVersion = CommandLineParser.GetArgument("-buildVersion");
-            string bundleVersion = CommandLineParser.GetArgument("-bundleVersion");
-            Debug.Log($"[TalusCI-Package] App Version: {appVersion}, Bundle Version: {bundleVersion}");
+            var initializer = new PreProcessProjectSettings();
+            initializer.UpdateSettings(() =>
+            {
+                string appVersion = CommandLineParser.GetArgument("-buildVersion");
+                string bundleVersion = CommandLineParser.GetArgument("-bundleVersion");
+                Debug.Log($"[TalusCI-Package] App Version: {appVersion}, Bundle Version: {bundleVersion}");
 
-            PlayerSettings.bundleVersion = appVersion;
-            PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
-            PlayerSettings.iOS.buildNumber = bundleVersion;
+                PlayerSettings.bundleVersion = appVersion;
+                PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
+                PlayerSettings.iOS.buildNumber = bundleVersion;
 
-            Debug.Log("[TalusCI-Package] Version settings initialized.");
+                Debug.Log("[TalusCI-Package] Version settings initialized.");
 
-            EditorApplication.Exit(0);
+                EditorApplication.Exit(0);
+            });
         }
         
         private static void LoadAndRun(string path)
