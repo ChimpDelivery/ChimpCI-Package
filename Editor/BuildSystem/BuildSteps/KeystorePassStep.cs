@@ -15,6 +15,8 @@ namespace TalusCI.Editor.BuildSystem
 
             PlayerSettings.keyaliasPass = CommandLineParser.GetArgument("-keyStorePass");
             PlayerSettings.keystorePass = CommandLineParser.GetArgument("-keyStorePass");
+
+            Debug.Log("[TalusCI-Package] Android Key Store Pass step completed!");
         }
     }
 }

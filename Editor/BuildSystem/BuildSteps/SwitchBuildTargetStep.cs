@@ -18,7 +18,6 @@ namespace TalusCI.Editor.BuildSystem
             {
                 EditorApplication.Exit(-1);
             }
-
         }
     }
 }

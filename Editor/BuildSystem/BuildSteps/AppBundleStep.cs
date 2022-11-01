@@ -17,6 +17,8 @@ namespace TalusCI.Editor.Android
             if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android) { return;}
 
             EditorUserBuildSettings.buildAppBundle = BuildAppBundle;
+
+            Debug.Log($"[TalusCI-Package] Android Build App Bundle step completed with {BuildAppBundle}!");
         }
     }
 }
