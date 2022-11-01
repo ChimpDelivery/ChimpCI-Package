@@ -5,7 +5,7 @@ using UnityEditor.Build.Reporting;
 
 using UnityEngine;
 
-namespace TalusCI.Android
+namespace TalusCI.Editor.Android
 {
     public class AndroidManifestPreProcessor : IPreprocessBuildWithReport
     {
@@ -19,13 +19,12 @@ namespace TalusCI.Android
 
             Debug.Log($"[TalusCI-Package] AndroidManifest file exists: {isManifestExist}");
 
-            if (isManifestExist)
-            {
-                AndroidManifest androidManifest = new AndroidManifest(ManifestFilePath);
+            if (!isManifestExist) { return; }
 
-                androidManifest.SetApplicationAttribute("debuggable", UnityEditor.EditorUserBuildSettings.development ? "true" : "false");
-                androidManifest.Save();
-            }
+            var androidManifest = new AndroidManifest(ManifestFilePath);
+
+            androidManifest.SetApplicationAttribute("debuggable", UnityEditor.EditorUserBuildSettings.development ? "true" : "false");
+            androidManifest.Save();
         }
     }
 }

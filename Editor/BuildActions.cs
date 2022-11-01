@@ -1,56 +1,87 @@
+using TalusBackendData.Editor;
+
 using UnityEditor;
 using UnityEngine;
 
 using TalusBackendData.Editor.Utility;
 
-using TalusCI.Editor.Utility;
+using TalusCI.Editor.BuildSystem;
 
 namespace TalusCI.Editor
 {
+    /// <summary>
+    ///     Using by Jenkins
+    /// </summary>
     public static class BuildActions
     {
-        [MenuItem("TalusBackend/Manuel Build/iOS/Development", priority = 11000)]
-        public static void IOSDevelopment()
-        {
-            new BuildCreator(true, BuildTarget.iOS, BuildTargetGroup.iOS);
-        }
+        private const string PackagePath = "Packages/com.talus.talusci/Editor/BuildSystem/BuildGenerators";
+        
+#if TALUS_ADDRESSABLES
+        private const string AddressablePackagePath = "Packages/com.talus.talusci/Editor/Addressables/BuildSystem/BuildGenerators";
 
-        [MenuItem("TalusBackend/Manuel Build/iOS/Release", priority = 11001)]
+        private const string iOSReleaseAddressableConfigs = "BuildGenerator_iOS_Addressables_Release.asset";
+        private const string AndroidReleaseAABAddressableConfigs = "BuildGenerator_Android_Addressables_Release_AAB.asset";
+        private const string AndroidReleaseAPKAddressableConfigs = "BuildGenerator_Android_Addressables_Release_APK.asset";
+#endif
+        
+        private const string iOSReleaseConfigs = "BuildGenerator_iOS_Release.asset";
+        private const string AndroidReleaseAABConfigs = "BuildGenerator_Android_Release_AAB.asset";
+        private const string AndroidReleaseAPKConfigs = "BuildGenerator_Android_Release_APK.asset";
+
+        [MenuItem("TalusBackend/Manuel Build/iOS/Release")]
         public static void IOSRelease()
         {
-            new BuildCreator(false, BuildTarget.iOS, BuildTargetGroup.iOS);
+            string configPath = $"{PackagePath}/{iOSReleaseConfigs}";
+            #if TALUS_ADDRESSABLES
+                configPath = $"{AddressablePackagePath}/{iOSReleaseAddressableConfigs}";
+            #endif
+            LoadAndRun(configPath);
         }
 
-        [MenuItem("TalusBackend/Manuel Build/Android/Development", priority = 11002)]
-        public static void AndroidDevelopment()
-        {
-            EditorUserBuildSettings.buildAppBundle = true;
-
-            new BuildCreator(true, BuildTarget.Android, BuildTargetGroup.Android);
-        }
-
-        [MenuItem("TalusBackend/Manuel Build/Android/Release", priority = 11002)]
+        [MenuItem("TalusBackend/Manuel Build/Android/Release(aab)")]
         public static void AndroidRelease()
         {
-            EditorUserBuildSettings.buildAppBundle = true;
-
-            new BuildCreator(false, BuildTarget.Android, BuildTargetGroup.Android);
+            string configPath = $"{PackagePath}/{AndroidReleaseAABConfigs}";
+            #if TALUS_ADDRESSABLES
+                configPath = $"{AddressablePackagePath}/{AndroidReleaseAABAddressableConfigs}";
+            #endif
+            LoadAndRun(configPath);
         }
 
-        // using by Jenkins
+        [MenuItem("TalusBackend/Manuel Build/Android/Release(apk)")]
+        public static void AndroidReleaseAPK()
+        {
+            string configPath = $"{PackagePath}/{AndroidReleaseAPKConfigs}";
+            #if TALUS_ADDRESSABLES
+                configPath = $"{AddressablePackagePath}/{AndroidReleaseAPKAddressableConfigs}";
+            #endif
+            LoadAndRun(configPath);
+        }
+
+        // sync project keys and set build version
         public static void SetBuildVersion()
         {
-            string appVersion = CommandLineParser.GetArgument("-buildVersion");
-            string bundleVersion = CommandLineParser.GetArgument("-bundleVersion");
-            Debug.Log($"[TalusCI-Package] App Version: {appVersion}, Bundle Version: {bundleVersion}");
+            var initializer = new PreProcessProjectSettings();
+            initializer.UpdateSettings(() =>
+            {
+                string appVersion = CommandLineParser.GetArgument("-buildVersion");
+                string bundleVersion = CommandLineParser.GetArgument("-bundleVersion");
+                Debug.Log($"[TalusCI-Package] App Version: {appVersion}, Bundle Version: {bundleVersion}");
 
-            PlayerSettings.bundleVersion = appVersion;
-            PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
-            PlayerSettings.iOS.buildNumber = bundleVersion;
+                PlayerSettings.bundleVersion = appVersion;
+                PlayerSettings.Android.bundleVersionCode = int.Parse(bundleVersion);
+                PlayerSettings.iOS.buildNumber = bundleVersion;
 
-            Debug.Log("[TalusCI-Package] Version settings initialized.");
+                Debug.Log("[TalusCI-Package] Version settings initialized.");
 
-            BatchModeUtility.Exit(UnityEditor.Build.Reporting.BuildResult.Succeeded);
+                EditorApplication.Exit(0);
+            });
+        }
+        
+        private static void LoadAndRun(string path)
+        {
+            var generator = AssetDatabase.LoadAssetAtPath<BuildGenerator>(path);
+            generator.Run();
         }
     }
 }

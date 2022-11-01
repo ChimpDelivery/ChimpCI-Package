@@ -1,5 +1,5 @@
 {
-    "name": "TalusCI.Android",
+    "name": "TalusCI.BuildSystem",
     "rootNamespace": "",
     "references": [
         "TalusBackendData.Editor"
@@ -12,9 +12,7 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [
-        "UNITY_ANDROID"
-    ],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }
