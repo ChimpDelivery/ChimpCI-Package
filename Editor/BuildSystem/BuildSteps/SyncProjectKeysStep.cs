@@ -9,6 +9,7 @@ namespace TalusCI.Editor.BuildSystem
     {
         public override void Execute()
         {
+            Debug.Log("[TalusCI-Package] Sync Project Keys Step starts...");
             PreProcessProjectSettings.Sync();
         }
     }
