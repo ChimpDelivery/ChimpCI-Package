@@ -5,7 +5,7 @@ using UnityEditor.Build.Reporting;
 
 using UnityEngine;
 
-namespace TalusCI.Editor.BuildSystem
+namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Create Build Step")]
     public class CreateBuildStep : BuildStep

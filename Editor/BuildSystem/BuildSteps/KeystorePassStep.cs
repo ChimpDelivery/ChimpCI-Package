@@ -4,7 +4,7 @@ using UnityEngine;
 
 using TalusBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.BuildSystem
+namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Key Store Pass Step")]
     public class KeystorePassStep : BuildStep

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 using TalusBackendData.Editor.Interfaces;
 
-namespace TalusCI.Editor
+namespace TalusCI.Editor.iOS
 {
     internal class iOSSettingsProvider : BaseSettingsProvider<iOSSettingsProvider>
     {

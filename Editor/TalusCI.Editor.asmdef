@@ -1,9 +1,10 @@
 {
     "name": "TalusCI.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "TalusCI.Editor",
     "references": [
         "TalusBackendData.Editor",
-        "TalusCI.BuildSystem"
+        "TalusCI.BuildSystem",
+        "TalusCI.Editor.BuildSystem"
     ],
     "includePlatforms": [
         "Editor"

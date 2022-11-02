@@ -4,6 +4,8 @@ using UnityEngine;
 
 using TalusBackendData.Editor;
 
+using TalusCI.Editor.BuildSystem.BuildSteps;
+
 namespace TalusCI.Editor.BuildSystem
 {
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Generator")]
