@@ -1,8 +1,8 @@
 {
-    "name": "TalusCI.Addressables",
-    "rootNamespace": "",
+    "name": "TalusCI.Editor.Addressables",
+    "rootNamespace": "TalusCI.Editor.Addressables",
     "references": [
-        "TalusCI.BuildSystem",
+        "TalusCI.Editor.BuildSystem",
         "Unity.Addressables.Editor"
     ],
     "includePlatforms": [

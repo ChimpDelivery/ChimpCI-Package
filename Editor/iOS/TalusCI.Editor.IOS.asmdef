@@ -1,6 +1,6 @@
 {
     "name": "TalusCI.Editor.IOS",
-    "rootNamespace": "",
+    "rootNamespace": "TalusCI.Editor.IOS",
     "references": [
         "TalusBackendData.Editor"
     ],

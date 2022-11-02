@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace TalusCI
+namespace TalusCI.Editor.iOS
 {
     /// <summary>
     ///     iOSSettingsHolder provides information about iOS building & signing.

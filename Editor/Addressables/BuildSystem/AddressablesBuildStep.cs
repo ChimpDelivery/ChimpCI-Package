@@ -2,7 +2,7 @@ using UnityEditor;
 
 using UnityEngine;
 
-using TalusCI.Editor.BuildSystem;
+using TalusCI.Editor.BuildSystem.BuildSteps;
 
 namespace TalusCI.Editor.Addressables.BuildSystem
 {

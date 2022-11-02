@@ -2,7 +2,7 @@ using UnityEngine;
 
 using UnityEditor;
 
-namespace TalusCI.Editor.BuildSystem
+namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Switch Build Target Step")]
     public class SwitchBuildTargetStep : BuildStep
