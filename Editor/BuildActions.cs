@@ -1,8 +1,7 @@
-using TalusBackendData.Editor;
-
 using UnityEditor;
 using UnityEngine;
 
+using TalusBackendData.Editor;
 using TalusBackendData.Editor.Utility;
 
 using TalusCI.Editor.BuildSystem;

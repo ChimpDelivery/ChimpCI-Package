@@ -72,6 +72,14 @@ namespace TalusCI.Editor.iOS
             }
         }
 
-        public void SaveSettings() => Save(true);
+        public void SaveSettings()
+        {
+            Save(true);
+        }
+
+        private void OnEnable()
+        {
+            hideFlags &= ~HideFlags.NotEditable;
+        }
     }
 }
