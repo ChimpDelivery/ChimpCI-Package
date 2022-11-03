@@ -8,12 +8,12 @@ namespace TalusCI.Editor.Addressables
 {
     public class AddressablesContentBuilder
     {
-        private static AddressableAssetSettings _settings;
-
         private string _BuildScript;
         private string _SettingsAsset;
         private string _ProfileName;
-        
+
+        private AddressableAssetSettings _Settings;
+
         public AddressablesContentBuilder(string buildScript, string settingsAsset, string profileName)
         {
             _BuildScript = buildScript;
@@ -39,9 +39,9 @@ namespace TalusCI.Editor.Addressables
 
         private void GetSettingsObject(string settingsAsset)
         {
-            _settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(settingsAsset) as AddressableAssetSettings;
+            _Settings = AssetDatabase.LoadAssetAtPath<ScriptableObject>(settingsAsset) as AddressableAssetSettings;
 
-            if (_settings == null)
+            if (_Settings == null)
             {
                 Debug.LogError($"[TalusCI-Package] {settingsAsset} couldn't be found or isn't a settings object.");
             }
@@ -49,7 +49,7 @@ namespace TalusCI.Editor.Addressables
 
         private void SetProfile(string profile)
         {
-            string profileId = _settings.profileSettings.GetProfileId(profile);
+            string profileId = _Settings.profileSettings.GetProfileId(profile);
 
             if (string.IsNullOrEmpty(profileId))
             {
@@ -57,18 +57,18 @@ namespace TalusCI.Editor.Addressables
                 return;
             }
 
-            _settings.activeProfileId = profileId;
+            _Settings.activeProfileId = profileId;
             Debug.Log($"[TalusCI-Package] Active profile id: {profileId}");
         }
 
         private void SetBuilder(IDataBuilder builder)
         {
-            int index = _settings.DataBuilders.IndexOf((ScriptableObject)builder);
+            int index = _Settings.DataBuilders.IndexOf((ScriptableObject)builder);
 
             if (index > 0)
             {
                 Debug.Log($"[TalusCI-Package] Addressables builder index: {index}");
-                _settings.ActivePlayerDataBuilderIndex = index;
+                _Settings.ActivePlayerDataBuilderIndex = index;
 
                 return;
             }
