@@ -80,6 +80,7 @@ namespace TalusCI.Editor.Addressables
 
         private bool BuildAddressableContent()
         {
+            AddressableAssetSettings.CleanPlayerContent();
             AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
             bool success = string.IsNullOrEmpty(result.Error);
 
