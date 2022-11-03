@@ -11,10 +11,6 @@ namespace TalusCI.Editor.iOS
     [FilePath("ProjectSettings/TalusIOS.asset", FilePathAttribute.Location.ProjectFolder)]
     public class iOSSettingsHolder : BaseSettingsHolder<iOSSettingsHolder>
     {
-        // Unity3D project absolute path.
-        private static readonly string _ProjectFolder = System.IO.Directory.GetCurrentDirectory();
-        public static string ProjectFolder => _ProjectFolder;
-
         // {ExportOptions.plist} path, required by XCode for app-provisioning
         [SerializeField]
         private string _ExportOptionsPath = "Builds/";
