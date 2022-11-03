@@ -2,8 +2,6 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using TalusBackendData.Editor;
-
 using TalusCI.Editor.BuildSystem.BuildSteps;
 
 namespace TalusCI.Editor.BuildSystem
@@ -18,16 +16,11 @@ namespace TalusCI.Editor.BuildSystem
         {
             Debug.Log($"[TalusCI-Package] Build Generator: {name} gonna work in {Steps.Count} step(s)!");
             
-            // sync project keys before run
-            var initializer = new PreProcessProjectSettings();
-            initializer.UpdateSettings(() =>
+            foreach (BuildStep step in Steps)
             {
-                foreach (BuildStep step in Steps)
-                {
-                    Debug.Log($"[TalusCI-Package] Build Generator: Step - {step.name} is executing!");
-                    step.Execute();
-                }
-            });
+                Debug.Log($"[TalusCI-Package] Build Generator: Step - {step.name} is executing!");
+                step.Execute();
+            }
         }
     }
 }
