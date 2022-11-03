@@ -1,21 +1,16 @@
 using UnityEditor;
 using UnityEngine;
 
+using TalusBackendData.Editor.Interfaces.TalusBackendData.Editor;
+
 namespace TalusCI.Editor.iOS
 {
     /// <summary>
     ///     iOSSettingsHolder provides information about iOS building & signing.
     /// </summary>
     [FilePath("ProjectSettings/TalusIOS.asset", FilePathAttribute.Location.ProjectFolder)]
-    public class iOSSettingsHolder : ScriptableSingleton<iOSSettingsHolder>
+    public class iOSSettingsHolder : BaseSettingsHolder<iOSSettingsHolder>
     {
-        // TalusCI.asset path
-        public string Path => GetFilePath();
-
-        // Unity3D - CI Layout Panel Path
-        private const string _ProviderPath = "Talus Studio/2. iOS Layout";
-        public static string ProviderPath => _ProviderPath;
-
         // Unity3D project absolute path.
         private static readonly string _ProjectFolder = System.IO.Directory.GetCurrentDirectory();
         public static string ProjectFolder => _ProjectFolder;
@@ -70,16 +65,6 @@ namespace TalusCI.Editor.iOS
                 _TeamID = value;
                 SaveSettings();
             }
-        }
-
-        public void SaveSettings()
-        {
-            Save(true);
-        }
-
-        private void OnEnable()
-        {
-            hideFlags &= ~HideFlags.NotEditable;
         }
     }
 }

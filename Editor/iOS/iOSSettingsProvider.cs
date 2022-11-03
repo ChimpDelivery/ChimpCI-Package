@@ -7,18 +7,18 @@ using TalusBackendData.Editor.Interfaces;
 
 namespace TalusCI.Editor.iOS
 {
-    internal class iOSSettingsProvider : BaseSettingsProvider<iOSSettingsProvider>
+    internal class iOSSettingsProvider : BaseSettingsProvider
     {
-        public override string Title => $"{iOSSettingsHolder.ProviderPath} (Do not leave any input fields blank!)";
+        public override string Title => "Talus Studio/2. iOS Layout (Do not leave any input fields blank!)";
         public override string Description => "To automate App Signing and Distribution on App Store Connect.";
 
         public override SerializedObject SerializedObject => _SerializedObject;
         private SerializedObject _SerializedObject;
 
         [SettingsProvider]
-        public static SettingsProvider CreateiOSSettingsProvider()
+        public static SettingsProvider CreateIOSSettingsProvider()
         {
-            return new iOSSettingsProvider(iOSSettingsHolder.ProviderPath, SettingsScope.Project);
+            return new iOSSettingsProvider("Talus Studio/2. iOS Layout", SettingsScope.Project);
         }
 
         public iOSSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
