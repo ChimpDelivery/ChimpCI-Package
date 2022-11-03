@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -15,11 +16,18 @@ namespace TalusCI.Editor.BuildSystem
         public void Run()
         {
             Debug.Log($"[TalusCI-Package] Build Generator: {name} gonna work in {Steps.Count} step(s)!");
-            
-            foreach (BuildStep step in Steps)
+
+            try
             {
-                Debug.Log($"[TalusCI-Package] Build Generator: Step - {step.name} is executing!");
-                step.Execute();
+                foreach (BuildStep step in Steps)
+                {
+                    Debug.Log($"[TalusCI-Package] Build Generator: Step - {step.name} is executing!");
+                    step.Execute();
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.Log($"[TalusCI-Package] Build Generator exception!: {exception.Message}");
             }
         }
     }
