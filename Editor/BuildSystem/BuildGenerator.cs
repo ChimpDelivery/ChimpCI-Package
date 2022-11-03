@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using UnityEditor;
 using UnityEngine;
 
 using TalusCI.Editor.BuildSystem.BuildSteps;
@@ -28,6 +29,11 @@ namespace TalusCI.Editor.BuildSystem
             catch (Exception exception)
             {
                 Debug.Log($"[TalusCI-Package] Build Generator exception!: {exception.Message}");
+
+                if (Application.isBatchMode)
+                {
+                    EditorApplication.Exit(-1);
+                }
             }
         }
     }
