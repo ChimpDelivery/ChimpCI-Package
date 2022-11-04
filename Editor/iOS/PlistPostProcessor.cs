@@ -7,7 +7,7 @@ using UnityEditor.iOS.Xcode;
 
 namespace TalusCI.Editor.iOS
 {
-    internal class ExemptFromEncryption
+    internal class PlistPostProcessor
     {
         private const string _EncryptionKey = "ITSAppUsesNonExemptEncryption";
         private const string _EncryptionValue = "false";
