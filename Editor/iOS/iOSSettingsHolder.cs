@@ -12,6 +12,7 @@ namespace TalusCI.Editor.iOS
     public class iOSSettingsHolder : BaseSettingsHolder<iOSSettingsHolder>
     {
         // {ExportOptions.plist} path, required by XCode for app-provisioning
+        [Header("App Signing & Distribution")]
         [SerializeField]
         private string _ExportOptionsPath = "Builds/";
         public string ExportOptionsPath
@@ -59,6 +60,19 @@ namespace TalusCI.Editor.iOS
             set
             {
                 _TeamID = value;
+                SaveSettings();
+            }
+        }
+
+        [Header("Plist Configurations")]
+        [SerializeField]
+        private string _TrackingUsageText = "Your data will be used for analytical purposes.";
+        public string TrackingUsageText
+        {
+            get => _TrackingUsageText;
+            set
+            {
+                _TrackingUsageText = value;
                 SaveSettings();
             }
         }
