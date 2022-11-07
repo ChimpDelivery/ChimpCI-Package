@@ -15,6 +15,12 @@
     "defineConstraints": [
         "UNITY_IOS || UNITY_EDITOR_OSX"
     ],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.gameanalytics.sdk",
+            "expression": "1.0.0",
+            "define": "TALUS_GA"
+        }
+    ],
     "noEngineReferences": false
 }
