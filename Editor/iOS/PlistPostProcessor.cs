@@ -12,7 +12,9 @@ namespace TalusCI.Editor.iOS
         private const string _EncryptionKey = "ITSAppUsesNonExemptEncryption";
         private const string _EncryptionValue = "false";
         
+#if TALUS_GA
         private const string _UserTrackingKey = "NSUserTrackingUsageDescription";
+#endif
 
         [PostProcessBuild]
         public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToBuild)
@@ -27,8 +29,9 @@ namespace TalusCI.Editor.iOS
 
             PlistElementDict root = plist.root;
             root.SetString(_EncryptionKey, _EncryptionValue);
+#if TALUS_GA
             root.SetString(_UserTrackingKey, iOSSettingsHolder.instance.TrackingUsageText);
-
+#endif
             File.WriteAllText(plistPath, plist.WriteToString());
         }
     }
