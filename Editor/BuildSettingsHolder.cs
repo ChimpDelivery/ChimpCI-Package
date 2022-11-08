@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-using TalusBackendData.Editor.Interfaces.TalusBackendData.Editor;
+using TalusBackendData.Editor.Interfaces;
 
 using TalusCI.Editor.BuildSystem;
 
@@ -25,7 +25,7 @@ namespace TalusCI.Editor
                 SaveSettings();
             }
         }
-        
+
         [SerializeField] private BuildGenerator _AndroidReleaseAABAddressable;
         public BuildGenerator AndroidReleaseAABAddressable
         {
@@ -36,7 +36,7 @@ namespace TalusCI.Editor
                 SaveSettings();
             }
         }
-        
+
         [SerializeField] private BuildGenerator _AndroidReleaseAPKAddressable;
         public BuildGenerator AndroidReleaseAPKAddressable
         {
@@ -60,7 +60,7 @@ namespace TalusCI.Editor
                 SaveSettings();
             }
         }
-        
+
         [SerializeField] private BuildGenerator _AndroidReleaseAAB;
         public BuildGenerator AndroidReleaseAAB
         {
@@ -71,7 +71,7 @@ namespace TalusCI.Editor
                 SaveSettings();
             }
         }
-        
+
         [SerializeField] private BuildGenerator _AndroidReleaseAPK;
         public BuildGenerator AndroidReleaseAPK
         {
