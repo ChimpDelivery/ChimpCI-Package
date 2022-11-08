@@ -11,7 +11,7 @@ namespace TalusCI.Editor
     internal class BuildSettingsProvider : BaseSettingsProvider
     {
         public override string Title => "Talus Studio/2. Build Layout (Do not leave any input fields blank!)";
-        public override string Description => "To automate App Signing and Distribution on App Store Connect.";
+        public override string Description => "Platform specific build configurations.";
 
         public override SerializedObject SerializedObject => _SerializedObject;
         private SerializedObject _SerializedObject;
