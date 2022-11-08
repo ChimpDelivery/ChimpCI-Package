@@ -13,7 +13,12 @@ namespace TalusCI.Editor.BuildSystem
     {
         [Header("Build Steps")]
         public List<BuildStep> Steps;
-        
+
+        private void OnEnable()
+        {
+            hideFlags &= ~HideFlags.NotEditable;
+        }
+
         public void Run()
         {
             Debug.Log($"[TalusCI-Package] Build Generator: {name} gonna work in {Steps.Count} step(s)!");

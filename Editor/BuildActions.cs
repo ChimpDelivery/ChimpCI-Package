@@ -13,48 +13,37 @@ namespace TalusCI.Editor
     /// </summary>
     public static class BuildActions
     {
-        private const string PackagePath = "Packages/com.talus.talusci/Editor/BuildSystem/BuildGenerators";
-        
-#if TALUS_ADDRESSABLES
-        private const string AddressablePackagePath = "Packages/com.talus.talusci/Editor/Addressables/BuildSystem/BuildGenerators";
-
-        private const string iOSReleaseAddressableConfigs = "BuildGenerator_iOS_Addressables_Release.asset";
-        private const string AndroidReleaseAABAddressableConfigs = "BuildGenerator_Android_Addressables_Release_AAB.asset";
-        private const string AndroidReleaseAPKAddressableConfigs = "BuildGenerator_Android_Addressables_Release_APK.asset";
-#endif
-        
-        private const string iOSReleaseConfigs = "BuildGenerator_iOS_Release.asset";
-        private const string AndroidReleaseAABConfigs = "BuildGenerator_Android_Release_AAB.asset";
-        private const string AndroidReleaseAPKConfigs = "BuildGenerator_Android_Release_APK.asset";
-
         [MenuItem("TalusBackend/Manuel Build/iOS/Release")]
         public static void IOSRelease()
         {
-            string configPath = $"{PackagePath}/{iOSReleaseConfigs}";
-            #if TALUS_ADDRESSABLES
-                configPath = $"{AddressablePackagePath}/{iOSReleaseAddressableConfigs}";
-            #endif
-            LoadAndRun(configPath);
+            BuildGenerator generator = BuildSettingsHolder.instance.IOSRelease;
+            
+#if TALUS_ADDRESSABLES
+            generator = BuildSettingsHolder.instance.IOSReleaseAddressable;
+#endif
+            generator.Run();
         }
 
         [MenuItem("TalusBackend/Manuel Build/Android/Release(aab)")]
         public static void AndroidRelease()
         {
-            string configPath = $"{PackagePath}/{AndroidReleaseAABConfigs}";
-            #if TALUS_ADDRESSABLES
-                configPath = $"{AddressablePackagePath}/{AndroidReleaseAABAddressableConfigs}";
-            #endif
-            LoadAndRun(configPath);
+            BuildGenerator generator = BuildSettingsHolder.instance.AndroidReleaseAAB;
+            
+#if TALUS_ADDRESSABLES
+            generator = BuildSettingsHolder.instance.AndroidReleaseAABAddressable;
+#endif
+            generator.Run();
         }
 
         [MenuItem("TalusBackend/Manuel Build/Android/Release(apk)")]
         public static void AndroidReleaseAPK()
         {
-            string configPath = $"{PackagePath}/{AndroidReleaseAPKConfigs}";
-            #if TALUS_ADDRESSABLES
-                configPath = $"{AddressablePackagePath}/{AndroidReleaseAPKAddressableConfigs}";
-            #endif
-            LoadAndRun(configPath);
+            BuildGenerator generator = BuildSettingsHolder.instance.AndroidReleaseAPK;
+
+#if TALUS_ADDRESSABLES
+            generator = BuildSettingsHolder.instance.AndroidReleaseAPKAddressable;
+#endif
+            generator.Run();
         }
 
         // sync project keys and set build version
@@ -75,12 +64,6 @@ namespace TalusCI.Editor
 
                 EditorApplication.Exit(0);
             });
-        }
-        
-        private static void LoadAndRun(string path)
-        {
-            var generator = AssetDatabase.LoadAssetAtPath<BuildGenerator>(path);
-            generator.Run();
         }
     }
 }

@@ -1,37 +1,38 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using UnityEditor;
+
 using UnityEngine.UIElements;
 
 using TalusBackendData.Editor.Interfaces;
 
-namespace TalusCI.Editor.iOS
+namespace TalusCI.Editor
 {
-    internal class iOSSettingsProvider : BaseSettingsProvider
+    internal class BuildSettingsProvider : BaseSettingsProvider
     {
-        public override string Title => "Talus Studio/3. iOS Layout (Do not leave any input fields blank!)";
+        public override string Title => "Talus Studio/2. Build Layout (Do not leave any input fields blank!)";
         public override string Description => "To automate App Signing and Distribution on App Store Connect.";
 
         public override SerializedObject SerializedObject => _SerializedObject;
         private SerializedObject _SerializedObject;
 
         [SettingsProvider]
-        public static SettingsProvider CreateIOSSettingsProvider()
+        public static SettingsProvider CreateBuildSettingsProvider()
         {
-            return new iOSSettingsProvider("Talus Studio/3. iOS Layout", SettingsScope.Project);
+            return new BuildSettingsProvider("Talus Studio/2. Build Layout", SettingsScope.Project);
         }
 
-        public iOSSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
-            : base(path, scopes, keywords)
+        public BuildSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
+                : base(path, scopes, keywords)
         { }
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
         {
             base.OnActivate(searchContext, rootElement);
 
-            iOSSettingsHolder.instance.SaveSettings();
+            BuildSettingsHolder.instance.SaveSettings();
 
-            _SerializedObject = new SerializedObject(iOSSettingsHolder.instance);
+            _SerializedObject = new SerializedObject(BuildSettingsHolder.instance);
         }
 
         public override void OnGUI(string searchContext)
@@ -43,7 +44,7 @@ namespace TalusCI.Editor.iOS
             if (EditorGUI.EndChangeCheck())
             {
                 _SerializedObject.ApplyModifiedProperties();
-                iOSSettingsHolder.instance.SaveSettings();
+                BuildSettingsHolder.instance.SaveSettings();
             }
         }
     }
