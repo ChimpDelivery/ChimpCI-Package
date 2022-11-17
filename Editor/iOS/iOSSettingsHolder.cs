@@ -40,7 +40,7 @@ namespace TalusCI.Editor.iOS
 
         // {App Store Connect} - Signing Certificate
         [SerializeField]
-        private string _SigningCertificateName = "iOSCertificate";
+        private string _SigningCertificateName = "iPhone Distribution";
         public string SigningCertificateName
         {
             get => _SigningCertificateName;
