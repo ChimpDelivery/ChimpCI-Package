@@ -27,7 +27,7 @@ namespace TalusCI.Editor.iOS
 
         // {App Store Connect} - Provisioning Profile
         [SerializeField]
-        private string _ProvisioningProfileName = "EmreMac-Profile";
+        private string _ProvisioningProfileName = "iOSProfile";
         public string ProvisioningProfileName
         {
             get => _ProvisioningProfileName;
@@ -40,7 +40,7 @@ namespace TalusCI.Editor.iOS
 
         // {App Store Connect} - Signing Certificate
         [SerializeField]
-        private string _SigningCertificateName = "iPhone Distribution";
+        private string _SigningCertificateName = "iOSCertificate";
         public string SigningCertificateName
         {
             get => _SigningCertificateName;
