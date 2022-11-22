@@ -6,6 +6,7 @@ using TalusBackendData.Editor.Interfaces;
 namespace TalusCI.Editor.iOS
 {
     /// <summary>
+    ///     todo: move full provision data
     ///     iOSSettingsHolder provides information about iOS building & signing.
     /// </summary>
     [FilePath("ProjectSettings/TalusIOS.asset", FilePathAttribute.Location.ProjectFolder)]
