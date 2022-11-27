@@ -7,6 +7,8 @@ using UnityEditor.iOS.Xcode;
 
 using PlistDocument = UnityEditor.iOS.Xcode.PlistDocument;
 
+// ReSharper disable ClassNeverInstantiated.Global
+
 namespace TalusCI.Editor.iOS
 {
     /// <summary>

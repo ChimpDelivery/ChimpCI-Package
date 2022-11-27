@@ -6,6 +6,8 @@ using UnityEditor.Callbacks;
 
 using Debug = UnityEngine.Debug;
 
+// ReSharper disable ClassNeverInstantiated.Global
+
 namespace TalusCI.Editor.iOS
 {
     internal class ExportOptionsGenerator
