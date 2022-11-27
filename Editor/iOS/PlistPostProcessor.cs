@@ -5,6 +5,8 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 
+// ReSharper disable ClassNeverInstantiated.Global
+
 namespace TalusCI.Editor.iOS
 {
     internal class PlistPostProcessor
