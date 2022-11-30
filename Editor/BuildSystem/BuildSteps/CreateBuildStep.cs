@@ -20,15 +20,17 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
         
         public override void Execute()
         {
-            Debug.Log("[TalusCI-Package] Define Symbols");
+            Debug.Log("[TalusCI-Package] Create Build Step | Define Symbols");
             Debug.Log(PlayerSettings.GetScriptingDefineSymbolsForGroup(SwitchStep.TargetGroup));
             
             string buildPath = System.IO.Directory.GetCurrentDirectory() + "/" + BuildConfigs.BuildPath;
-            Debug.Log($"[TalusCI-Package] Build path: {buildPath}");
+            Debug.Log($"[TalusCI-Package] Create Build Step | Build path: {buildPath}");
 
             BuildReport report = BuildPipeline.BuildPlayer(_Scenes, buildPath, SwitchStep.TargetPlatform, BuildConfigs.Options);
-            Debug.Log($"[TalusCI-Package] Build status: {report.summary.result}");
-            Debug.Log($"[TalusCI-Package] Output path: {report.summary.outputPath}");
+            Debug.Log($"[TalusCI-Package] Create Build Step | Build status: {report.summary.result}");
+            Debug.Log($"[TalusCI-Package] Create Build Step | Output path: {report.summary.outputPath}");
+            Debug.Log($"[TalusCI-Package] Create Build Step | Total Errors: {report.summary.totalErrors}");
+            Debug.Log($"[TalusCI-Package] Create Build Step | Total Warnings: {report.summary.totalWarnings}");
 
             if (Application.isBatchMode)
             {
