@@ -1,6 +1,4 @@
-﻿using System;
-
-using TalusBackendData.Editor;
+﻿using TalusBackendData.Editor;
 using TalusBackendData.Editor.Requests;
 
 using UnityEditor;
@@ -13,7 +11,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/iOS Provision")]
     public class iOSProvision : BuildStep
     {
-        private BackendApiConfigs _ApiConfigs;
+        private readonly BackendApiConfigs _ApiConfigs = new();
         
         public override void Execute()
         {
