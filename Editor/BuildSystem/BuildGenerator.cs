@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+using TalusBackendData.Editor;
+
 using UnityEditor;
 using UnityEngine;
 
@@ -14,7 +16,7 @@ namespace TalusCI.Editor.BuildSystem
     {
         [Header("Build Steps")]
         public List<BuildStep> Steps;
-
+        
         private void OnEnable()
         {
             hideFlags &= ~HideFlags.NotEditable;
@@ -26,7 +28,7 @@ namespace TalusCI.Editor.BuildSystem
 
             try
             {
-                string buildPath = Path.Combine(Directory.GetCurrentDirectory(), "Builds/");
+                string buildPath = BackendApiConfigs.GetInstance().ArtifactFolder;
                 if (!Directory.Exists(buildPath))
                 {
                     Directory.CreateDirectory(buildPath);

@@ -1,5 +1,7 @@
 using System.Linq;
 
+using TalusBackendData.Editor;
+
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 
@@ -13,7 +15,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
         public BuildConfigs BuildConfigs;
         
         public SwitchBuildTargetStep SwitchStep;
-
+        
         private static string[] _Scenes => (from scene in EditorBuildSettings.scenes
                                             where scene.enabled
                                             select scene.path).ToArray();
@@ -22,11 +24,17 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
         {
             Debug.Log("[TalusCI-Package] Create Build Step | Define Symbols");
             Debug.Log(PlayerSettings.GetScriptingDefineSymbolsForGroup(SwitchStep.TargetGroup));
-            
-            string buildPath = System.IO.Directory.GetCurrentDirectory() + "/" + BuildConfigs.BuildPath;
+
+            string buildPath = BackendApiConfigs.GetInstance().ArtifactFolder;
             Debug.Log($"[TalusCI-Package] Create Build Step | Build path: {buildPath}");
 
-            BuildReport report = BuildPipeline.BuildPlayer(_Scenes, buildPath, SwitchStep.TargetPlatform, BuildConfigs.Options);
+            BuildReport report = BuildPipeline.BuildPlayer(
+                _Scenes, 
+                buildPath, 
+                SwitchStep.TargetPlatform, 
+                BuildConfigs.Options
+            );
+            
             Debug.Log($"[TalusCI-Package] Create Build Step | Build status: {report.summary.result}");
             Debug.Log($"[TalusCI-Package] Create Build Step | Output path: {report.summary.outputPath}");
             Debug.Log($"[TalusCI-Package] Create Build Step | Total Errors: {report.summary.totalErrors}");
