@@ -12,20 +12,6 @@ namespace TalusCI.Editor.iOS
     [FilePath("ProjectSettings/TalusIOS.asset", FilePathAttribute.Location.ProjectFolder)]
     public class iOSSettingsHolder : BaseSettingsHolder<iOSSettingsHolder>
     {
-        // {ExportOptions.plist} path, required by XCode for app-provisioning
-        [Header("App Signing & Distribution")]
-        [SerializeField]
-        private string _ExportOptionsPath = "Builds/";
-        public string ExportOptionsPath
-        {
-            get => _ExportOptionsPath;
-            set
-            {
-                _ExportOptionsPath = value;
-                SaveSettings();
-            }
-        }
-
         // {App Store Connect} - Provisioning Profile
         [SerializeField]
         private string _ProvisioningProfileName = "iOSProfile";

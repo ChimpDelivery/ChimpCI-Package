@@ -53,14 +53,7 @@ namespace TalusCI.Editor.iOS
                 "</plist>"
             };
 
-            string exportOptionsRootPath = Path.Combine(Directory.GetCurrentDirectory(), settingsHolder.ExportOptionsPath);
-            Debug.Log($"[TalusCI-Package] Export Options Root Path: {exportOptionsRootPath}");
-
-            if (!Directory.Exists(exportOptionsRootPath))
-            {
-                Directory.CreateDirectory(exportOptionsRootPath);
-            }
-
+            string exportOptionsRootPath = Path.Combine(Directory.GetCurrentDirectory(), "Builds/");
             string exportOptionsPath = Path.Combine(exportOptionsRootPath, "exportOptions.plist");
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
 

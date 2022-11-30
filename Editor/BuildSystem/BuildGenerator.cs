@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 using UnityEditor;
 using UnityEngine;
@@ -25,6 +26,14 @@ namespace TalusCI.Editor.BuildSystem
 
             try
             {
+                string buildPath = Path.Combine(Directory.GetCurrentDirectory(), "Builds/");
+                if (!Directory.Exists(buildPath))
+                {
+                    Directory.CreateDirectory(buildPath);
+                }
+
+                Debug.Log($"[TalusCI-Package] Build Generator | Build Path: {buildPath}");
+
                 foreach (BuildStep step in Steps)
                 {
                     Debug.Log($"[TalusCI-Package] Build Generator: Step - {step.name} is executing!");
