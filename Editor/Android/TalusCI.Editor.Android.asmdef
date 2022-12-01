@@ -1,7 +1,9 @@
 {
     "name": "TalusCI.Editor.Android",
     "rootNamespace": "TalusCI.Editor.Android",
-    "references": [],
+    "references": [
+        "TalusCI.Editor"
+    ],
     "includePlatforms": [
         "Editor"
     ],

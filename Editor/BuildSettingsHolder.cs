@@ -96,5 +96,17 @@ namespace TalusCI.Editor
                 SaveSettings();
             }
         }
+        
+        [Header("Android")]
+        [SerializeField] private string _ManifestFilePath = "Assets/Plugins/Android/AndroidManifest.xml";
+        public string ManifestFilePath
+        {
+            get => _ManifestFilePath;
+            set
+            {
+                _ManifestFilePath = value;
+                SaveSettings();
+            }
+        }
     }
 }
