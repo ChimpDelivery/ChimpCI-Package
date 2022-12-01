@@ -28,7 +28,7 @@ namespace TalusCI.Editor.BuildSystem
 
             try
             {
-                string buildPath = BackendApiConfigs.GetInstance().ArtifactFolder;
+                string buildPath = BackendApiConfigs.GetInstance().ArtifactFolder + "/UnityBuild";
                 if (!Directory.Exists(buildPath))
                 {
                     Directory.CreateDirectory(buildPath);
