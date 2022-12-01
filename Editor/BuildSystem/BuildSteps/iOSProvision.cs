@@ -14,7 +14,8 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/iOS Provision")]
     public class iOSProvision : BuildStep
     {
-        private readonly BackendApiConfigs _ApiConfigs = BackendApiConfigs.GetInstance();
+        [SerializeField]
+        private BackendApiConfigs _ApiConfigs;
 
         public override void Execute()
         {

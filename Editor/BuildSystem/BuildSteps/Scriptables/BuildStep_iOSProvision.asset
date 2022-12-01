@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa9db351f7d4d97b76eca6c156a086e, type: 3}
   m_Name: BuildStep_iOSProvision
   m_EditorClassIdentifier: 
+  _ApiConfigs:
+    FileNameKey: Dashboard-File-Name
+    ProvisionUuidKey: Dashboard-Provision-Profile-UUID
+    TeamIdKey: Dashboard-Team-ID
