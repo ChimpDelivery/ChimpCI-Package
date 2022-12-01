@@ -16,7 +16,7 @@ namespace TalusCI.Editor.BuildSystem
     {
         [Header("Build Steps")]
         public List<BuildStep> Steps;
-        
+
         private void OnEnable()
         {
             hideFlags &= ~HideFlags.NotEditable;

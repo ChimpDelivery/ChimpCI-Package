@@ -15,7 +15,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
     public class iOSProvision : BuildStep
     {
         private readonly BackendApiConfigs _ApiConfigs = BackendApiConfigs.GetInstance();
-        
+
         public override void Execute()
         {
             if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS &&
@@ -30,17 +30,17 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
                 string fileUuid = request.GetHeader(_ApiConfigs.ProvisionUuidKey);
                 string fileName = Path.GetFileName(path).Split(".mobileprovision")[0];
                 string teamId = request.GetHeader(_ApiConfigs.TeamIdKey);
-                
+
                 Debug.Log($"[TalusCI-Package] iOSProvision Step | Provision profile path: {path}");
                 Debug.Log($"[TalusCI-Package] iOSProvision Step | Provision profile name: {fileName}");
                 Debug.Log($"[TalusCI-Package] iOSProvision Step | Provision profile uuid: {fileUuid}");
-                
+
                 PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
                 PlayerSettings.iOS.iOSManualProvisioningProfileID = fileUuid;
-                
+
                 GenerateExportOptions(fileName, teamId);
             });
-            
+
             Debug.Log("[TalusCI-Package] iOSProvision Step | Completed!");
         }
 
@@ -80,10 +80,10 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
             };
 
             string exportOptionsPath = Path.Combine(
-                BackendApiConfigs.GetInstance().ArtifactFolder, 
+                BackendApiConfigs.GetInstance().ArtifactFolder,
                 "exportOptions.plist"
             );
-            
+
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
 
             Debug.Log($"[TalusCI-Package] exportOptions.plist created at {exportOptionsPath}");

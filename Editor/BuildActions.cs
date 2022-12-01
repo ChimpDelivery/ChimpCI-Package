@@ -17,7 +17,7 @@ namespace TalusCI.Editor
         public static void IOSRelease()
         {
             BuildGenerator generator = BuildSettingsHolder.instance.IOSRelease;
-            
+
 #if TALUS_ADDRESSABLES
             generator = BuildSettingsHolder.instance.IOSReleaseAddressable;
 #endif
@@ -28,7 +28,7 @@ namespace TalusCI.Editor
         public static void AndroidRelease()
         {
             BuildGenerator generator = BuildSettingsHolder.instance.AndroidReleaseAAB;
-            
+
 #if TALUS_ADDRESSABLES
             generator = BuildSettingsHolder.instance.AndroidReleaseAABAddressable;
 #endif

@@ -9,10 +9,10 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
     {
         [Header("Google Play")]
         public bool BuildAppBundle;
-        
+
         public override void Execute()
         {
-            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android) { return;}
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android) { return; }
 
             EditorUserBuildSettings.buildAppBundle = BuildAppBundle;
 

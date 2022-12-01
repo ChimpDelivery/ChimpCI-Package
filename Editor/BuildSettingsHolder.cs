@@ -1,6 +1,4 @@
-﻿using System;
-
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 using TalusBackendData.Editor.Interfaces;
@@ -96,7 +94,7 @@ namespace TalusCI.Editor
                 SaveSettings();
             }
         }
-        
+
         [Header("Android")]
         [SerializeField] private string _ManifestFilePath = "Assets/Plugins/Android/AndroidManifest.xml";
         public string ManifestFilePath

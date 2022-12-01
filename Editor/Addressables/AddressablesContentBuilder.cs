@@ -20,7 +20,7 @@ namespace TalusCI.Editor.Addressables
             _SettingsAsset = settingsAsset;
             _ProfileName = profileName;
         }
-        
+
         public bool BuildAddressables()
         {
             GetSettingsObject(_SettingsAsset);
@@ -63,7 +63,7 @@ namespace TalusCI.Editor.Addressables
 
         private void SetBuilder(IDataBuilder builder)
         {
-            int index = _Settings.DataBuilders.IndexOf((ScriptableObject)builder);
+            int index = _Settings.DataBuilders.IndexOf((ScriptableObject) builder);
 
             if (index > 0)
             {
