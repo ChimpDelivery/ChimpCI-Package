@@ -16,6 +16,7 @@ namespace TalusCI.Editor.iOS
         
 #if TALUS_GA
         private const string _UserTrackingKey = "NSUserTrackingUsageDescription";
+        private const string _UserTrackingUsageText = "Your data will be used for analytical purposes."
 #endif
 
         [PostProcessBuild]
@@ -32,7 +33,7 @@ namespace TalusCI.Editor.iOS
             PlistElementDict root = plist.root;
             root.SetString(_EncryptionKey, _EncryptionValue);
 #if TALUS_GA
-            root.SetString(_UserTrackingKey, iOSSettingsHolder.instance.TrackingUsageText);
+            root.SetString(_UserTrackingKey, _UserTrackingUsageText);
 #endif
             File.WriteAllText(plistPath, plist.WriteToString());
         }
