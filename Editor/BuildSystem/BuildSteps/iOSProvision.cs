@@ -79,13 +79,8 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
                 "</plist>"
             };
 
-            string exportOptionsPath = Path.Combine(
-                BackendApiConfigs.GetInstance().ArtifactFolder,
-                "exportOptions.plist"
-            );
-
+            string exportOptionsPath = $"{BackendApiConfigs.GetInstance().ArtifactFolder}/exportOptions.plist";
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
-
             Debug.Log($"[TalusCI-Package] exportOptions.plist created at {exportOptionsPath}");
         }
     }
