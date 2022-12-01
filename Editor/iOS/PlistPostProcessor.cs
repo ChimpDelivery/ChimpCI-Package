@@ -32,7 +32,7 @@ namespace TalusCI.Editor.iOS
             PlistElementDict root = plist.root;
             root.SetString(_EncryptionKey, _EncryptionValue);
 #if TALUS_GA
-            root.SetString(_UserTrackingKey, iOSSettingsHolder.instance.TrackingUsageText);
+            root.SetString(_UserTrackingKey, BuildSettingsHolder.instance.UserTrackingText);
 #endif
             File.WriteAllText(plistPath, plist.WriteToString());
         }
