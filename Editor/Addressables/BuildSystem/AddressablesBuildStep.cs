@@ -17,7 +17,7 @@ namespace TalusCI.Editor.Addressables.BuildSystem
 
         [SerializeField]
         private string _ProfileName = "Default";
-        
+
         public override void Execute()
         {
             var builder = new AddressablesContentBuilder(_BuildScript, _SettingsAsset, _ProfileName);

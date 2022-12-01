@@ -1,4 +1,5 @@
 using UnityEditor;
+
 using UnityEngine;
 
 namespace TalusCI.Editor.BuildSystem
@@ -13,7 +14,7 @@ namespace TalusCI.Editor.BuildSystem
 
             Color currentColor = GUI.color;
             GUI.color = Color.green;
-            
+
             if (GUILayout.Button("Run", GUILayout.Height(40)))
             {
                 generator.Run();

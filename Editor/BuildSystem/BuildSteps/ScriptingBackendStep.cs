@@ -9,7 +9,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
     {
         public SwitchBuildTargetStep SwitchStep;
         public ScriptingImplementation ScriptingBackend = ScriptingImplementation.IL2CPP;
-        
+
         public override void Execute()
         {
             PlayerSettings.SetScriptingBackend(SwitchStep.TargetGroup, ScriptingBackend);
