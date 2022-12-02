@@ -2,6 +2,8 @@ using UnityEngine;
 
 using UnityEditor;
 
+using TalusBackendData.Editor.Utility;
+
 namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
     [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Switch Build Target Step")]
@@ -14,9 +16,9 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
         {
             Debug.Log($"[TalusCI-Package] Switching to Group: {TargetGroup} / Platform: {TargetPlatform}");
 
-            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform) && Application.isBatchMode)
+            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform))
             {
-                EditorApplication.Exit(-1);
+                BatchMode.Close(-1);
             }
         }
     }

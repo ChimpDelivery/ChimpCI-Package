@@ -13,10 +13,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
 
         public override void Execute()
         {
-            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
-            {
-                return;
-            }
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android) { return; }
 
             PlayerSettings.Android.minSdkVersion = MinSdkVersion;
             PlayerSettings.Android.targetSdkVersion = TargetSdkVersion;

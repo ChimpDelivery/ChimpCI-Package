@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
-using TalusBackendData.Editor;
-
-using UnityEditor;
 using UnityEngine;
+
+using TalusBackendData.Editor.Utility;
 
 using TalusCI.Editor.BuildSystem.BuildSteps;
 
@@ -28,13 +26,7 @@ namespace TalusCI.Editor.BuildSystem
 
             try
             {
-                string buildPath = BackendApiConfigs.GetInstance().ArtifactFolder + "/UnityBuild";
-                if (!Directory.Exists(buildPath))
-                {
-                    Directory.CreateDirectory(buildPath);
-                }
-
-                Debug.Log($"[TalusCI-Package] Build Generator | Build Path: {buildPath}");
+                Debug.Log($"[TalusCI-Package] Build Generator starting...");
 
                 foreach (BuildStep step in Steps)
                 {
@@ -46,10 +38,7 @@ namespace TalusCI.Editor.BuildSystem
             {
                 Debug.Log($"[TalusCI-Package] Build Generator exception!: {exception.Message}");
 
-                if (Application.isBatchMode)
-                {
-                    EditorApplication.Exit(-1);
-                }
+                BatchMode.Close(-1);
             }
         }
     }
