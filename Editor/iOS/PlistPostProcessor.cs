@@ -13,7 +13,7 @@ namespace TalusCI.Editor.iOS
     {
         private const string _EncryptionKey = "ITSAppUsesNonExemptEncryption";
         private const string _EncryptionValue = "false";
-        
+
 #if TALUS_GA
         private const string _UserTrackingKey = "NSUserTrackingUsageDescription";
 #endif
