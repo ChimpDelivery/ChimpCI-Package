@@ -8,16 +8,18 @@ using UnityEngine;
 namespace TalusCI.Editor.Android
 {
     public class AndroidManifestPreProcessor : IPreprocessBuildWithReport
-    {
+    { 
+        public string ManifestFilePath => "Assets/Plugins/Android/AndroidManifest.xml";
+        
         public int callbackOrder => 1;
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            bool isManifestExist = File.Exists(BuildSettingsHolder.instance.ManifestFilePath);
+            bool isManifestExist = File.Exists(ManifestFilePath);
             Debug.Log($"[TalusCI-Package] AndroidManifest file exists: {isManifestExist}");
             if (!isManifestExist) { return; }
 
-            var androidManifest = new AndroidManifest(BuildSettingsHolder.instance.ManifestFilePath);
+            var androidManifest = new AndroidManifest(ManifestFilePath);
             androidManifest.SetApplicationAttribute(
                 "debuggable", 
                 UnityEditor.EditorUserBuildSettings.development 
