@@ -82,17 +82,5 @@ namespace TalusCI.Editor
                 SaveSettings();
             }
         }
-
-        [Header("iOS")]
-        [SerializeField] private string _UserTrackingText = "Your data will be used for analytical purposes.";
-        public string UserTrackingText
-        {
-            get => _UserTrackingText;
-            set
-            {
-                _UserTrackingText = value;
-                SaveSettings();
-            }
-        }
     }
 }
