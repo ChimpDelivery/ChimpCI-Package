@@ -1,11 +1,11 @@
 using System.Linq;
 
-using TalusBackendData.Editor;
-
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 
-using UnityEngine;
+using TalusBackendData.Editor;
+using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
@@ -35,15 +35,13 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
                 BuildConfigs.Options
             );
 
-            Debug.Log($"[TalusCI-Package] Create Build Step | Build status: {report.summary.result}");
-            Debug.Log($"[TalusCI-Package] Create Build Step | Output path: {report.summary.outputPath}");
-            Debug.Log($"[TalusCI-Package] Create Build Step | Total Errors: {report.summary.totalErrors}");
-            Debug.Log($"[TalusCI-Package] Create Build Step | Total Warnings: {report.summary.totalWarnings}");
+            Debug.Log(@$"[TalusCI-Package] Create Build Step | 
+                Build status: {report.summary.result} | 
+                Output path: {report.summary.outputPath} | 
+                Total errors: {report.summary.totalErrors} | 
+                Total warnings: {report.summary.totalWarnings}");
 
-            if (Application.isBatchMode)
-            {
-                EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : -1);
-            }
+            BatchMode.Close(report.summary.result == BuildResult.Succeeded ? 0 : -1);
         }
     }
 }
