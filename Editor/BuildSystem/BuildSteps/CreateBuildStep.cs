@@ -25,7 +25,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
             Debug.Log("[TalusCI-Package] Create Build Step | Define Symbols");
             Debug.Log(PlayerSettings.GetScriptingDefineSymbolsForGroup(SwitchStep.TargetGroup));
 
-            string buildPath = BackendApiConfigs.GetInstance().ArtifactFolder + "/UnityBuild";
+            string buildPath = BackendSettingsHolder.instance.ArtifactFolder + "/UnityBuild";
             Debug.Log($"[TalusCI-Package] Create Build Step | Build path: {buildPath}");
 
             BuildReport report = BuildPipeline.BuildPlayer(
