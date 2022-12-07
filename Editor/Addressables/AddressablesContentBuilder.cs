@@ -8,9 +8,9 @@ namespace TalusCI.Editor.Addressables
 {
     public class AddressablesContentBuilder
     {
-        private string _BuildScript;
-        private string _SettingsAsset;
-        private string _ProfileName;
+        private readonly string _BuildScript;
+        private readonly string _SettingsAsset;
+        private readonly string _ProfileName;
 
         private AddressableAssetSettings _Settings;
 
@@ -74,8 +74,8 @@ namespace TalusCI.Editor.Addressables
             }
 
             Debug.LogError($"[TalusCI-Package] {builder} must be added to the " +
-                           $"DataBuilders list before it can be made " +
-                           $"active. Using last run builder instead.");
+                            "DataBuilders list before it can be made " +
+                            "active. Using last run builder instead.");
         }
 
         private bool BuildAddressableContent()
