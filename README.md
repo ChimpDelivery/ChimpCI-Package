@@ -1,6 +1,6 @@
 # [![](https://img.shields.io/github/package-json/displayName/talusstudio/talusci-package?label=Package%3A)](https://github.com/TalusStudio/TalusCI-Package)
 
-- To work with Jenkins pipeline.
+- Unity3D Build Generator, includes `iOS` & `Android` Utils and `Addressables` support
         
 # ❗ Dependencies
 - [TalusBackendData Package](https://github.com/TalusStudio/TalusBackendData-Package)
