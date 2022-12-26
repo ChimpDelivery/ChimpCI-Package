@@ -6,6 +6,8 @@
     on:
       release:
        types: [published]
+      workflow_dispatch:
+      create:
        
     jobs:
       build:
@@ -23,6 +25,7 @@
        - run: yarn install
        
        # Publish to npm
+       - run: npm adduser --scope=@talusstudio
        - run: npm publish --access public
          env:
            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
