@@ -17,7 +17,7 @@
     "url": "http://www.talusstudio.com"
   },
   "dependencies": {
-    "com.talus.talusbackenddata": "1.0.0"
+    "com.talus.talusbackenddata": "2.2.0"
   },
   "repository": "github:talusstudio/TalusCI-Package"
 }
