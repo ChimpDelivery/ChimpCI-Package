@@ -1,6 +1,6 @@
 {
   "name": "com.talus.talusci",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "displayName": "TalusCI",
   "description": "Supplement for jenkins integration",
   "unity": "2021.3",
@@ -17,7 +17,7 @@
     "url": "http://www.talusstudio.com"
   },
   "dependencies": {
-    "com.talus.talusbackenddata": "2.2.0"
+    "com.talus.talusbackenddata": "2.0.0"
   },
   "repository": "github:talusstudio/TalusCI-Package"
 }

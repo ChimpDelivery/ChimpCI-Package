@@ -2,50 +2,23 @@
 
 using UnityEditor;
 
-using UnityEngine.UIElements;
-
 using TalusBackendData.Editor.Interfaces;
 
 namespace TalusCI.Editor
 {
-    internal class BuildSettingsProvider : BaseSettingsProvider
+    internal class BuildSettingsProvider : BaseSettingsProvider<BuildSettingsHolder>
     {
+        public override BuildSettingsHolder Holder => BuildSettingsHolder.instance;
         public override string Title => "Talus Studio/2. Build Layout (Do not leave any input fields blank!)";
         public override string Description => "Platform specific build configurations.";
 
-        public override SerializedObject SerializedObject => _SerializedObject;
-        private SerializedObject _SerializedObject;
-
-        [SettingsProvider]
-        public static SettingsProvider CreateBuildSettingsProvider()
-        {
-            return new BuildSettingsProvider("Talus Studio/2. Build Layout", SettingsScope.Project);
-        }
-
-        public BuildSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
-                : base(path, scopes, keywords)
+        public BuildSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords)
         { }
 
-        public override void OnActivate(string searchContext, VisualElement rootElement)
+        [SettingsProvider]
+        public static SettingsProvider CreateProvider()
         {
-            base.OnActivate(searchContext, rootElement);
-
-            BuildSettingsHolder.instance.SaveSettings();
-
-            _SerializedObject = new SerializedObject(BuildSettingsHolder.instance);
-        }
-
-        public override void OnGUI(string searchContext)
-        {
-            _SerializedObject.Update();
-
-            base.OnGUI(searchContext);
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                _SerializedObject.ApplyModifiedProperties();
-                BuildSettingsHolder.instance.SaveSettings();
-            }
+            return new BuildSettingsProvider("Talus Studio/2. Build Layout", SettingsScope.Project);
         }
     }
 }
