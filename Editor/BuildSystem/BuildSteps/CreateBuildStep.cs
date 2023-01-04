@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 
 using UnityEngine;
@@ -20,25 +21,44 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
                                             where scene.enabled
                                             select scene.path).ToArray();
 
+        private string GetBuildPath()
+        {
+            // ios expects folder
+            // android expect file
+
+            switch (SwitchStep.TargetPlatform)
+            {
+                case BuildTarget.iOS:
+                return Path.Join(BackendSettingsHolder.instance.ArtifactFolder, "UnityBuild");
+
+                case BuildTarget.Android:
+                return Path.Combine(
+                    Path.Join(BackendSettingsHolder.instance.ArtifactFolder, "UnityBuild"),
+                    (EditorUserBuildSettings.buildAppBundle) ? "Build.aab" : "Build.apk"
+               );
+            }
+
+            return BackendSettingsHolder.instance.ArtifactFolder + "/UnityBuild";
+        }
+
         public override void Execute()
         {
             Debug.Log("[TalusCI-Package] Create Build Step | Define Symbols");
             Debug.Log(PlayerSettings.GetScriptingDefineSymbolsForGroup(SwitchStep.TargetGroup));
 
-            string buildPath = BackendSettingsHolder.instance.ArtifactFolder + "/UnityBuild";
-            Debug.Log($"[TalusCI-Package] Create Build Step | Build path: {buildPath}");
+            Debug.Log($"[TalusCI-Package] Create Build Step | Build path: {GetBuildPath()}");
 
             BuildReport report = BuildPipeline.BuildPlayer(
                 _Scenes,
-                buildPath,
+                GetBuildPath(),
                 SwitchStep.TargetPlatform,
                 BuildConfigs.Options
             );
 
-            Debug.Log(@$"[TalusCI-Package] Create Build Step | 
-                Build status: {report.summary.result} | 
-                Output path: {report.summary.outputPath} | 
-                Total errors: {report.summary.totalErrors} | 
+            Debug.Log(@$"[TalusCI-Package] Create Build Step |
+                Build status: {report.summary.result} |
+                Output path: {report.summary.outputPath} |
+                Total errors: {report.summary.totalErrors} |
                 Total warnings: {report.summary.totalWarnings}");
 
             BatchMode.Close(report.summary.result == BuildResult.Succeeded ? 0 : -1);
