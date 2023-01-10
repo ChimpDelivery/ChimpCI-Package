@@ -1,6 +1,6 @@
 {
   "name": "com.talus.talusci",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "displayName": "TalusCI",
   "description": "Supplement for jenkins integration",
   "unity": "2021.3",

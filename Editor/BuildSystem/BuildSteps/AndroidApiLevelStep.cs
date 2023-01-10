@@ -8,17 +8,17 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
     public class AndroidApiLevelStep : BuildStep
     {
         // Google Play requirement: MinSdkVersion >= 31
-        public AndroidSdkVersions MinSdkVersion = (AndroidSdkVersions) 31;
-        public AndroidSdkVersions TargetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
+        public AndroidSdkVersions MinSdk = (AndroidSdkVersions) 21;
+        public AndroidSdkVersions TargetSdk = (AndroidSdkVersions) 31;
 
         public override void Execute()
         {
             if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android) { return; }
 
-            PlayerSettings.Android.minSdkVersion = MinSdkVersion;
-            PlayerSettings.Android.targetSdkVersion = TargetSdkVersion;
+            PlayerSettings.Android.minSdkVersion = MinSdk;
+            PlayerSettings.Android.targetSdkVersion = TargetSdk;
 
-            Debug.Log($"[TalusCI-Package] Android Api Level step completed with min: {MinSdkVersion} target: {TargetSdkVersion}!");
+            Debug.Log($"[TalusCI-Package] Android Api Level step completed with min: {MinSdk} target: {TargetSdk}!");
         }
     }
 }
