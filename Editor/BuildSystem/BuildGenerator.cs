@@ -15,19 +15,17 @@ namespace TalusCI.Editor.BuildSystem
         [Header("Build Steps")]
         public List<BuildStep> Steps;
 
-        private void OnEnable()
+        private void Awake()
         {
             hideFlags &= ~HideFlags.NotEditable;
         }
 
         public void Run()
         {
-            Debug.Log($"[TalusCI-Package] Build Generator: {name} gonna work in {Steps.Count} step(s)!");
+            Debug.Log($"[TalusCI-Package] Build Generator: {name} running...");
 
             try
             {
-                Debug.Log($"[TalusCI-Package] Build Generator starting...");
-
                 foreach (BuildStep step in Steps)
                 {
                     Debug.Log($"[TalusCI-Package] Build Generator: Step - {step.name} is executing!");
@@ -36,7 +34,7 @@ namespace TalusCI.Editor.BuildSystem
             }
             catch (Exception exception)
             {
-                Debug.Log($"[TalusCI-Package] Build Generator exception!: {exception.Message}");
+                Debug.Log($"[TalusCI-Package] Build Generator: {name} Exception!: {exception.Message}");
 
                 BatchMode.Close(-1);
             }
