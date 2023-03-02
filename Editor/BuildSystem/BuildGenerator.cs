@@ -34,8 +34,7 @@ namespace TalusCI.Editor.BuildSystem
             }
             catch (Exception exception)
             {
-                Debug.Log($"[TalusCI-Package] Build Generator: {name} Exception!: {exception.Message}");
-
+                Debug.LogError($"[TalusCI-Package] Build Generator: {name} Exception!: {exception.Message}");
                 BatchMode.Close(-1);
             }
         }
