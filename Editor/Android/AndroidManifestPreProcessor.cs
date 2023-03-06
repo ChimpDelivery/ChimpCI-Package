@@ -8,9 +8,9 @@ using UnityEngine;
 namespace TalusCI.Editor.Android
 {
     public class AndroidManifestPreProcessor : IPreprocessBuildWithReport
-    { 
+    {
         public string ManifestFilePath => "Assets/Plugins/Android/AndroidManifest.xml";
-        
+
         public int callbackOrder => 1;
 
         public void OnPreprocessBuild(BuildReport report)
@@ -21,10 +21,8 @@ namespace TalusCI.Editor.Android
 
             var androidManifest = new AndroidManifest(ManifestFilePath);
             androidManifest.SetApplicationAttribute(
-                "debuggable", 
-                UnityEditor.EditorUserBuildSettings.development 
-                    ? "true" 
-                    : "false"
+                "debuggable",
+                UnityEditor.EditorUserBuildSettings.development ? "true" : "false"
             );
             androidManifest.Save();
         }
