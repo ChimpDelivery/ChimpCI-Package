@@ -10,7 +10,7 @@ using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Create Build Step")]
+    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Create Build Step")]
     public class CreateBuildStep : BuildStep
     {
         public BuildConfigs BuildConfigs;

@@ -6,7 +6,7 @@ using TalusCI.Editor.BuildSystem.BuildSteps;
 
 namespace TalusCI.Editor.Addressables.BuildSystem
 {
-    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Addressable Step")]
+    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Addressable Step")]
     public class AddressablesBuildStep : BuildStep
     {
         [SerializeField]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Scripting Backend Step")]
+    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Scripting Backend Step")]
     public class ScriptingBackendStep : BuildStep
     {
         public SwitchBuildTargetStep SwitchStep;

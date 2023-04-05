@@ -6,7 +6,7 @@ using TalusBackendData.Editor.Utility;
 
 namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Switch Build Target Step")]
+    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Switch Build Target Step")]
     public class SwitchBuildTargetStep : BuildStep
     {
         public BuildTargetGroup TargetGroup;

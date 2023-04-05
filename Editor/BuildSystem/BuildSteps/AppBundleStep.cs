@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/App Bundle Step")]
+    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/App Bundle Step")]
     public class AppBundleStep : BuildStep
     {
         [Header("Google Play")]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TalusCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Steps/Android Api Level Step")]
+    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Android Api Level Step")]
     public class AndroidApiLevelStep : BuildStep
     {
         public AndroidSdkVersions MinSdk = (AndroidSdkVersions) 21;

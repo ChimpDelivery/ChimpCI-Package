@@ -9,7 +9,7 @@ using TalusCI.Editor.BuildSystem.BuildSteps;
 
 namespace TalusCI.Editor.BuildSystem
 {
-    [CreateAssetMenu(menuName = "_OTHERS/Build/Build Generator")]
+    [CreateAssetMenu(menuName = "Talus/Build/Build Generator")]
     public sealed class BuildGenerator : ScriptableObject
     {
         [Header("Build Steps")]
