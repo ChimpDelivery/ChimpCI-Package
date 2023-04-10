@@ -12,7 +12,7 @@ using TalusBackendData.Editor.Interfaces;
 namespace TalusCI.Editor.iOS
 {
     [CreateAssetMenu(menuName = "Talus/Build/Data Providers/iOS Provision")]
-    public class ProvisionProvider : BaseProvider
+    public class iOSProvisionProvider : BaseProvider
     {
         public override void Provide()
         {
