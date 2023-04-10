@@ -3,9 +3,7 @@ using UnityEngine;
 
 using TalusBackendData.Editor.Interfaces;
 
-using TalusCI.Editor.BuildSystem;
-
-namespace TalusCI.Editor
+namespace TalusCI.Editor.BuildSystem
 {
     /// <summary>
     ///     BuildSettingsHolder provides information about which build generator will be used.

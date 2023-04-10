@@ -1,8 +1,6 @@
 using UnityEditor;
 
-using TalusCI.Editor.BuildSystem;
-
-namespace TalusCI.Editor
+namespace TalusCI.Editor.BuildSystem
 {
     /// <summary>
     ///     Using by Jenkins
