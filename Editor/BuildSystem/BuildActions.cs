@@ -8,7 +8,7 @@ namespace TalusCI.Editor.BuildSystem
     public static class BuildActions
     {
         [MenuItem("TalusBackend/Manuel Build/iOS/Release")]
-        public static void IOSRelease()
+        public static void iOSRelease()
         {
             BuildGenerator generator = BuildSettingsHolder.instance.IOSRelease;
 
