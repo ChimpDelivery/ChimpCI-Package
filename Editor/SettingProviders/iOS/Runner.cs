@@ -4,7 +4,7 @@ using UnityEditor;
 
 using TalusBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.iOS
+namespace TalusCI.Editor.SettingProviders.iOS
 {
     public static class Runner
     {

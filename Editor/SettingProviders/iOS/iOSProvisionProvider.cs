@@ -9,7 +9,7 @@ using TalusBackendData.Editor;
 using TalusBackendData.Editor.Requests;
 using TalusBackendData.Editor.Interfaces;
 
-namespace TalusCI.Editor.iOS
+namespace TalusCI.Editor.SettingProviders.iOS
 {
     [CreateAssetMenu(menuName = "Talus/Build/Data Providers/iOS Provision")]
     public class iOSProvisionProvider : BaseProvider

@@ -4,7 +4,7 @@ using UnityEditor;
 
 using TalusBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.Android
+namespace TalusCI.Editor.SettingProviders.Android
 {
     public static class Runner
     {
