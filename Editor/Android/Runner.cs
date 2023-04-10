@@ -4,21 +4,21 @@ using UnityEditor;
 
 using TalusBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.iOS
+namespace TalusCI.Editor.Android
 {
     public static class Runner
     {
         // Jenkins execute this function as a stage
-        [MenuItem("TalusBackend/Project Settings/iOS")]
+        [MenuItem("TalusBackend/Project Settings/Android")]
         public static void Run()
         {
-            BatchMode.Log("[TalusBackendData-Package] CollectAssets() is running for iOS...");
-            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS))
+            BatchMode.Log("[TalusBackendData-Package] Applying platform settings for Android...");
+            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android))
             {
                 BatchMode.Close(-1);
             }
 
-            PlatformSetting platform = PlatformSettingsHolder.instance.iOS;
+            PlatformSetting platform = PlatformSettingsHolder.instance.Android;
             platform.ApplySettings();
 
             while (!platform.IsApplied)
