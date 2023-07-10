@@ -1,23 +1,22 @@
 {
-  "name": "com.talus.talusci",
-  "version": "3.2.0",
-  "displayName": "TalusCI",
+  "name": "com.chimp.chimpci",
+  "version": "1.0.0",
+  "displayName": "ChimpCI",
   "description": "Supplement for Jenkins integration.",
   "unity": "2021.3",
   "unityRelease": "5f1",
   "keywords": [
-    "talusci",
     "build",
     "jenkins",
     "automate"
   ],
   "author": {
-    "name": "Talus Studio",
-    "email": "info@talusstudio.com",
-    "url": "http://www.talusstudio.com"
+    "name": "Emre Kovanci",
+    "email": "kovanciemre@gmail.com",
+    "url": "https://emrekovanci.github.io"
   },
   "dependencies": {
-    "com.talus.talusbackenddata": "2.0.0"
+    "com.chimp.chimpbackenddata": "1.0.0"
   },
-  "repository": "github:talusstudio/TalusCI-Package"
+  "repository": "github:ChimpDelivery/ChimpCI-Package"
 }
