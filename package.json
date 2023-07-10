@@ -1,5 +1,5 @@
 {
-  "name": "com.chimp.chimpci",
+  "name": "com.chimpdelivery.ci",
   "version": "1.0.0",
   "displayName": "ChimpCI",
   "description": "Supplement for Jenkins integration.",
