@@ -16,7 +16,7 @@
     "url": "https://emrekovanci.github.io"
   },
   "dependencies": {
-    "com.chimp.chimpbackenddata": "1.0.0"
+    "com.chimpdelivery.backenddata": "1.0.0"
   },
   "repository": "github:ChimpDelivery/ChimpCI-Package"
 }
