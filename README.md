@@ -3,7 +3,7 @@
 - Unity3D Build Generator, includes `iOS` & `Android` Utils and `Addressables` support
         
 # ❗ Dependencies
-- [TalusBackendData Package](https://github.com/TalusStudio/TalusBackendData-Package)
+- [ChimpBackendData Package](https://github.com/ChimpDelivery/ChimpBackendData-Package)
 - [Addressables v1.19](https://docs.unity3d.com/Packages/com.unity.addressables@1.19/manual/index.html) (additional)
 
 # 💿 Installation
