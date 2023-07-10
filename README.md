@@ -1,4 +1,4 @@
-# [![](https://img.shields.io/github/package-json/displayName/talusstudio/talusci-package?label=Package%3A)](https://github.com/TalusStudio/TalusCI-Package)
+# Chimp CI Package
 
 - Unity3D Build Generator, includes `iOS` & `Android` Utils and `Addressables` support
         
