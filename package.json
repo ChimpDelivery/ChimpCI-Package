@@ -1,6 +1,6 @@
 {
   "name": "com.chimpdelivery.ci",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Chimp Delivery - CI",
   "description": "Supplement for Jenkins integration.",
   "unity": "2021.3",
