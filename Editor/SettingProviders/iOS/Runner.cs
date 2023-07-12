@@ -9,7 +9,7 @@ namespace ChimpCI.Editor.SettingProviders.iOS
     public static class Runner
     {
         // Jenkins execute this function as a stage
-        [MenuItem("ChimpDelivery/Project Settings/iOS")]
+        [MenuItem("ChimpDelivery/Product Settings/iOS")]
         public static void Run()
         {
             BatchMode.Log("[ChimpCI-Package] CollectAssets() is running for iOS...");

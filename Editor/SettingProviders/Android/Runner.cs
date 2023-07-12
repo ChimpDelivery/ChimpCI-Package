@@ -9,7 +9,7 @@ namespace ChimpCI.Editor.SettingProviders.Android
     public static class Runner
     {
         // Jenkins execute this function as a stage
-        [MenuItem("ChimpDelivery/Project Settings/Android")]
+        [MenuItem("ChimpDelivery/Product Settings/Android")]
         public static void Run()
         {
             BatchMode.Log("[ChimpCI-Package] Applying platform settings for Android...");
