@@ -4,20 +4,20 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-using TalusBackendData.Editor;
-using TalusBackendData.Editor.Interfaces;
-using TalusBackendData.Editor.Models;
-using TalusBackendData.Editor.Requests;
-using TalusBackendData.Editor.Utility;
+using ChimpBackendData.Editor;
+using ChimpBackendData.Editor.Interfaces;
+using ChimpBackendData.Editor.Models;
+using ChimpBackendData.Editor.Requests;
+using ChimpBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.SettingProviders
+namespace ChimpCI.Editor.SettingProviders
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Data Providers/Product Settings")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Providers/Product Settings")]
     public class ProductSettingsProvider : BaseProvider
     {
         public override void Provide()
         {
-            Debug.Log("[TalusBackendData-Package] ProductSettingsProvider running...");
+            Debug.Log("[ChimpCI-Package] ProductSettingsProvider running...");
 
             BackendApi.GetApi<GetAppRequest, AppModel>(
                 new GetAppRequest(),
@@ -27,11 +27,11 @@ namespace TalusCI.Editor.SettingProviders
 
         private void UpdateProductSettings(AppModel app)
         {
-            Debug.Log("[TalusBackendData-Package] Update product settings...");
+            Debug.Log("[ChimpCI-Package] Update product settings...");
 
             if (app != null)
             {
-                Debug.Log($"[TalusBackendData-Package] App Model used by ProductSettingsProvider: {app}");
+                Debug.Log($"[ChimpCI-Package] App Model used by ProductSettingsProvider: {app}");
 
                 PlayerSettings.productName = app.app_name;
                 PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, app.app_bundle);
@@ -41,7 +41,7 @@ namespace TalusCI.Editor.SettingProviders
             }
             else
             {
-                Debug.LogError("[TalusBackendData-Package] AppModel data is null! Product Settings couldn't updated...");
+                Debug.LogError("[ChimpCI-Package] AppModel data is null! Product Settings couldn't updated...");
             }
 
             AssetDatabase.SaveAssets();
@@ -67,7 +67,7 @@ namespace TalusCI.Editor.SettingProviders
         {
             string iconPath = AssetDatabase.GenerateUniqueAssetPath($"Assets/{Settings.AppIconName}");
 
-            Debug.Log(@$"[TalusBackendData-Package] Project icon downloading :
+            Debug.Log(@$"[ChimpCI-Package] Project icon downloading :
                 Source {model.app_icon},
                 Destination {iconPath}"
             );
@@ -83,7 +83,7 @@ namespace TalusCI.Editor.SettingProviders
                         new[] { LoadIcon(iconPath) }
                     );
                     BatchMode.SaveAssets();
-                    Debug.Log("[TalusBackendData-Package] Update Project Icon completed!");
+                    Debug.Log("[ChimpCI-Package] Update Project Icon completed!");
                 });
         }
 
@@ -92,7 +92,7 @@ namespace TalusCI.Editor.SettingProviders
             var icon = AssetDatabase.LoadAssetAtPath<Texture2D>(iconPath);
             if (icon == null)
             {
-                Debug.LogError("[TalusBackendData-Package] App icon is null!");
+                Debug.LogError("[ChimpCI-Package] App icon is null!");
                 return null;
             }
 

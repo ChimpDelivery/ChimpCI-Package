@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 
-namespace TalusCI.Editor.Addressables
+namespace ChimpCI.Editor.Addressables
 {
     public class AddressablesContentBuilder
     {
@@ -28,7 +28,7 @@ namespace TalusCI.Editor.Addressables
 
             if (AssetDatabase.LoadAssetAtPath<ScriptableObject>(_BuildScript) is not IDataBuilder builderScript)
             {
-                Debug.LogError($"[TalusCI-Package] {_BuildScript} couldn't be found or isn't a build script.");
+                Debug.LogError($"[ChimpCI-Package] {_BuildScript} couldn't be found or isn't a build script.");
                 return false;
             }
 
@@ -43,7 +43,7 @@ namespace TalusCI.Editor.Addressables
 
             if (_Settings == null)
             {
-                Debug.LogError($"[TalusCI-Package] {settingsAsset} couldn't be found or isn't a settings object.");
+                Debug.LogError($"[ChimpCI-Package] {settingsAsset} couldn't be found or isn't a settings object.");
             }
         }
 
@@ -53,12 +53,12 @@ namespace TalusCI.Editor.Addressables
 
             if (string.IsNullOrEmpty(profileId))
             {
-                Debug.LogError($"[TalusCI-Package] Couldn't find a profile named, {profile}, using current profile instead.");
+                Debug.LogError($"[ChimpCI-Package] Couldn't find a profile named, {profile}, using current profile instead.");
                 return;
             }
 
             _Settings.activeProfileId = profileId;
-            Debug.Log($"[TalusCI-Package] Active profile id: {profileId}");
+            Debug.Log($"[ChimpCI-Package] Active profile id: {profileId}");
         }
 
         private void SetBuilder(IDataBuilder builder)
@@ -67,13 +67,13 @@ namespace TalusCI.Editor.Addressables
 
             if (index > 0)
             {
-                Debug.Log($"[TalusCI-Package] Addressables builder index: {index}");
+                Debug.Log($"[ChimpCI-Package] Addressables builder index: {index}");
                 _Settings.ActivePlayerDataBuilderIndex = index;
 
                 return;
             }
 
-            Debug.LogError($"[TalusCI-Package] {builder} must be added to the " +
+            Debug.LogError($"[ChimpCI-Package] {builder} must be added to the " +
                             "DataBuilders list before it can be made " +
                             "active. Using last run builder instead.");
         }
@@ -86,7 +86,7 @@ namespace TalusCI.Editor.Addressables
 
             if (!success)
             {
-                Debug.LogError($"[TalusCI-Package] Addressables build error encountered: {result.Error}");
+                Debug.LogError($"[ChimpCI-Package] Addressables build error encountered: {result.Error}");
             }
 
             return success;

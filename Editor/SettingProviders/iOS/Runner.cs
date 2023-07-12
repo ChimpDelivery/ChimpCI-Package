@@ -2,17 +2,17 @@ using System.Threading;
 
 using UnityEditor;
 
-using TalusBackendData.Editor.Utility;
+using ChimpBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.SettingProviders.iOS
+namespace ChimpCI.Editor.SettingProviders.iOS
 {
     public static class Runner
     {
         // Jenkins execute this function as a stage
-        [MenuItem("TalusBackend/Project Settings/iOS")]
+        [MenuItem("ChimpDelivery/Project Settings/iOS")]
         public static void Run()
         {
-            BatchMode.Log("[TalusBackendData-Package] CollectAssets() is running for iOS...");
+            BatchMode.Log("[ChimpCI-Package] CollectAssets() is running for iOS...");
             if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS))
             {
                 BatchMode.Close(-1);

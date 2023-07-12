@@ -2,9 +2,9 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace TalusCI.Editor.BuildSystem.BuildSteps
+namespace ChimpCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Android Api Level Step")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Build Steps/Android Api Level Step")]
     public class AndroidApiLevelStep : BuildStep
     {
         public AndroidSdkVersions MinSdk = (AndroidSdkVersions) 21;
@@ -17,7 +17,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
             PlayerSettings.Android.minSdkVersion = MinSdk;
             PlayerSettings.Android.targetSdkVersion = TargetSdk;
 
-            Debug.Log($"[TalusCI-Package] Android Api Level step completed with min: {MinSdk} target: {TargetSdk}!");
+            Debug.Log($"[ChimpCI-Package] Android Api Level step completed with min: {MinSdk} target: {TargetSdk}!");
         }
     }
 }

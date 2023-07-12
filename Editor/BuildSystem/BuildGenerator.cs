@@ -3,38 +3,33 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using TalusBackendData.Editor.Utility;
+using ChimpBackendData.Editor.Utility;
 
-using TalusCI.Editor.BuildSystem.BuildSteps;
+using ChimpCI.Editor.BuildSystem.BuildSteps;
 
-namespace TalusCI.Editor.BuildSystem
+namespace ChimpCI.Editor.BuildSystem
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Build Generator")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Build Generator")]
     public sealed class BuildGenerator : ScriptableObject
     {
         [Header("Build Steps")]
         public List<BuildStep> Steps;
 
-        private void Awake()
-        {
-            hideFlags &= ~HideFlags.NotEditable;
-        }
-
         public void Run()
         {
-            Debug.Log($"[TalusCI-Package] Build Generator: {name} running...");
+            Debug.Log($"[ChimpCI-Package] Build Generator: {name} running...");
 
             try
             {
                 foreach (BuildStep step in Steps)
                 {
-                    Debug.Log($"[TalusCI-Package] Build Generator: Step - {step.name} is executing!");
+                    Debug.Log($"[ChimpCI-Package] Build Generator: Step - {step.name} is executing!");
                     step.Execute();
                 }
             }
             catch (Exception exception)
             {
-                Debug.LogError($"[TalusCI-Package] Build Generator: {name} Exception!: {exception.Message}");
+                Debug.LogError($"[ChimpCI-Package] Build Generator: {name} Exception!: {exception.Message}");
                 BatchMode.Close(-1);
             }
         }

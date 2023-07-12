@@ -1,13 +1,13 @@
 using UnityEditor;
 
-namespace TalusCI.Editor.BuildSystem
+namespace ChimpCI.Editor.BuildSystem
 {
     /// <summary>
     ///     Using by Jenkins
     /// </summary>
     public static class BuildActions
     {
-        [MenuItem("TalusBackend/Manuel Build/iOS/Release")]
+        [MenuItem("ChimpDelivery/Manuel Build/iOS/Release")]
         public static void iOSRelease()
         {
             BuildGenerator generator = BuildSettingsHolder.instance.IOSRelease;
@@ -18,7 +18,7 @@ namespace TalusCI.Editor.BuildSystem
             generator.Run();
         }
 
-        [MenuItem("TalusBackend/Manuel Build/Android/Release(aab)")]
+        [MenuItem("ChimpDelivery/Manuel Build/Android/Release(aab)")]
         public static void AndroidRelease()
         {
             BuildGenerator generator = BuildSettingsHolder.instance.AndroidReleaseAAB;
@@ -29,7 +29,7 @@ namespace TalusCI.Editor.BuildSystem
             generator.Run();
         }
 
-        [MenuItem("TalusBackend/Manuel Build/Android/Release(apk)")]
+        [MenuItem("ChimpDelivery/Manuel Build/Android/Release(apk)")]
         public static void AndroidReleaseAPK()
         {
             BuildGenerator generator = BuildSettingsHolder.instance.AndroidReleaseAPK;

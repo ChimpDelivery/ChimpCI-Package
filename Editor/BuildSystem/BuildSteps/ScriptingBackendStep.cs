@@ -2,9 +2,9 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace TalusCI.Editor.BuildSystem.BuildSteps
+namespace ChimpCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Scripting Backend Step")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Build Steps/Scripting Backend Step")]
     public class ScriptingBackendStep : BuildStep
     {
         public SwitchBuildTargetStep SwitchStep;

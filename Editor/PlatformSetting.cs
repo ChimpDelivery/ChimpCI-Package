@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using TalusBackendData.Editor.Interfaces;
+using ChimpBackendData.Editor.Interfaces;
 
-namespace TalusCI.Editor
+namespace ChimpCI.Editor
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Platform Setting")]
     public class PlatformSetting : ScriptableObject
     {
         public List<BaseProvider> Providers;

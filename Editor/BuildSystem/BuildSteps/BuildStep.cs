@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TalusCI.Editor.BuildSystem.BuildSteps
+namespace ChimpCI.Editor.BuildSystem.BuildSteps
 {
     public abstract class BuildStep : ScriptableObject
     {

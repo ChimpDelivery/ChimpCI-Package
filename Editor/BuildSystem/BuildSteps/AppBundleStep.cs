@@ -2,9 +2,9 @@
 
 using UnityEngine;
 
-namespace TalusCI.Editor.BuildSystem.BuildSteps
+namespace ChimpCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/App Bundle Step")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Build Steps/App Bundle Step")]
     public class AppBundleStep : BuildStep
     {
         [Header("Google Play")]
@@ -16,7 +16,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
 
             EditorUserBuildSettings.buildAppBundle = BuildAppBundle;
 
-            Debug.Log($"[TalusCI-Package] Android Build App Bundle step completed with {BuildAppBundle}!");
+            Debug.Log($"[ChimpCI-Package] Android Build App Bundle step completed with {BuildAppBundle}!");
         }
     }
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 
-using TalusBackendData.Editor;
-using TalusBackendData.Editor.Utility;
+using ChimpBackendData.Editor;
+using ChimpBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.BuildSystem.BuildSteps
+namespace ChimpCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Create Build Step")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Build Steps/Create Build Step")]
     public class CreateBuildStep : BuildStep
     {
         public BuildConfigs BuildConfigs;
@@ -43,10 +43,10 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
 
         public override void Execute()
         {
-            Debug.Log("[TalusCI-Package] Create Build Step | Define Symbols");
+            Debug.Log("[ChimpCI-Package] Create Build Step | Define Symbols");
             Debug.Log(PlayerSettings.GetScriptingDefineSymbolsForGroup(SwitchStep.TargetGroup));
 
-            Debug.Log($"[TalusCI-Package] Create Build Step | Build path: {GetBuildPath()}");
+            Debug.Log($"[ChimpCI-Package] Create Build Step | Build path: {GetBuildPath()}");
 
             BuildReport report = BuildPipeline.BuildPlayer(
                 _Scenes,
@@ -55,7 +55,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
                 BuildConfigs.Options
             );
 
-            Debug.Log(@$"[TalusCI-Package] Create Build Step |
+            Debug.Log(@$"[ChimpCI-Package] Create Build Step |
                 Build status: {report.summary.result} |
                 Output path: {report.summary.outputPath} |
                 Total errors: {report.summary.totalErrors} |

@@ -1,14 +1,14 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-using TalusBackendData.Editor.Interfaces;
+using ChimpBackendData.Editor.Interfaces;
 
-namespace TalusCI.Editor.BuildSystem
+namespace ChimpCI.Editor.BuildSystem
 {
     /// <summary>
     ///     BuildSettingsHolder provides information about which build generator will be used.
     /// </summary>
-    [FilePath("ProjectSettings/TalusBuild.asset", FilePathAttribute.Location.ProjectFolder)]
+    [FilePath("ProjectSettings/ChimpBuild.asset", FilePathAttribute.Location.ProjectFolder)]
     public class BuildSettingsHolder : BaseSettingsHolder<BuildSettingsHolder>
     {
 #if TALUS_ADDRESSABLES

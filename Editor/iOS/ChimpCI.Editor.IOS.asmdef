@@ -1,10 +1,7 @@
 {
-    "name": "TalusCI.Editor.Addressables",
-    "rootNamespace": "TalusCI.Editor.Addressables",
-    "references": [
-        "TalusCI.Editor.BuildSystem",
-        "Unity.Addressables.Editor"
-    ],
+    "name": "ChimpCI.Editor.IOS",
+    "rootNamespace": "ChimpCI.Editor.IOS",
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],
@@ -14,13 +11,18 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "TALUS_ADDRESSABLES"
+        "UNITY_IOS || UNITY_EDITOR_OSX"
     ],
     "versionDefines": [
         {
-            "name": "com.unity.addressables",
+            "name": "com.gameanalytics.sdk",
             "expression": "1.0.0",
-            "define": "TALUS_ADDRESSABLES"
+            "define": "TALUS_GA"
+        },
+        {
+            "name": "com.talus.talusga",
+            "expression": "1.0.0",
+            "define": "TALUS_GA"
         }
     ],
     "noEngineReferences": false

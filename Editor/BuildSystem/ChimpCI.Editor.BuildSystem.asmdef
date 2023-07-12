@@ -1,9 +1,8 @@
 {
-    "name": "TalusCI.Editor",
-    "rootNamespace": "TalusCI.Editor",
+    "name": "ChimpCI.Editor.BuildSystem",
+    "rootNamespace": "ChimpCI.Editor.BuildSystem",
     "references": [
-        "TalusBackendData.Editor",
-        "TalusCI.Editor.BuildSystem"
+        "ChimpBackendData.Editor"
     ],
     "includePlatforms": [
         "Editor"

@@ -2,11 +2,11 @@ using UnityEngine;
 
 using UnityEditor;
 
-using TalusBackendData.Editor.Utility;
+using ChimpBackendData.Editor.Utility;
 
-namespace TalusCI.Editor.BuildSystem.BuildSteps
+namespace ChimpCI.Editor.BuildSystem.BuildSteps
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Switch Build Target Step")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Build Steps/Switch Build Target Step")]
     public class SwitchBuildTargetStep : BuildStep
     {
         public BuildTargetGroup TargetGroup;
@@ -14,7 +14,7 @@ namespace TalusCI.Editor.BuildSystem.BuildSteps
 
         public override void Execute()
         {
-            Debug.Log($"[TalusCI-Package] Switching to Group: {TargetGroup} / Platform: {TargetPlatform}");
+            Debug.Log($"[ChimpCI-Package] Switching to Group: {TargetGroup} / Platform: {TargetPlatform}");
 
             if (!EditorUserBuildSettings.SwitchActiveBuildTarget(TargetGroup, TargetPlatform))
             {

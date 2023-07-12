@@ -5,13 +5,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-using TalusBackendData.Editor;
-using TalusBackendData.Editor.Requests;
-using TalusBackendData.Editor.Interfaces;
+using ChimpBackendData.Editor;
+using ChimpBackendData.Editor.Requests;
+using ChimpBackendData.Editor.Interfaces;
 
-namespace TalusCI.Editor.SettingProviders.iOS
+namespace ChimpCI.Editor.SettingProviders.iOS
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Data Providers/iOS Provision")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Providers/iOS Provision")]
     public class iOSProvisionProvider : BaseProvider
     {
         public override void Provide()
@@ -21,7 +21,7 @@ namespace TalusCI.Editor.SettingProviders.iOS
             {
                 IsCompleted = true;
 
-                Debug.LogWarning($"[TalusBackendData-Package] Current build target is not iOS! iOSProvision Step skipped...");
+                Debug.LogWarning($"[ChimpCI-Package] Current build target is not iOS! iOSProvision Step skipped...");
                 return;
             }
 
@@ -33,8 +33,8 @@ namespace TalusCI.Editor.SettingProviders.iOS
                 onSuccess: () =>
                 {
                     string profileUuid = request.Request.GetResponseHeader("Dashboard-Provision-Profile-UUID");
-                    Debug.Log($"[TalusBackendData-Package] iOSProvision Step | Provision File exits: {File.Exists(BackendSettingsHolder.instance.TempProvisionProfile)}");
-                    Debug.Log($"[TalusBackendData-Package] iOSProvision Step | Provision profile uuid: {profileUuid}");
+                    Debug.Log($"[ChimpCI-Package] iOSProvision Step | Provision File exits: {File.Exists(BackendSettingsHolder.instance.TempProvisionProfile)}");
+                    Debug.Log($"[ChimpCI-Package] iOSProvision Step | Provision profile uuid: {profileUuid}");
 
                     PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Distribution;
                     PlayerSettings.iOS.iOSManualProvisioningProfileID = profileUuid;
@@ -75,7 +75,7 @@ namespace TalusCI.Editor.SettingProviders.iOS
 
             string exportOptionsPath = Path.Combine(BackendSettingsHolder.instance.ArtifactFolder, "exportOptions.plist");
             File.WriteAllLines(exportOptionsPath, fileContents.ToArray());
-            Debug.Log($"[TalusBackendData-Package] exportOptions.plist created at {exportOptionsPath}");
+            Debug.Log($"[ChimpCI-Package] exportOptions.plist created at {exportOptionsPath}");
         }
     }
 }

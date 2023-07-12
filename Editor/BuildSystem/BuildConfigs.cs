@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace TalusCI.Editor.BuildSystem
+namespace ChimpCI.Editor.BuildSystem
 {
     [System.Serializable]
     public class BuildConfigs

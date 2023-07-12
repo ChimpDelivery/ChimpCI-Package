@@ -2,11 +2,11 @@ using UnityEditor;
 
 using UnityEngine;
 
-using TalusCI.Editor.BuildSystem.BuildSteps;
+using ChimpCI.Editor.BuildSystem.BuildSteps;
 
-namespace TalusCI.Editor.Addressables.BuildSystem
+namespace ChimpCI.Editor.Addressables.BuildSystem
 {
-    [CreateAssetMenu(menuName = "Talus/Build/Build Steps/Addressable Step")]
+    [CreateAssetMenu(menuName = "ChimpDelivery/Build Steps/Addressable Step")]
     public class AddressablesBuildStep : BuildStep
     {
         [SerializeField]
@@ -24,7 +24,7 @@ namespace TalusCI.Editor.Addressables.BuildSystem
 
             if (builder.BuildAddressables())
             {
-                Debug.Log("[TalusCI-Package] Addressable content built successfully!");
+                Debug.Log("[ChimpCI-Package] Addressable content built successfully!");
             }
             else
             {

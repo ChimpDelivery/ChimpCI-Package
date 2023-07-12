@@ -1,14 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-using TalusBackendData.Editor.Interfaces;
+using ChimpBackendData.Editor.Interfaces;
 
-namespace TalusCI.Editor
+namespace ChimpCI.Editor
 {
-    /// <summary>
-    ///     Platform Data Providers Holder
-    /// </summary>
-    [FilePath("ProjectSettings/TalusPlatformProvider.asset", FilePathAttribute.Location.ProjectFolder)]
+    [FilePath("ProjectSettings/ChimpPlatformProvider.asset", FilePathAttribute.Location.ProjectFolder)]
     public class PlatformSettingsHolder : BaseSettingsHolder<PlatformSettingsHolder>
     {
         [Header("Platforms")]
