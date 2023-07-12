@@ -11,7 +11,7 @@ namespace ChimpCI.Editor.BuildSystem
     [FilePath("ProjectSettings/ChimpBuild.asset", FilePathAttribute.Location.ProjectFolder)]
     public class BuildSettingsHolder : BaseSettingsHolder<BuildSettingsHolder>
     {
-#if TALUS_ADDRESSABLES
+#if SUPPORT_ADDRESSABLES
         [Header("Build Generators - Release (addressables support)")]
         [SerializeField] private BuildGenerator _IOSReleaseAddressable;
         public BuildGenerator IOSReleaseAddressable

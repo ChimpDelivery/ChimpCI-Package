@@ -12,7 +12,7 @@ namespace ChimpCI.Editor.BuildSystem
         {
             BuildGenerator generator = BuildSettingsHolder.instance.IOSRelease;
 
-#if TALUS_ADDRESSABLES
+#if SUPPORT_ADDRESSABLES
             generator = BuildSettingsHolder.instance.IOSReleaseAddressable;
 #endif
             generator.Run();
@@ -23,7 +23,7 @@ namespace ChimpCI.Editor.BuildSystem
         {
             BuildGenerator generator = BuildSettingsHolder.instance.AndroidReleaseAAB;
 
-#if TALUS_ADDRESSABLES
+#if SUPPORT_ADDRESSABLES
             generator = BuildSettingsHolder.instance.AndroidReleaseAABAddressable;
 #endif
             generator.Run();
@@ -34,7 +34,7 @@ namespace ChimpCI.Editor.BuildSystem
         {
             BuildGenerator generator = BuildSettingsHolder.instance.AndroidReleaseAPK;
 
-#if TALUS_ADDRESSABLES
+#if SUPPORT_ADDRESSABLES
             generator = BuildSettingsHolder.instance.AndroidReleaseAPKAddressable;
 #endif
             generator.Run();

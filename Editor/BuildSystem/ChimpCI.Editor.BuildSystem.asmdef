@@ -17,7 +17,7 @@
         {
             "name": "com.unity.addressables",
             "expression": "1.0.0",
-            "define": "TALUS_ADDRESSABLES"
+            "define": "SUPPORT_ADDRESSABLES"
         }
     ],
     "noEngineReferences": false
