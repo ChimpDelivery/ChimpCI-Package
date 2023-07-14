@@ -17,12 +17,12 @@
         {
             "name": "com.gameanalytics.sdk",
             "expression": "1.0.0",
-            "define": "TALUS_GA"
+            "define": "SUPPORT_GA"
         },
         {
             "name": "com.talus.talusga",
             "expression": "1.0.0",
-            "define": "TALUS_GA"
+            "define": "SUPPORT_GA"
         }
     ],
     "noEngineReferences": false

@@ -7,9 +7,7 @@ using UnityEditor.iOS.Xcode;
 
 using PlistDocument = UnityEditor.iOS.Xcode.PlistDocument;
 
-// ReSharper disable ClassNeverInstantiated.Global
-
-namespace TalusCI.Editor.iOS
+namespace ChimpCI.Editor.iOS
 {
     /// <summary>
     ///     http://www.kittehface.com/2021/09/fixing-invalid-frameworks-folder-in-ios.html
