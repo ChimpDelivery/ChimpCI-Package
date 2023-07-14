@@ -13,7 +13,7 @@ namespace ChimpCI.Editor.SettingProviders
         {
             if (!Application.isBatchMode)
             {
-                Debug.Log("[ChimpCI-Package] Version Provider could not run! Only CI/CD pipeline supported!");
+                Debug.LogWarning("[ChimpCI-Package] Version Provider could not run! Only CI/CD pipeline supported!");
                 IsCompleted = true;
                 return;
             }
