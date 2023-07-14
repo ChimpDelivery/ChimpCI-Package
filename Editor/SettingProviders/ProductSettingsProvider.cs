@@ -41,7 +41,7 @@ namespace ChimpCI.Editor.SettingProviders
             }
             else
             {
-                Debug.LogError("[ChimpCI-Package] AppModel data is null! The product settings couldn't be updated...");
+                Debug.LogError("[ChimpCI-Package] AppModel data is null! Product settings couldn't be updated...");
             }
 
             AssetDatabase.SaveAssets();
