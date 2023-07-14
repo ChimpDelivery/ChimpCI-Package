@@ -17,28 +17,24 @@ namespace ChimpCI.Editor.BuildSystem.BuildSteps
 
         public SwitchBuildTargetStep SwitchStep;
 
-        private static string[] _Scenes => (from scene in EditorBuildSettings.scenes
-                                            where scene.enabled
-                                            select scene.path).ToArray();
+        private static string[] _Scenes => (
+            from scene in EditorBuildSettings.scenes
+            where scene.enabled
+            select scene.path
+        ).ToArray();
 
+        // ios expects folder, android expects file
         private string GetBuildPath()
         {
-            // ios expects folder
-            // android expect file
-
-            switch (SwitchStep.TargetPlatform)
+            return SwitchStep.TargetPlatform switch
             {
-                case BuildTarget.iOS:
-                return Path.Join(BackendSettingsHolder.instance.ArtifactFolder, "UnityBuild");
-
-                case BuildTarget.Android:
-                return Path.Combine(
+                BuildTarget.iOS => Path.Join(BackendSettingsHolder.instance.ArtifactFolder, "UnityBuild"),
+                BuildTarget.Android => Path.Combine(
                     Path.Join(BackendSettingsHolder.instance.ArtifactFolder, "UnityBuild"),
                     (EditorUserBuildSettings.buildAppBundle) ? "Build.aab" : "Build.apk"
-               );
-            }
-
-            return BackendSettingsHolder.instance.ArtifactFolder + "/UnityBuild";
+                ),
+                _ => BackendSettingsHolder.instance.ArtifactFolder + "/UnityBuild",
+            };
         }
 
         public override void Execute()
@@ -59,7 +55,8 @@ namespace ChimpCI.Editor.BuildSystem.BuildSteps
                 Build status: {report.summary.result} |
                 Output path: {report.summary.outputPath} |
                 Total errors: {report.summary.totalErrors} |
-                Total warnings: {report.summary.totalWarnings}");
+                Total warnings: {report.summary.totalWarnings}"
+            );
 
             BatchMode.Close(report.summary.result == BuildResult.Succeeded ? 0 : -1);
         }
