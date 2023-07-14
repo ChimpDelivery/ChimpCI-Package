@@ -1,6 +1,6 @@
 {
-    "name": "TalusCI.Editor.Android",
-    "rootNamespace": "",
+    "name": "ChimpCI.Editor.Android",
+    "rootNamespace": "ChimpCI.Editor.Android",
     "references": [],
     "includePlatforms": [
         "Editor"

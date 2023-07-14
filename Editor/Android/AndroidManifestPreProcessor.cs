@@ -5,7 +5,7 @@ using UnityEditor.Build.Reporting;
 
 using UnityEngine;
 
-namespace TalusCI.Editor.Android
+namespace ChimpCI.Editor.Android
 {
     public class AndroidManifestPreProcessor : IPreprocessBuildWithReport
     {
@@ -16,7 +16,7 @@ namespace TalusCI.Editor.Android
         public void OnPreprocessBuild(BuildReport report)
         {
             bool isManifestExist = File.Exists(ManifestFilePath);
-            Debug.Log($"[TalusCI-Package] AndroidManifest file exists: {isManifestExist}");
+            Debug.Log($"[ChimpCI-Package] AndroidManifest file exists: {isManifestExist}");
             if (!isManifestExist) { return; }
 
             var androidManifest = new AndroidManifest(ManifestFilePath);

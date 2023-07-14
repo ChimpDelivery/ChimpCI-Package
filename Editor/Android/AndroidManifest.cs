@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace TalusCI.Editor.Android
+namespace ChimpCI.Editor.Android
 {
     internal class AndroidManifest : AndroidXmlDocument
     {
