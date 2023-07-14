@@ -6,7 +6,6 @@ namespace ChimpCI.Editor
 {
     internal class PlatformSettingsProvider : BaseSettingsProvider<PlatformSettingsHolder>
     {
-        public override PlatformSettingsHolder Holder => PlatformSettingsHolder.instance;
         public override string Description => "Platform specific build settings.";
 
         public PlatformSettingsProvider(string path) : base(path)

@@ -6,7 +6,6 @@ namespace ChimpCI.Editor.BuildSystem
 {
     internal class BuildSettingsProvider : BaseSettingsProvider<BuildSettingsHolder>
     {
-        public override BuildSettingsHolder Holder => BuildSettingsHolder.instance;
         public override string Description => "Platform specific build steps.";
 
         public BuildSettingsProvider(string path) : base(path)
